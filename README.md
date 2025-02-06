@@ -1,3 +1,6 @@
+# TEST DONT KILL ME PLEASE
+
+
 # nand2tetris-hw-2025
 Homeworks for Digital Systems and Computer Architecture course Spring 2025 based on nand2tetris tasks.
 
