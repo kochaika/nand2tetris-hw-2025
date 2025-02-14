@@ -15,32 +15,11 @@ CHIP DMux8Way {
     OUT a, b, c, d, e, f, g, h;
 
     PARTS:
-
-	Not(in=sel[0],out=n0);
-	Not(in=sel[1],out=n1);
-	Not(in=sel[2],out=n2);
-	And(a=in,b=n0,out=n00);
-	And(a=n00,b=n1,out=n01);
-	And(a=n01,b=n2,out=a);
-	And(a=in,b=sel[0],out=n10);
-	And(a=n10,b=n1,out=n11);
-	And(a=n11,b=n2,out=b);
-	And(a=in,b=n0,out=n20);
-	And(a=n20,b=sel[1],out=n21);
-	And(a=n21,b=n2,out=c);
-	And(a=in,b=sel[0],out=n30);
-	And(a=n30,b=sel[1],out=n31);
-	And(a=n31,b=n2,out=d);
-	And(a=in,b=n0,out=n40);
-	And(a=n40,b=n1,out=n41);
-	And(a=n41,b=sel[2],out=e);
-	And(a=in,b=sel[0],out=n50);
-	And(a=n50,b=n1,out=n51);
-	And(a=n51,b=sel[2],out=f);
-	And(a=in,b=n0,out=n60);
-	And(a=n60,b=sel[1],out=n61);
-	And(a=n61,b=sel[2],out=g);
-	And(a=in,b=sel[0],out=n70);
-	And(a=n70,b=sel[1],out=n71);
-	And(a=n71,b=sel[2],out=h);
+    DMux(in=in, sel=sel[2], a=upper, b=lower);
+    DMux(in=upper, sel = sel[1], a = uupper, b = lupper);
+    DMux(in= lower, sel= sel[1], a= ulower, b= llower);
+    DMux(in = uupper, sel = sel[0], a = a, b = b);
+    DMux(in = lupper, sel = sel[0], a = c, b = d);
+    DMux(in = ulower, sel = sel[0], a = e, b = f);
+    DMux(in = llower, sel = sel[0], a = g, b = h);
 }
