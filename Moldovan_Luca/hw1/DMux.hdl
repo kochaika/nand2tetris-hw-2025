@@ -12,5 +12,9 @@ CHIP DMux {
     OUT a, b;
 
     PARTS:
-    //// Replace this comment with your code.
-}
+    Nand (a=sel, b=sel, out=notsel); 
+    Nand (a=in, b=notsel, out=nand1);
+    Nand (a=nand1, b=nand1, out=a);
+    Nand (a=in, b=sel, out=nand2);
+    Nand (a=nand2, b=nand2, out=b);
+    }
