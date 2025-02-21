@@ -1,10 +1,12 @@
-# nand2tetris-hw-2025
+# Digital Systems and Computer Architecture
+
+## nand2tetris-hw-2025
 Homeworks for Digital Systems and Computer Architecture course Spring 2025 based on nand2tetris tasks.
 
-## Read the following rules
+### Read the following rules
 The following rules are mandatory. You can't pass the homework without them. Read them carefully!
 
-## File structure
+### File structure
 Follow the next structure for storing the home works in the repository:
 ```
 /
@@ -14,7 +16,7 @@ Follow the next structure for storing the home works in the repository:
 └── Surname_Name
     └── hw1
 ```
-## Pull requests guide
+### Pull requests guide
 Make pull requests [from your forks](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork) to this repository.  
 
 > [!IMPORTANT]  
