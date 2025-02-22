@@ -1,0 +1,47 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/1/And16.hdl
+/**
+ * 16-bit And gate:
+ * for i = 0, ..., 15:
+ * out[i] = a[i] And b[i] 
+ */
+CHIP And16 {
+    IN a[16], b[16];
+    OUT out[16];
+
+    PARTS:
+   Nand(a=a[0],b=b[0],out=A);
+   Nand(a=A,out=out[0]);
+    Nand(a=a[1],b=b[1],out=B);
+   Nand(a=B,out=out[1]);
+    Nand(a=a[2],b=b[2],out=C);
+   Nand(a=C,out=out[2]);
+    Nand(a=a[3],b=b[3],out=D);
+   Nand(a=D,out=out[3]);
+    Nand(a=a[4],b=b[4],out=E);
+   Nand(a=E,out=out[4]);
+    Nand(a=a[5],b=b[5],out=F);
+   Nand(a=F,out=out[5]);
+    Nand(a=a[6],b=b[6],out=G);
+   Nand(a=G,out=out[6]);
+    Nand(a=a[7],b=b[7],out=H);
+   Nand(a=H,out=out[7]);
+    Nand(a=a[8],b=b[8],out=I);
+   Nand(a=I,out=out[8]);
+    Nand(a=a[9],b=b[9],out=J);
+   Nand(a=J,out=out[9]);
+    Nand(a=a[10],b=b[10],out=K);
+   Nand(a=K,out=out[10]);
+    Nand(a=a[11],b=b[11],out=L);
+   Nand(a=L,out=out[11]);
+    Nand(a=a[12],b=b[12],out=M);
+   Nand(a=M,out=out[12]);
+    Nand(a=a[13],b=b[13],out=O);
+   Nand(a=O,out=out[13]);
+    Nand(a=a[14],b=b[14],out=P);
+   Nand(a=P,out=out[14]);
+    Nand(a=a[15],b=b[15],out=Q);
+   Nand(a=Q,out=out[15]);
+}
