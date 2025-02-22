@@ -69,7 +69,7 @@ CHIP Mux16 {
 
     And(a= a[13], b= notSel, out= p1);
     And(a= b[13], b= sel, out= p2);
-    Or(a= p1, b= p2, out= out[13]);
+    Or(a= p1, b= p2, out= out[13]); 
 
     And(a= a[14], b= notSel, out= q1);
     And(a= b[14], b= sel, out= q2);
