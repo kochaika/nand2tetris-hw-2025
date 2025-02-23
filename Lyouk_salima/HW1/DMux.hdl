@@ -12,7 +12,11 @@ CHIP DMux {
     OUT a, b;
 
     PARTS:
-    Mux(a=in, b = false, sel = sel, out=a);
-    Mux(a = false, b = in, sel = sel, out = b);
-    
+    Nand(a=sel, b=sel, out=selNot);
+    Nand(a=in, b=selNot, out=aTEMP);
+    Nand(a=aTEMP, b=aTEMP, out=a);
+    Nand(a=in, b=sel, out=bTEMP);
+    Nand(a=bTEMP, b=bTEMP, out=b);
+}
+    //// Replace this comment with your code.
 }

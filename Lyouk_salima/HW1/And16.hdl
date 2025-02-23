@@ -29,3 +29,5 @@ CHIP And16 {
     And(a = a[14], b = b[14], out = out[14]);
     And(a = a[15], b = b[15], out = out[15]);
 }
+    //// Replace this comment with your code.
+}
