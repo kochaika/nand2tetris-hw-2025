@@ -1,0 +1,74 @@
+/**
+ * 16-bit Or gate:
+ * for i = 0, ..., 15:
+ * out[i] = a[i] Or b[i] 
+ */
+CHIP Or16 {
+    IN a[16], b[16];
+    OUT out[16];
+
+    PARTS:
+    Nand(a=a[0], b=a[0], out=NOTa0);
+    Nand(a=b[0], b=b[0], out=NOTb0);
+    Nand(a=NOTa0, b=NOTb0, out=out[0]);
+
+    Nand(a=a[1], b=a[1], out=NOTa1);
+    Nand(a=b[1], b=b[1], out=NOTb1);
+    Nand(a=NOTa1, b=NOTb1, out=out[1]);
+
+    Nand(a=a[2], b=a[2], out=NOTa2);
+    Nand(a=b[2], b=b[2], out=NOTb2);
+    Nand(a=NOTa2, b=NOTb2, out=out[2]);
+
+    Nand(a=a[3], b=a[3], out=NOTa3);
+    Nand(a=b[3], b=b[3], out=NOTb3);
+    Nand(a=NOTa3, b=NOTb3, out=out[3]);
+
+    Nand(a=a[4], b=a[4], out=NOTa4);
+    Nand(a=b[4], b=b[4], out=NOTb4);
+    Nand(a=NOTa4, b=NOTb4, out=out[4]);
+
+    Nand(a=a[5], b=a[5], out=NOTa5);
+    Nand(a=b[5], b=b[5], out=NOTb5);
+    Nand(a=NOTa5, b=NOTb5, out=out[5]);
+
+    Nand(a=a[6], b=a[6], out=NOTa6);
+    Nand(a=b[6], b=b[6], out=NOTb6);
+    Nand(a=NOTa6, b=NOTb6, out=out[6]);
+
+    Nand(a=a[7], b=a[7], out=NOTa7);
+    Nand(a=b[7], b=b[7], out=NOTb7);
+    Nand(a=NOTa7, b=NOTb7, out=out[7]);
+
+    Nand(a=a[8], b=a[8], out=NOTa8);
+    Nand(a=b[8], b=b[8], out=NOTb8);
+    Nand(a=NOTa8, b=NOTb8, out=out[8]);
+
+    Nand(a=a[9], b=a[9], out=NOTa9);
+    Nand(a=b[9], b=b[9], out=NOTb9);
+    Nand(a=NOTa9, b=NOTb9, out=out[9]);
+
+    Nand(a=a[10], b=a[10], out=NOTa10);
+    Nand(a=b[10], b=b[10], out=NOTb10);
+    Nand(a=NOTa10, b=NOTb10, out=out[10]);
+
+    Nand(a=a[11], b=a[11], out=NOTa11);
+    Nand(a=b[11], b=b[11], out=NOTb11);
+    Nand(a=NOTa11, b=NOTb11, out=out[11]);
+
+    Nand(a=a[12], b=a[12], out=NOTa12);
+    Nand(a=b[12], b=b[12], out=NOTb12);
+    Nand(a=NOTa12, b=NOTb12, out=out[12]);
+
+    Nand(a=a[13], b=a[13], out=NOTa13);
+    Nand(a=b[13], b=b[13], out=NOTb13);
+    Nand(a=NOTa13, b=NOTb13, out=out[13]);
+
+    Nand(a=a[14], b=a[14], out=NOTa14);
+    Nand(a=b[14], b=b[14], out=NOTb14);
+    Nand(a=NOTa14, b=NOTb14, out=out[14]);
+
+    Nand(a=a[15], b=a[15], out=NOTa15);
+    Nand(a=b[15], b=b[15], out=NOTb15);
+    Nand(a=NOTa15, b=NOTb15, out=out[15]);
+}
