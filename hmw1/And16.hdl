@@ -10,6 +10,7 @@
 CHIP And16 {
     IN a[16], b[16];
     OUT out[16];
+
     PARTS:
     And(a=a[0], b=b[0], out=out[0]);
     And(a=a[1], b=b[1], out=out[1]);
@@ -27,4 +28,5 @@ CHIP And16 {
     And(a=a[13], b=b[13], out=out[13]);
     And(a=a[14], b=b[14], out=out[14]);
     And(a=a[15], b=b[15], out=out[15]);
+
 }
