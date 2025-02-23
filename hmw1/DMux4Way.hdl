@@ -2,22 +2,21 @@
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
 // File name: projects/1/DMux4Way.hdl
+
 /**
- * 4-way Demultiplexer:
- * if (sel == 00) out0 = in, out1 = out2 = out3 = 0
- * if (sel == 01) out1 = in, out0 = out2 = out3 = 0
- * if (sel == 10) out2 = in, out0 = out1 = out3 = 0
- * if (sel == 11) out3 = in, out0 = out1 = out2 = 0
+ * 4-way demultiplexer.
+ * a = in if sel = 00
+ * b = in if sel = 01
+ * c = in if sel = 10
+ * d = in if sel = 11
+ * otherwise, outputs are 0
  */
 CHIP DMux4Way {
     IN in, sel[2];
-    OUT out0, out1, out2, out3;
+    OUT a, b, c, d;
 
     PARTS:
-       DMux(in=in, sel=sel[0], out0=o0, out1=o1); 
-    DMux(in=in, sel=sel[1], out0=o2, out1=o3);
-
-        And(a=o0, b=nsel1, out=out0); // Sel[1] = 0, Sel[0] = 0 -> out0
-    And(a=o1, b=sel1, out=out1); // Sel[1] = 0, Sel[0] = 1 -> out1
-    And(a=o2, b=nsel0, out=out2); // Sel[0] = 0, Sel[1] = 1 -> out2
-    And(a=o3, b=sel0, out=out3); // Sel[0] and sel[1]---
+    DMux(in=in, sel=sel[1], a=dm1, b=dm2);
+    DMux(in=dm1, sel=sel[0], a=a, b=b);
+    DMux(in=dm2, sel=sel[0], a=c, b=d);
+}

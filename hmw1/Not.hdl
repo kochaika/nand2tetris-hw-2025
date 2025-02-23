@@ -3,13 +3,11 @@
 // by Nisan and Schocken, MIT Press.
 // File name: Not.hdl
 
-// Not gate:
-// If in == 0, out = 1
-// If in == 1, out = 0
 CHIP Not {
     IN in;
     OUT out;
 
     PARTS:
-    Nand(a=in, b=in, out=out);
+    Nand (a=in, b=in, out=out);
+}
 }

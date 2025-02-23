@@ -3,16 +3,15 @@
 // by Nisan and Schocken, MIT Press.
 // File name: projects/1/DMux.hdl
 /**
- * Demultiplexer:
- * if (sel == 0) out0 = in, out1 = 0
- * if (sel == 1) out0 = 0, out1 = in
+ * Demultiplexor:
+ * [a, b] = [in, 0] if sel = 0
+ *          [0, in] if sel = 1
  */
 CHIP DMux {
     IN in, sel;
-    OUT out0, out1;
-
+    OUT a, b;
     PARTS:
-       Not(a=sel, out=nsel);           
-    And(a=in, b=nsel, out=out0);   
-    And(a=in, b=sel, out=out1);    
+    Not(in=sel, out=notSel);
+    And(a=in, b=notSel, out=a);
+    And(a=in, b=sel, out=b);
 }

@@ -1,31 +1,30 @@
 // This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: Not16.hdl
-
-// Not16 gate:
-// 16-bit wide NOT gate:
-// out[i] = NOT a[i] for i = 0 to 15
+// File name: projects/01/Not16.hdl
+/**
+ * 16-bit Not gate:
+ * for i = 0, ..., 15:
+ * out[i] = Not(a[i])
+ */
 CHIP Not16 {
-    IN a[16];
+    IN in[16];
     OUT out[16];
-
     PARTS:
-    // 16-bitlik her a bitine karşılık gelen Not kapılarını kullanıyoruz.
-    Not(in=a[0], out=out[0]);
-    Not(in=a[1], out=out[1]);
-    Not(in=a[2], out=out[2]);
-    Not(in=a[3], out=out[3]);
-    Not(in=a[4], out=out[4]);
-    Not(in=a[5], out=out[5]);
-    Not(in=a[6], out=out[6]);
-    Not(in=a[7], out=out[7]);
-    Not(in=a[8], out=out[8]);
-    Not(in=a[9], out=out[9]);
-    Not(in=a[10], out=out[10]);
-    Not(in=a[11], out=out[11]);
-    Not(in=a[12], out=out[12]);
-    Not(in=a[13], out=out[13]);
-    Not(in=a[14], out=out[14]);
-    Not(in=a[15], out=out[15]);
+    Not(in=in[0], out=out[0]);
+    Not(in=in[1], out=out[1]);
+    Not(in=in[2], out=out[2]);
+    Not(in=in[3], out=out[3]);
+    Not(in=in[4], out=out[4]);
+    Not(in=in[5], out=out[5]);
+    Not(in=in[6], out=out[6]);
+    Not(in=in[7], out=out[7]);
+    Not(in=in[8], out=out[8]);
+    Not(in=in[9], out=out[9]);
+    Not(in=in[10], out=out[10]);
+    Not(in=in[11], out=out[11]);
+    Not(in=in[12], out=out[12]);
+    Not(in=in[13], out=out[13]);
+    Not(in=in[14], out=out[14]);
+    Not(in=in[15], out=out[15]);
 }

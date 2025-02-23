@@ -1,22 +1,22 @@
 // This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: Mux.hdl
-
-// Mux:
-// if (sel == 0) out = a
-// if (sel == 1) out = b
+// File name: projects/1/Mux.hdl
+/** 
+ * Multiplexor:
+ * if (sel = 0) out = a, else out = b
+ */
 CHIP Mux {
     IN a, b, sel;
     OUT out;
 
+    CHIP Mux {
+    IN a, b, sel;
+    OUT out;
     PARTS:
-      Not(a=sel, out=nsel);
+    Not(in=sel, out=notSel);
+    And(a=a, b=notSel, out=and1);
+    And(a=b, b=sel, out=and2);
+    Or(a=and1, b=and2, out=out);
 
-       And(a=a, b=nsel, out=and0);
-
-      And(a=b, b=sel, out=and1);
-
-
-    Or(a=and0, b=and1, out=out);
 }
