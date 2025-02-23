@@ -1,0 +1,24 @@
+/**
+ * 4-way demultiplexor:
+ * [a, b, c, d] = [in, 0, 0, 0] if sel = 00
+ *                [0, in, 0, 0] if sel = 01
+ *                [0, 0, in, 0] if sel = 10
+ *                [0, 0, 0, in] if sel = 11
+ */
+CHIP DMux4Way {
+    IN in, sel[2];
+    OUT a, b, c, d;
+
+    PARTS:
+    Mux(a=in, b=false, sel=sel[0], out=out1);
+    Mux(a=out1, b=false, sel=sel[1], out=a);
+
+    Mux(a=false, b=in, sel=sel[0], out=out2);
+    Mux(a=out2, b=false, sel=sel[1], out=b);
+
+    Mux(a=in, b=false, sel=sel[0], out=out3);
+    Mux(a=false, b=out3, sel=sel[1], out=c);
+
+    Mux(a=false, b=in, sel=sel[0], out=out4);
+    Mux(a=false, b=out4, sel=sel[1], out=d);
+}
