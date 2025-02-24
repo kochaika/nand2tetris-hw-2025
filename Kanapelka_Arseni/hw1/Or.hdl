@@ -11,4 +11,9 @@ CHIP Or {
     OUT out;
 
     PARTS:
-	BUILTIN Or;
+    Not(in=a, out=na);
+    Not(in=b, out=nb);
+    And(a=na, b=nb, out=an);
+    Not(in=an, out=out);
+
+}
