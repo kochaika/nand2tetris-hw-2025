@@ -1,0 +1,22 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/1/DMux4Way.hdl
+
+/**
+ * 4-way demultiplexer.
+ * a = in if sel = 00
+ * b = in if sel = 01
+ * c = in if sel = 10
+ * d = in if sel = 11
+ * otherwise, outputs are 0
+ */
+CHIP DMux4Way {
+    IN in, sel[2];
+    OUT a, b, c, d;
+
+    PARTS:
+    DMux(in=in, sel=sel[1], a=dm1, b=dm2);
+    DMux(in=dm1, sel=sel[0], a=a, b=b);
+    DMux(in=dm2, sel=sel[0], a=c, b=d);
+}
