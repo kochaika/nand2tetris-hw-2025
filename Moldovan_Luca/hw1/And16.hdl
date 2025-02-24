@@ -1,62 +1,53 @@
-// This file is part of www.nand2tetris.org
-// and the book "The Elements of Computing Systems"
-// by Nisan and Schocken, MIT Press.
-// File name: projects/1/And16.hdl
-/**
- * 16-bit And gate:
- * for i = 0, ..., 15:
- * out[i] = a[i] And b[i] 
- */
 CHIP And16 {
-    IN in1[16], in2[16];
+    IN a[16], b[16];
     OUT out[16];
 
     PARTS:
-    Nand(a=in1[0], b=in2[0], out=nand0);
-    Nand(a=nand0, b=nand0, out=out[0]);
+    Nand(a=a[0], b=b[0], out=n0);
+    Nand(a=n0, b=n0, out=out[0]);
 
-    Nand(a=in1[1], b=in2[1], out=nand1);
-    Nand(a=nand1, b=nand1, out=out[1]);
+    Nand(a=a[1], b=b[1], out=n1);
+    Nand(a=n1, b=n1, out=out[1]);
 
-    Nand(a=in1[2], b=in2[2], out=nand2);
-    Nand(a=nand2, b=nand2, out=out[2]);
-    
-    Nand(a=in1[3], b=in2[3], out=nand3);
-    Nand(a=nand3, b=nand3, out=out[3]);
+    Nand(a=a[2], b=b[2], out=n2);
+    Nand(a=n2, b=n2, out=out[2]);
 
-    Nand(a=in1[4], b=in2[4], out=nand4);
-    Nand(a=nand4, b=nand4, out=out[4]);
+    Nand(a=a[3], b=b[3], out=n3);
+    Nand(a=n3, b=n3, out=out[3]);
 
-    Nand(a=in1[5], b=in2[5], out=nand5);
-    Nand(a=nand5, b=nand5, out=out[5]);
+    Nand(a=a[4], b=b[4], out=n4);
+    Nand(a=n4, b=n4, out=out[4]);
 
-    Nand(a=in1[6], b=in2[6], out=nand6);
-    Nand(a=nand6, b=nand6, out=out[6]);
+    Nand(a=a[5], b=b[5], out=n5);
+    Nand(a=n5, b=n5, out=out[5]);
 
-    Nand(a=in1[7], b=in2[7], out=nand7);
-    Nand(a=nand7, b=nand7, out=out[7]);
+    Nand(a=a[6], b=b[6], out=n6);
+    Nand(a=n6, b=n6, out=out[6]);
 
-    Nand(a=in1[8], b=in2[8], out=nand8);
-    Nand(a=nand8, b=nand8, out=out[8]);
+    Nand(a=a[7], b=b[7], out=n7);
+    Nand(a=n7, b=n7, out=out[7]);
 
-    Nand(a=in1[9], b=in2[9], out=nand9);
-    Nand(a=nand9, b=nand9, out=out[9]);
+    Nand(a=a[8], b=b[8], out=n8);
+    Nand(a=n8, b=n8, out=out[8]);
 
-    Nand(a=in1[10], b=in2[10], out=nand10);
-    Nand(a=nand10, b=nand10, out=out[10]);
+    Nand(a=a[9], b=b[9], out=n9);
+    Nand(a=n9, b=n9, out=out[9]);
 
-    Nand(a=in1[11], b=in2[11], out=nand11);
-    Nand(a=nand11, b=nand11, out=out[11]);
+    Nand(a=a[10], b=b[10], out=n10);
+    Nand(a=n10, b=n10, out=out[10]);
 
-    Nand(a=in1[12], b=in2[12], out=nand12);
-    Nand(a=nand12, b=nand12, out=out[12]);
+    Nand(a=a[11], b=b[11], out=n11);
+    Nand(a=n11, b=n11, out=out[11]);
 
-    Nand(a=in1[13], b=in2[13], out=nand13);
-    Nand(a=nand13, b=nand13, out=out[13]);
+    Nand(a=a[12], b=b[12], out=n12);
+    Nand(a=n12, b=n12, out=out[12]);
 
-    Nand(a=in1[14], b=in2[14], out=nand14);
-    Nand(a=nand14, b=nand14, out=out[14]);
+    Nand(a=a[13], b=b[13], out=n13);
+    Nand(a=n13, b=n13, out=out[13]);
 
-    Nand(a=in1[15], b=in2[15], out=nand15);
-    Nand(a=nand15, b=nand15, out=out[15]);
+    Nand(a=a[14], b=b[14], out=n14);
+    Nand(a=n14, b=n14, out=out[14]);
+
+    Nand(a=a[15], b=b[15], out=n15);
+    Nand(a=n15, b=n15, out=out[15]);
 }
