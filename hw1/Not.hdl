@@ -1,0 +1,15 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/1/Not.hdl
+/**
+ * Not gate:
+ * if in is 0 then out = 1, if in is 1 then out = 0.
+ */
+CHIP Not {
+    IN in;
+    OUT out;
+    
+    PARTS:
+    Nand(a=in, b=in, out=out);
+}
