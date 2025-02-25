@@ -11,7 +11,7 @@ Follow the next structure for storing the home works in the repository:
 ├── Chaika_Konstantin
 │   ├── hw1
 │   └── hw2
-└── Surname_Name
+└── Surname _Name
     └── hw1
 ```
 ## Pull requests guide
