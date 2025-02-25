@@ -11,5 +11,9 @@ CHIP Xor {
     OUT out;
 
     PARTS:
-    //// Replace this comment with your code.
-}
+    Not(in=a,out=NOTa);
+    Not(in=b,out=NOTb);
+    And(a=NOTa, b=b, out=NotaANDb);
+    And(a=NOTb, b=a, out=NotbANDa);
+    Or(a=NotaANDb , b=NotbANDa, out=out);
+    }
