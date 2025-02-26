@@ -1,0 +1,94 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/1/Mux16.hdl
+/**
+ * 16-bit multiplexor: 
+ * for i = 0, ..., 15:
+ * if (sel = 0) out[i] = a[i], else out[i] = b[i]
+ */
+CHIP Mux16 {
+    IN a[16], b[16], sel;
+    OUT out[16];
+
+    PARTS:
+    Nand (a=sel, b=sel, out=notSel0);
+    Nand (a=a[0], b=notSel0, out= aselected0);
+    Nand (a=b[0], b=sel, out=bselected0);
+    Nand (a=aselected0, b=bselected0, out=out[0]);
+
+    Nand (a=sel, b=sel, out=notSel1);
+    Nand (a=a[1], b=notSel1, out= aselected1);
+    Nand (a=b[1], b=sel, out=bselected1);
+    Nand (a=aselected1, b=bselected1, out=out[1]);
+
+    Nand (a=sel, b=sel, out=notSel2);
+    Nand (a=a[2], b=notSel2, out= aselected2);
+    Nand (a=b[2], b=sel, out=bselected2);
+    Nand (a=aselected2, b=bselected2, out=out[2]);
+
+    Nand (a=sel, b=sel, out=notSel3);
+    Nand (a=a[3], b=notSel3, out= aselected3);
+    Nand (a=b[3], b=sel, out=bselected3);
+    Nand (a=aselected3, b=bselected3, out=out[3]);
+
+    Nand (a=sel, b=sel, out=notSel4);
+    Nand (a=a[4], b=notSel4, out= aselected4);
+    Nand (a=b[4], b=sel, out=bselected4);
+    Nand (a=aselected4, b=bselected4, out=out[4]);
+
+    Nand (a=sel, b=sel, out=notSel5);
+    Nand (a=a[5], b=notSel5, out= aselected5);
+    Nand (a=b[5], b=sel, out=bselected5);
+    Nand (a=aselected5, b=bselected5, out=out[5]);
+
+    Nand (a=sel, b=sel, out=notSel6);
+    Nand (a=a[6], b=notSel6, out= aselected6);
+    Nand (a=b[6], b=sel, out=bselected6);
+    Nand (a=aselected6, b=bselected6, out=out[6]);
+
+    Nand (a=sel, b=sel, out=notSel7);
+    Nand (a=a[7], b=notSel7, out= aselected7);
+    Nand (a=b[7], b=sel, out=bselected7);
+    Nand (a=aselected7, b=bselected7, out=out[7]);
+
+    Nand (a=sel, b=sel, out=notSel8);
+    Nand (a=a[8], b=notSel8, out= aselected8);
+    Nand (a=b[8], b=sel, out=bselected8);
+    Nand (a=aselected8, b=bselected8, out=out[8]);
+
+    Nand (a=sel, b=sel, out=notSel9);
+    Nand (a=a[9], b=notSel9, out= aselected9);
+    Nand (a=b[9], b=sel, out=bselected9);
+    Nand (a=aselected9, b=bselected9, out=out[9]);
+
+    Nand (a=sel, b=sel, out=notSel10);
+    Nand (a=a[10], b=notSel10, out= aselected10);
+    Nand (a=b[10], b=sel, out=bselected10);
+    Nand (a=aselected10, b=bselected10, out=out[10]);
+
+    Nand (a=sel, b=sel, out=notSel11);
+    Nand (a=a[11], b=notSel11, out= aselected11);
+    Nand (a=b[11], b=sel, out=bselected11);
+    Nand (a=aselected11, b=bselected11, out=out[11]);
+
+    Nand (a=sel, b=sel, out=notSel12);
+    Nand (a=a[12], b=notSel12, out= aselected12);
+    Nand (a=b[12], b=sel, out=bselected12);
+    Nand (a=aselected12, b=bselected12, out=out[12]);
+
+    Nand (a=sel, b=sel, out=notSel13);
+    Nand (a=a[13], b=notSel13, out= aselected13);
+    Nand (a=b[13], b=sel, out=bselected13);
+    Nand (a=aselected13, b=bselected13, out=out[13]);
+
+    Nand (a=sel, b=sel, out=notSel14);
+    Nand (a=a[14], b=notSel14, out= aselected14);
+    Nand (a=b[14], b=sel, out=bselected14);
+    Nand (a=aselected14, b=bselected14, out=out[14]);
+
+    Nand (a=sel, b=sel, out=notSel15);
+    Nand (a=a[15], b=notSel15, out= aselected15);
+    Nand (a=b[15], b=sel, out=bselected15);
+    Nand (a=aselected15, b=bselected15, out=out[15]);
+}
