@@ -20,11 +20,11 @@ CHIP ALU {
     Mux16(a=andOut, b=addOut, sel=f, out=logicOut);
 
     Not16(in=logicOut, out=notOut);
-    Mux16(a=logicOut, b=notOut, sel=no, out=outFinal);
+    Mux16(a=logicOut, b=notOut, sel=no, out=out);
 
-    Or8Way(in=outFinal[0..7], out=orLow);
-    Or8Way(in=outFinal[8..15], out=orHigh);
+    Or8Way(in=out[0..7], out=orLow);
+    Or8Way(in=out[8..15], out=orHigh);
     Or(a=orLow, b=orHigh, out=zr);
 
-    And(a=outFinal[15], b=true, out=ng);
+    And(a=out[15], b=true, out=ng);
 }
