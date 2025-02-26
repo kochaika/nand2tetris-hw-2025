@@ -1,0 +1,37 @@
+/**
+ * 8-way Or gate: 
+ * out = in[0] Or in[1] Or ... Or in[7]
+ */
+CHIP Or8Way {
+    IN in[8];
+    OUT out;
+
+    PARTS:
+    Nand(a=in[0], b=in[0], out=NOTin0);
+    Nand(a=in[1], b=in[1], out=NOTin1);
+    Nand(a=NOTin0, b=NOTin1, out=output1);
+
+    Nand(a=in[2], b=in[2], out=NOTin2);
+    Nand(a=in[3], b=in[3], out=NOTin3);
+    Nand(a=NOTin2, b=NOTin3, out=output2);
+
+    Nand(a=in[4], b=in[4], out=NOTin4);
+    Nand(a=in[5], b=in[5], out=NOTin5);
+    Nand(a=NOTin4, b=NOTin5, out=output3);
+
+    Nand(a=in[6], b=in[6], out=NOTin6);
+    Nand(a=in[7], b=in[7], out=NOTin7);
+    Nand(a=NOTin6, b=NOTin7, out=output4);
+
+    Nand(a=output1, b=output1, out=NOToutput1);
+    Nand(a=output2, b=output2, out=NOToutput2);
+    Nand(a=NOToutput1, b=NOToutput2, out=output5);
+
+    Nand(a=output3, b=output3, out=NOToutput3);
+    Nand(a=output4, b=output4, out=NOToutput4);
+    Nand(a=NOToutput3, b=NOToutput4, out=output6);
+
+    Nand(a=output5, b=output5, out=NOToutput5);
+    Nand(a=output6, b=output6, out=NOToutput6);
+    Nand(a=NOToutput5, b=NOToutput6, out=out);
+}
