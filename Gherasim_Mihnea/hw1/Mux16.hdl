@@ -1,0 +1,92 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/1/Mux16.hdl
+/**
+ * 16-bit multiplexor: 
+ * for i = 0, ..., 15:
+ * if (sel = 0) out[i] = a[i], else out[i] = b[i]
+ */
+CHIP Mux16 {
+    IN a[16], b[16], sel;
+    OUT out[16];
+
+    PARTS:
+    Nand(a=sel , b=sel , out=notsel );
+
+    And(a=b[0] , b=sel , out=and00 );
+    And(a=a[0] , b=notsel , out=and01 );  
+    Or(a=and00 , b=and01 , out=out[0] );
+
+        And(a=b[1], b=sel, out=and10);
+    And(a=a[1], b=notsel, out=and11);
+    Or(a=and10, b=and11, out=out[1]);
+
+    And(a=b[2], b=sel, out=and20);
+    And(a=a[2], b=notsel, out=and21);
+    Or(a=and20, b=and21, out=out[2]);
+
+    And(a=b[3], b=sel, out=and30);
+    And(a=a[3], b=notsel, out=and31);
+    Or(a=and30, b=and31, out=out[3]);
+
+    And(a=b[4], b=sel, out=and40);
+    And(a=a[4], b=notsel, out=and41);
+    Or(a=and40, b=and41, out=out[4]);
+
+    And(a=b[5], b=sel, out=and50);
+    And(a=a[5], b=notsel, out=and51);
+    Or(a=and50, b=and51, out=out[5]);
+
+    And(a=b[6], b=sel, out=and60);
+    And(a=a[6], b=notsel, out=and61);
+    Or(a=and60, b=and61, out=out[6]);
+
+    And(a=b[7], b=sel, out=and70);
+    And(a=a[7], b=notsel, out=and71);
+    Or(a=and70, b=and71, out=out[7]);
+
+    And(a=b[8], b=sel, out=and80);
+    And(a=a[8], b=notsel, out=and81);
+    Or(a=and80, b=and81, out=out[8]);
+
+    And(a=b[9], b=sel, out=and90);
+    And(a=a[9], b=notsel, out=and91);
+    Or(a=and90, b=and91, out=out[9]);
+
+    And(a=b[10], b=sel, out=and100);
+    And(a=a[10], b=notsel, out=and101);
+    Or(a=and100, b=and101, out=out[10]);
+
+    And(a=b[11], b=sel, out=and110);
+    And(a=a[11], b=notsel, out=and111);
+    Or(a=and110, b=and111, out=out[11]);
+
+    And(a=b[12], b=sel, out=and120);
+    And(a=a[12], b=notsel, out=and121);
+    Or(a=and120, b=and121, out=out[12]);
+
+    And(a=b[13], b=sel, out=and130);
+    And(a=a[13], b=notsel, out=and131);
+    Or(a=and130, b=and131, out=out[13]);
+
+    And(a=b[14], b=sel, out=and140);
+    And(a=a[14], b=notsel, out=and141);
+    Or(a=and140, b=and141, out=out[14]);
+
+    And(a=b[15], b=sel, out=and150);
+    And(a=a[15], b=notsel, out=and151);
+    Or(a=and150, b=and151, out=out[15]);
+
+
+
+    
+
+}
+
+
+    
+
+    
+
+    
