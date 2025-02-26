@@ -1,3 +1,4 @@
+
 // This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
@@ -32,17 +33,17 @@ CHIP ALU {
         zx, // zero the x input?
         nx, // negate the x input?
         zy, // zero the y input?
-        ny, // negate the y input?
-        f,  // compute (out = x + y) or (out = x & y)?
-        no; // negate the out output?
+        ny, 
+        f,  
+        no; 
     OUT 
-        out[16], // 16-bit output
-        zr,      // if (out == 0) equals 1, else 0
-        ng;      // if (out < 0)  equals 1, else 0
+        out[16], 
+        zr,      
+        ng;      
 
     PARTS:
     Mux16(a=x, b=false, sel=zx, out=xZero);
-    Not16(in=xZero, out=xNot);
+    Not16(in=x, out=xNot);  
     Mux16(a=xZero, b=xNot, sel=nx, out=xFinal);
 
     Mux16(a=y, b=false, sel=zy, out=yZero);
