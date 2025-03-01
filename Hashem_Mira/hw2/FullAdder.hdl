@@ -1,0 +1,10 @@
+CHIP FullAdder {
+    IN a, b, cin;
+    OUT sum, cout;
+
+    PARTS:
+    HalfAdder(a=a, b=b, sum=s1, carry=c1);
+    HalfAdder(a=s1, b=cin, sum=sum, carry=c2);
+    Or(a=c1, b=c2, out=cout);
+}
+
