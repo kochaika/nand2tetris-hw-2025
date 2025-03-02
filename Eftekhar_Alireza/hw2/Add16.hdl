@@ -1,0 +1,140 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/2/Add16.hdl
+/**
+ * 16-bit adder: Adds two 16-bit two's complement values.
+ * The most significant carry bit is ignored.
+ */
+CHIP Add16 {
+    IN a[16], b[16];
+    OUT out[16];
+
+    PARTS:
+    // Initial state
+    Xor(a = a[0], b = b[0], out = out[0]);
+    And(a= a[0], b= b[0], out= carry);
+
+    // Recursive state
+    Xor(a = a[1], b = b[1], out = c1); 
+    Xor(a = c1, b = carry, out = out[1]); 
+    And(a = a[1], b = b[1], out = s11); 
+    And(a = b[1], b = carry, out = s12); 
+    And(a = a[1], b = carry, out = s13); 
+    Or(a = s11, b = s12, out = s14); 
+    Or(a = s14, b = s13, out = carry1);
+
+    Xor(a = a[2], b = b[2], out = c2); 
+    Xor(a = c2, b = carry1, out = out[2]); 
+    And(a = a[2], b = b[2], out = s21); 
+    And(a = b[2], b = carry1, out = s22); 
+    And(a = a[2], b = carry1, out = s23); 
+    Or(a = s21, b = s22, out = s24); 
+    Or(a = s24, b = s23, out = carry2);
+
+    Xor(a = a[3], b = b[3], out = c3); 
+    Xor(a = c3, b = carry2, out = out[3]); 
+    And(a = a[3], b = b[3], out = s31); 
+    And(a = b[3], b = carry2, out = s32); 
+    And(a = a[3], b = carry2, out = s33); 
+    Or(a = s31, b = s32, out = s34); 
+    Or(a = s34, b = s33, out = carry3);
+
+    Xor(a = a[4], b = b[4], out = c4); 
+    Xor(a = c4, b = carry3, out = out[4]); 
+    And(a = a[4], b = b[4], out = s41); 
+    And(a = b[4], b = carry3, out = s42); 
+    And(a = a[4], b = carry3, out = s43); 
+    Or(a = s41, b = s42, out = s44); 
+    Or(a = s44, b = s43, out = carry4);
+
+    Xor(a = a[5], b = b[5], out = c5); 
+    Xor(a = c5, b = carry4, out = out[5]); 
+    And(a = a[5], b = b[5], out = s51); 
+    And(a = b[5], b = carry4, out = s52); 
+    And(a = a[5], b = carry4, out = s53); 
+    Or(a = s51, b = s52, out = s54); 
+    Or(a = s54, b = s53, out = carry5);
+
+    Xor(a = a[6], b = b[6], out = c6); 
+    Xor(a = c6, b = carry5, out = out[6]); 
+    And(a = a[6], b = b[6], out = s61); 
+    And(a = b[6], b = carry5, out = s62); 
+    And(a = a[6], b = carry5, out = s63); 
+    Or(a = s61, b = s62, out = s64); 
+    Or(a = s64, b = s63, out = carry6);
+
+    Xor(a = a[7], b = b[7], out = c7); 
+    Xor(a = c7, b = carry6, out = out[7]); 
+    And(a = a[7], b = b[7], out = s71); 
+    And(a = b[7], b = carry6, out = s72); 
+    And(a = a[7], b = carry6, out = s73); 
+    Or(a = s71, b = s72, out = s74); 
+    Or(a = s74, b = s73, out = carry7);
+
+    Xor(a = a[8], b = b[8], out = c8); 
+    Xor(a = c8, b = carry7, out = out[8]); 
+    And(a = a[8], b = b[8], out = s81); 
+    And(a = b[8], b = carry7, out = s82); 
+    And(a = a[8], b = carry7, out = s83); 
+    Or(a = s81, b = s82, out = s84); 
+    Or(a = s84, b = s83, out = carry8);
+
+    Xor(a = a[9], b = b[9], out = c9); 
+    Xor(a = c9, b = carry8, out = out[9]); 
+    And(a = a[9], b = b[9], out = s91); 
+    And(a = b[9], b = carry8, out = s92); 
+    And(a = a[9], b = carry8, out = s93); 
+    Or(a = s91, b = s92, out = s94); 
+    Or(a = s94, b = s93, out = carry9);
+
+    Xor(a = a[10], b = b[10], out = c10); 
+    Xor(a = c10, b = carry9, out = out[10]); 
+    And(a = a[10], b = b[10], out = s101); 
+    And(a = b[10], b = carry9, out = s102); 
+    And(a = a[10], b = carry9, out = s103); 
+    Or(a = s101, b = s102, out = s104); 
+    Or(a = s104, b = s103, out = carry10);
+
+    Xor(a = a[11], b = b[11], out = c11); 
+    Xor(a = c11, b = carry10, out = out[11]); 
+    And(a = a[11], b = b[11], out = s111); 
+    And(a = b[11], b = carry10, out = s112); 
+    And(a = a[11], b = carry10, out = s113); 
+    Or(a = s111, b = s112, out = s114); 
+    Or(a = s114, b = s113, out = carry11);
+
+    Xor(a = a[12], b = b[12], out = c12); 
+    Xor(a = c12, b = carry11, out = out[12]); 
+    And(a = a[12], b = b[12], out = s121); 
+    And(a = b[12], b = carry11, out = s122); 
+    And(a = a[12], b = carry11, out = s123); 
+    Or(a = s121, b = s122, out = s124); 
+    Or(a = s124, b = s123, out = carry12);
+
+    Xor(a = a[13], b = b[13], out = c13); 
+    Xor(a = c13, b = carry12, out = out[13]); 
+    And(a = a[13], b = b[13], out = s131); 
+    And(a = b[13], b = carry12, out = s132); 
+    And(a = a[13], b = carry12, out = s133); 
+    Or(a = s131, b = s132, out = s134); 
+    Or(a = s134, b = s133, out = carry13);
+
+    Xor(a = a[14], b = b[14], out = c14); 
+    Xor(a = c14, b = carry13, out = out[14]); 
+    And(a = a[14], b = b[14], out = s141); 
+    And(a = b[14], b = carry13, out = s142); 
+    And(a = a[14], b = carry13, out = s143); 
+    Or(a = s141, b = s142, out = s144); 
+    Or(a = s144, b = s143, out = carry14);
+
+    Xor(a = a[15], b = b[15], out = c15); 
+    Xor(a = c15, b = carry14, out = out[15]); 
+    And(a = a[15], b = b[15], out = s151); 
+    // Not needed cause the most significant bit is ignored, yet is stored in carry15
+    And(a = b[15], b = carry14, out = s152); 
+    And(a = a[15], b = carry14, out = s153); 
+    Or(a = s151, b = s152, out = s154); 
+    Or(a = s154, b = s153, out = carry15);
+
+}

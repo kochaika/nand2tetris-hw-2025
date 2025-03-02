@@ -1,0 +1,152 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/1/Mux4Way16.hdl
+/**
+ * 4-way 16-bit multiplexor:
+ * out = a if sel = 00
+ *       b if sel = 01
+ *       c if sel = 10
+ *       d if sel = 11
+ */
+CHIP Mux4Way16 {
+    IN a[16], b[16], c[16], d[16], sel[2];
+    OUT out[16];
+    
+    PARTS:
+    Not(in=sel[0] , out= notsel0);
+    Not(in=sel[1] , out= notsel1);
+
+    And(a= notsel0, b= notsel1, out=zero);
+    And(a= sel[0], b= notsel1, out=one);
+    And(a= notsel0, b= sel[1], out=ten);
+    And(a= sel[0], b= sel[1], out=eleven);
+
+    And(a=zero , b=a[0] , out=out0a );
+    And(a=one , b=b[0] , out=out0b );
+    And(a=ten , b=c[0] , out=out0c );
+    And(a=eleven , b=d[0] , out=out0d );
+    Or(a= out0a, b= out0b, out= or0ab);
+    Or(a= out0c, b= out0d, out= or0cd);
+    Or(a=or0ab , b=or0cd , out=out[0]);
+
+    And(a=zero , b=a[1] , out=out1a );
+    And(a=one , b=b[1] , out=out1b );
+    And(a=ten , b=c[1] , out=out1c );
+    And(a=eleven , b=d[1] , out=out1d );
+    Or(a= out1a, b= out1b, out= or1ab);
+    Or(a= out1c, b= out1d, out= or1cd);
+    Or(a=or1ab , b=or1cd , out=out[1]);
+
+    And(a=zero , b=a[2] , out=out2a );
+    And(a=one , b=b[2] , out=out2b );
+    And(a=ten , b=c[2] , out=out2c );
+    And(a=eleven , b=d[2] , out=out2d );
+    Or(a= out2a, b= out2b, out= or2ab);
+    Or(a= out2c, b= out2d, out= or2cd);
+    Or(a=or2ab , b=or2cd , out=out[2]);
+
+    And(a=zero , b=a[3] , out=out3a );
+    And(a=one , b=b[3] , out=out3b );
+    And(a=ten , b=c[3] , out=out3c );
+    And(a=eleven , b=d[3] , out=out3d );
+    Or(a= out3a, b= out3b, out= or3ab);
+    Or(a= out3c, b= out3d, out= or3cd);
+    Or(a=or3ab , b=or3cd , out=out[3]);
+
+    And(a=zero , b=a[4] , out=out4a );
+    And(a=one , b=b[4] , out=out4b );
+    And(a=ten , b=c[4] , out=out4c );
+    And(a=eleven , b=d[4] , out=out4d );
+    Or(a= out4a, b= out4b, out= or4ab);
+    Or(a= out4c, b= out4d, out= or4cd);
+    Or(a=or4ab , b=or4cd , out=out[4]);
+
+    And(a=zero , b=a[5] , out=out5a );
+    And(a=one , b=b[5] , out=out5b );
+    And(a=ten , b=c[5] , out=out5c );
+    And(a=eleven , b=d[5] , out=out5d );
+    Or(a= out5a, b= out5b, out= or5ab);
+    Or(a= out5c, b= out5d, out= or5cd);
+    Or(a=or5ab , b=or5cd , out=out[5]);
+
+    And(a=zero , b=a[6] , out=out6a );
+    And(a=one , b=b[6] , out=out6b );
+    And(a=ten , b=c[6] , out=out6c );
+    And(a=eleven , b=d[6] , out=out6d );
+    Or(a= out6a, b= out6b, out= or6ab);
+    Or(a= out6c, b= out6d, out= or6cd);
+    Or(a=or6ab , b=or6cd , out=out[6]);
+
+    And(a=zero , b=a[7] , out=out7a );
+    And(a=one , b=b[7] , out=out7b );
+    And(a=ten , b=c[7] , out=out7c );
+    And(a=eleven , b=d[7] , out=out7d );
+    Or(a= out7a, b= out7b, out= or7ab);
+    Or(a= out7c, b= out7d, out= or7cd);
+    Or(a=or7ab , b=or7cd , out=out[7]);
+
+    And(a=zero , b=a[8] , out=out8a );
+    And(a=one , b=b[8] , out=out8b );
+    And(a=ten , b=c[8] , out=out8c );
+    And(a=eleven , b=d[8] , out=out8d );
+    Or(a= out8a, b= out8b, out= or8ab);
+    Or(a= out8c, b= out8d, out= or8cd);
+    Or(a=or8ab , b=or8cd , out=out[8]);
+
+    And(a=zero , b=a[9] , out=out9a );
+    And(a=one , b=b[9] , out=out9b );
+    And(a=ten , b=c[9] , out=out9c );
+    And(a=eleven , b=d[9] , out=out9d );
+    Or(a= out9a, b= out9b, out= or9ab);
+    Or(a= out9c, b= out9d, out= or9cd);
+    Or(a=or9ab , b=or9cd , out=out[9]);
+
+    And(a=zero , b=a[10] , out=out10a );
+    And(a=one , b=b[10] , out=out10b );
+    And(a=ten , b=c[10] , out=out10c );
+    And(a=eleven , b=d[10] , out=out10d );
+    Or(a= out10a, b= out10b, out= or10ab);
+    Or(a= out10c, b= out10d, out= or10cd);
+    Or(a=or10ab , b=or10cd , out=out[10]);
+
+    And(a=zero , b=a[11] , out=out11a );
+    And(a=one , b=b[11] , out=out11b );
+    And(a=ten , b=c[11] , out=out11c );
+    And(a=eleven , b=d[11] , out=out11d );
+    Or(a= out11a, b= out11b, out= or11ab);
+    Or(a= out11c, b= out11d, out= or11cd);
+    Or(a=or11ab , b=or11cd , out=out[11]);
+
+    And(a=zero , b=a[12] , out=out12a );
+    And(a=one , b=b[12] , out=out12b );
+    And(a=ten , b=c[12] , out=out12c );
+    And(a=eleven , b=d[12] , out=out12d );
+    Or(a= out12a, b= out12b, out= or12ab);
+    Or(a= out12c, b= out12d, out= or12cd);
+    Or(a=or12ab , b=or12cd , out=out[12]);
+
+    And(a=zero , b=a[13] , out=out13a );
+    And(a=one , b=b[13] , out=out13b );
+    And(a=ten , b=c[13] , out=out13c );
+    And(a=eleven , b=d[13] , out=out13d );
+    Or(a= out13a, b= out13b, out= or13ab);
+    Or(a= out13c, b= out13d, out= or13cd);
+    Or(a=or13ab , b=or13cd , out=out[13]);
+
+    And(a=zero , b=a[14] , out=out14a );
+    And(a=one , b=b[14] , out=out14b );
+    And(a=ten , b=c[14] , out=out14c );
+    And(a=eleven , b=d[14] , out=out14d );
+    Or(a= out14a, b= out14b, out= or14ab);
+    Or(a= out14c, b= out14d, out= or14cd);
+    Or(a=or14ab , b=or14cd , out=out[14]);
+
+    And(a=zero , b=a[15] , out=out15a );
+    And(a=one , b=b[15] , out=out15b );
+    And(a=ten , b=c[15] , out=out15c );
+    And(a=eleven , b=d[15] , out=out15d );
+    Or(a= out15a, b= out15b, out= or15ab);
+    Or(a= out15c, b= out15d, out= or15cd);
+    Or(a=or15ab , b=or15cd , out=out[15]);
+}
