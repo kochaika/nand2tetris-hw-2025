@@ -11,8 +11,8 @@ Follow the next structure for storing the home works in the repository:
 ├── Chaika_Konstantin
 │   ├── hw1
 │   └── hw2
-└── Yusuf_Loukman
-    └── hw1
+└── Loukman_Yusuf
+    └── hw2
 ```
 ## Pull requests guide
 Make pull requests [from your forks](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork) to this repository.  
