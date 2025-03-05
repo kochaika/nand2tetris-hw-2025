@@ -1,0 +1,19 @@
+name: HW2 Workflow
+
+on:
+  push:
+    branches:
+      - hw2  # Runs on push to hw2 branch
+  pull_request:
+    branches:
+      - main  # Runs on PR to main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run a script (or your tests)
+        run: echo 'Running HW2 workflow'
