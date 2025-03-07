@@ -1,0 +1,97 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/1/Mux4Way16.hdl
+/**
+ * 4-way 16-bit multiplexor:
+ * out = a if sel = 00
+ *       b if sel = 01
+ *       c if sel = 10
+ *       d if sel = 11
+ */
+CHIP Mux4Way16 {
+    IN a[16], b[16], c[16], d[16], sel[2];
+    OUT out[16];
+    
+    PARTS:
+    // first bit
+    Mux(a= a[0], b= b[0], sel= sel[0], out= t1);
+    Mux(a= c[0], b= d[0], sel= sel[0], out= t2);
+    Mux(a= t1, b= t2, sel= sel[1], out= out[0]);
+
+    // second bit
+    Mux(a= a[1], b= b[1], sel= sel[0], out= t3);
+    Mux(a= c[1], b= d[1], sel= sel[0], out= t4);
+    Mux(a= t3, b= t4, sel= sel[1], out= out[1]);
+
+    // third bit
+    Mux(a= a[2], b= b[2], sel= sel[0], out= t5);
+    Mux(a= c[2], b= d[2], sel= sel[0], out= t6);
+    Mux(a= t5, b= t6, sel= sel[1], out= out[2]);
+
+    // fourth bit
+    Mux(a= a[3], b= b[3], sel= sel[0], out= t7);
+    Mux(a= c[3], b= d[3], sel= sel[0], out= t8);
+    Mux(a= t7, b= t8, sel= sel[1], out= out[3]);
+
+    // fifth bit
+    Mux(a= a[4], b= b[4], sel= sel[0], out= t9);
+    Mux(a= c[4], b= d[4], sel= sel[0], out= t10);
+    Mux(a= t9, b= t10, sel= sel[1], out= out[4]);
+
+    // sixth bit
+    Mux(a= a[5], b= b[5], sel= sel[0], out= t11);
+    Mux(a= c[5], b= d[5], sel= sel[0], out= t12);
+    Mux(a= t11, b= t12, sel= sel[1], out= out[5]);
+
+    // seventh bit
+    Mux(a= a[6], b= b[6], sel= sel[0], out= t13);
+    Mux(a= c[6], b= d[6], sel= sel[0], out= t14);
+    Mux(a= t13, b= t14, sel= sel[1], out= out[6]);
+
+    // eighth bit
+    Mux(a= a[7], b= b[7], sel= sel[0], out= t15);
+    Mux(a= c[7], b= d[7], sel= sel[0], out= t16);
+    Mux(a= t15, b= t16, sel= sel[1], out= out[7]);
+
+    // ninth bit
+    Mux(a= a[8], b= b[8], sel= sel[0], out= t17);
+    Mux(a= c[8], b= d[8], sel= sel[0], out= t18);
+    Mux(a= t17, b= t18, sel= sel[1], out= out[8]);
+
+    // tenth bit
+    Mux(a= a[9], b= b[9], sel= sel[0], out= t19);
+    Mux(a= c[9], b= d[9], sel= sel[0], out= t20);
+    Mux(a= t19, b= t20, sel= sel[1], out= out[9]);
+
+    // eleventh bit
+    Mux(a= a[10], b= b[10], sel= sel[0], out= t21);
+    Mux(a= c[10], b= d[10], sel= sel[0], out= t22);
+    Mux(a= t21, b= t22, sel= sel[1], out= out[10]);
+
+    // twelfth bit
+    Mux(a= a[11], b= b[11], sel= sel[0], out= t23);
+    Mux(a= c[11], b= d[11], sel= sel[0], out= t24);
+    Mux(a= t23, b= t24, sel= sel[1], out= out[11]);
+
+    // thirteenth bit
+    Mux(a= a[12], b= b[12], sel= sel[0], out= t25);
+    Mux(a= c[12], b= d[12], sel= sel[0], out= t26);
+    Mux(a= t25, b= t26, sel= sel[1], out= out[12]);
+
+    // fourteenth bit
+    Mux(a= a[13], b= b[13], sel= sel[0], out= t27);
+    Mux(a= c[13], b= d[13], sel= sel[0], out= t28);
+    Mux(a= t27, b= t28, sel= sel[1], out= out[13]);
+
+    // fifteenth bit
+    Mux(a= a[14], b= b[14], sel= sel[0], out= t29);
+    Mux(a= c[14], b= d[14], sel= sel[0], out= t30);
+    Mux(a= t29, b= t30, sel= sel[1], out= out[14]);
+
+    // sixteenth bit
+    Mux(a= a[15], b= b[15], sel= sel[0], out= t31);
+    Mux(a= c[15], b= d[15], sel= sel[0], out= t32);
+    Mux(a= t31, b= t32, sel= sel[1], out= out[15]);
+    //// Replace this comment with your code.
+}
