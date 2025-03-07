@@ -1,0 +1,70 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/2/ALU.hdl
+/**
+ * ALU (Arithmetic Logic Unit):
+ * Computes out = one of the following functions:
+ *                0, 1, -1,
+ *                x, y, !x, !y, -x, -y,
+ *                x + 1, y + 1, x - 1, y - 1,
+ *                x + y, x - y, y - x,
+ *                x & y, x | y
+ * on the 16-bit inputs x, y,
+ * according to the input bits zx, nx, zy, ny, f, no.
+ * In addition, computes the two output bits:
+ * if (out == 0) zr = 1, else zr = 0
+ * if (out < 0)  ng = 1, else ng = 0
+ */
+// Implementation: Manipulates the x and y inputs
+// and operates on the resulting values, as follows:
+// if (zx == 1) sets x = 0        // 16-bit constant
+// if (nx == 1) sets x = !x       // bitwise not
+// if (zy == 1) sets y = 0        // 16-bit constant
+// if (ny == 1) sets y = !y       // bitwise not
+// if (f == 1)  sets out = x + y  // integer 2's complement addition
+// if (f == 0)  sets out = x & y  // bitwise and
+// if (no == 1) sets out = !out   // bitwise not
+
+CHIP ALU {
+    IN  
+        x[16], y[16],  // 16-bit inputs        
+        zx, // zero the x input?
+        nx, // negate the x input?
+        zy, // zero the y input?
+        ny, // negate the y input?
+        f,  // compute (out = x + y) or (out = x & y)?
+        no; // negate the out output?
+    OUT 
+        out[16], // 16-bit output
+        zr,      // if (out == 0) equals 1, else 0
+        ng;      // if (out < 0)  equals 1, else 0
+
+    PARTS:
+        Mux16 (a=x, b=false, sel=zx, out=w1);  // if (zx == 1) set x = 0
+        Mux16 (a=y, b=false, sel=zy, out=w2);  // if (zy == 1) set y = 0
+
+        // if (nx == 1) set x = !x
+        Not16 (in=w1, out=notw1);
+        Mux16 (a=w1, b=notw1, sel=nx, out=w3);
+
+        // if (ny == 1) set y = !y
+        Not16 (in=w2, out=notw2);
+        Mux16 (a=w2, b=notw2, sel=ny, out=w4);
+
+        // if (f == 1)  set out = x + y else set out = x & y
+        And16 (a=w3, b=w4, out=xandy);
+        Add16 (a=w3, b=w4, out=addxy);
+        Mux16 (a=xandy, b=addxy, sel=f, out=w5);
+
+        // if (no == 1) set out = !out
+        // if (out < 0) set ng = 1
+        Not16 (in=w5, out=notw5);
+        Mux16 (a=w5, b=notw5, sel=no, out=out, out[0..7]=out0to7, out[8..15]=out8to15, out[15]=ng); 
+
+        // if (out == 0) set zr = 1
+        Or8Way (in=out0to7, out=or0to7);
+        Or8Way (in=out8to15, out=or8to15);
+        Or (a=or0to7, b=or8to15, out=or0to16);
+        Not (in=or0to16, out=zr);
+}
