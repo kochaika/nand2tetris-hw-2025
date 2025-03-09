@@ -1,0 +1,10 @@
+CHIP HalfAdder {
+    IN a, b;
+    OUT sum, carry;
+
+    PARTS:
+    // XOR gate for sum
+    Xor(a=a, b=b, out=sum);
+    // AND gate for carry
+    And(a=a, b=b, out=carry);
+}
