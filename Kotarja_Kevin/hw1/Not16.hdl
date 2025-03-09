@@ -7,42 +7,25 @@
  * for i = 0, ..., 15:
  * out[i] = Not(a[i])
  */
- CHIP Not16 {
+CHIP Not16 {
     IN in[16];
     OUT out[16];
 
     PARTS:
-    Not(in=in[0], out=not0);
-    Not(in=in[1], out=not1);
-    Not(in=in[2], out=not2);
-    Not(in=in[3], out=not3);
-    Not(in=in[4], out=not4);
-    Not(in=in[5], out=not5);
-    Not(in=in[6], out=not6);
-    Not(in=in[7], out=not7);
-    Not(in=in[8], out=not8);
-    Not(in=in[9], out=not9);
-    Not(in=in[10], out=not10);
-    Not(in=in[11], out=not11);
-    Not(in=in[12], out=not12);
-    Not(in=in[13], out=not13);
-    Not(in=in[14], out=not14);
-    Not(in=in[15], out=not15);
-
-    out[0] = not0;
-    out[1] = not1;
-    out[2] = not2;
-    out[3] = not3;
-    out[4] = not4;
-    out[5] = not5;
-    out[6] = not6;
-    out[7] = not7;
-    out[8] = not8;
-    out[9] = not9;
-    out[10] = not10;
-    out[11] = not11;
-    out[12] = not12;
-    out[13] = not13;
-    out[14] = not14;
-    out[15] = not15;
+    Not(in=in[0], out=out[0]);
+    Not(in=in[1], out=out[1]);
+    Not(in=in[2], out=out[2]);
+    Not(in=in[3], out=out[3]);
+    Not(in=in[4], out=out[4]);
+    Not(in=in[5], out=out[5]);
+    Not(in=in[6], out=out[6]);
+    Not(in=in[7], out=out[7]);
+    Not(in=in[8], out=out[8]);
+    Not(in=in[9], out=out[9]);
+    Not(in=in[10], out=out[10]);
+    Not(in=in[11], out=out[11]);
+    Not(in=in[12], out=out[12]);
+    Not(in=in[13], out=out[13]);
+    Not(in=in[14], out=out[14]);
+    Not(in=in[15], out=out[15]);
 }

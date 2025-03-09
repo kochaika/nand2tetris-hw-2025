@@ -16,26 +16,14 @@
 CHIP DMux8Way {
     IN in, sel[3];
     OUT a, b, c, d, e, f, g, h;
-    
-    
+
     PARTS:
-    
-    Not(in=sel[0], out=notSel0);
-    Not(in=sel[1], out=notSel1);
-    Not(in=sel[2], out=notSel2);
+    // First level: Split input into two parts using sel[2]
+    DMux(in=in, sel=sel[2], a=left, b=right);
 
-    And(a=in, b=notSel2, out=left);
-    And(a=in, b=sel[2], out=right);
+    // Second level: Split each part further using sel[1]
+    DMux(in=left, sel=sel[1], a=leftTop, b=leftBottom);
+    DMux(in=right, sel=sel[1], a=rightTop, b=rightBottom);
 
-    And(a=left, b=notSel1, out=a);
-    And(a=left, b=sel[1], out=b);
-
-    And(a=right, b=notSel1, out=c);
-    And(a=right, b=sel[1], out=d);
-
-    And(a=a, b=notSel0, out=e);
-    And(a=a, b=sel[0], out=f);
-
-    And(a=b, b=notSel0, out=g);
-    And(a=b, b=sel[0], out=h);
+    // Third level: Final split
 }
