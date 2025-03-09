@@ -1,0 +1,104 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/2/ALU.hdl
+/**
+ * ALU (Arithmetic Logic Unit):
+ * Computes out = one of the following functions:
+ *                0, 1, -1,
+ *                x, y, !x, !y, -x, -y,
+ *                x + 1, y + 1, x - 1, y - 1,
+ *                x + y, x - y, y - x,
+ *                x & y, x | y
+ * on the 16-bit inputs x, y,
+ * according to the input bits zx, nx, zy, ny, f, no.
+ * In addition, computes the two output bits:
+ * if (out == 0) zr = 1, else zr = 0
+ * if (out < 0)  ng = 1, else ng = 0
+ */
+// Implementation: Manipulates the x and y inputs
+// and operates on the resulting values, as follows:
+// if (zx == 1) sets x = 0        // 16-bit constant
+// if (nx == 1) sets x = !x       // bitwise not
+// if (zy == 1) sets y = 0        // 16-bit constant
+// if (ny == 1) sets y = !y       // bitwise not
+// if (f == 1)  sets out = x + y  // integer 2's complement addition
+// if (f == 0)  sets out = x & y  // bitwise and
+// if (no == 1) sets out = !out   // bitwise not
+
+CHIP ALU {
+    IN  
+        x[16], y[16],  // 16-bit inputs        
+        zx, // zero the x input?
+        nx, // negate the x input?
+        zy, // zero the y input?
+        ny, // negate the y input?
+        f,  // compute (out = x + y) or (out = x & y)?
+        no; // negate the out output?
+    OUT 
+        out[16], // 16-bit output
+        zr,      // if (out == 0) equals 1, else 0
+        ng;      // if (out < 0)  equals 1, else 0
+
+    PARTS:
+
+    // Zero the x input
+    Xor16(a[0..15]=true, b[0]=zx, b[1]=zx, b[2]=zx, b[3]=zx
+                        , b[4]=zx, b[5]=zx, b[6]=zx, b[7]=zx
+                        , b[8]=zx, b[9]=zx, b[10]=zx, b[11]=zx
+                        , b[12]=zx, b[13]=zx, b[14]=zx, b[15]=zx
+                        , out=toAnd);
+    And16(a=x, b=toAnd, out=newX1);
+
+    // Negate the x input
+    Xor16(a[0..15]=false, b[0]=nx, b[1]=nx, b[2]=nx, b[3]=nx
+                        , b[4]=nx, b[5]=nx, b[6]=nx, b[7]=nx
+                        , b[8]=nx, b[9]=nx, b[10]=nx, b[11]=nx
+                        , b[12]=nx, b[13]=nx, b[14]=nx, b[15]=nx
+                        , out=toXor);
+    Xor16(a=newX1, b=toXor, out=newX2);
+
+    // Zero the y input
+    Xor16(a[0..15]=true, b[0]=zy, b[1]=zy, b[2]=zy, b[3]=zy
+                        , b[4]=zy, b[5]=zy, b[6]=zy, b[7]=zy
+                        , b[8]=zy, b[9]=zy, b[10]=zy, b[11]=zy
+                        , b[12]=zy, b[13]=zy, b[14]=zy, b[15]=zy
+                        , out=toAnd2);
+    And16(a=y, b=toAnd2, out=newY1);
+
+    // Negate the y input
+    Xor16(a[0..15]=false, b[0]=ny, b[1]=ny, b[2]=ny, b[3]=ny
+                        , b[4]=ny, b[5]=ny, b[6]=ny, b[7]=ny
+                        , b[8]=ny, b[9]=ny, b[10]=ny, b[11]=ny
+                        , b[12]=ny, b[13]=ny, b[14]=ny, b[15]=ny
+                        , out=toXor2);
+   
+    Xor16(a=newY1, b=toXor2, out=newY2);
+
+    // Operations
+    Add16(a=newX2, b=newY2, out=sumXY);
+    And16(a=newX2, b=newY2, out=andXY);
+    Mux16(a=andXY, b=sumXY, sel=f, out=res);
+
+    // Negate the result
+    Xor16(a[0..15]=false, b[0]=no, b[1]=no, b[2]=no, b[3]=no
+                        , b[4]=no, b[5]=no, b[6]=no, b[7]=no
+                        , b[8]=no, b[9]=no, b[10]=no, b[11]=no
+                        , b[12]=no, b[13]=no, b[14]=no, b[15]=no
+                        , out=toXor3);
+    
+    Xor16(a=res, b=toXor3, out=res2);
+
+    // Get ng
+    Or16(a=res2, b=false, out[0..14]=out[0..14], out[15]=ng);
+    Or16(a=res2, b=false, out=out);
+
+    Or16(a=res2, b=false, out[0]=b0, out[1]=b1, out[2]=b2, out[3]=b3, out[4]=b4, out[5]=b5, out[6]=b6, out[7]=b7
+        , out[8]=c0, out[9]=c1, out[10]=c2, out[11]=c3, out[12]=c4, out[13]=c5, out[14]=c6, out[15]=c7);
+
+    Or8Way(in[0]=b0, in[1]=b1, in[2]=b2, in[3]=b3, in[4]=b4, in[5]=b5, in[6]=b6, in[7]=b7, out=firstHalf);
+    Or8Way(in[0]=c0, in[1]=c1, in[2]=c2, in[3]=c3, in[4]=c4, in[5]=c5, in[6]=c6, in[7]=c7, out=secondHalf);
+    Not(in=firstHalf, out=firstHalf1);
+    Not(in=secondHalf, out=secondHalf1);
+    And(a=firstHalf1, b=secondHalf1, out=zr);
+}
