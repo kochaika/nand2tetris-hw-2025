@@ -18,12 +18,17 @@ CHIP DMux8Way {
     OUT a, b, c, d, e, f, g, h;
 
     PARTS:
-    // First level: Split input into two parts using sel[2]
+    
     DMux(in=in, sel=sel[2], a=left, b=right);
 
-    // Second level: Split each part further using sel[1]
+    
     DMux(in=left, sel=sel[1], a=leftTop, b=leftBottom);
     DMux(in=right, sel=sel[1], a=rightTop, b=rightBottom);
 
-    // Third level: Final split
+    
+    DMux(in=leftTop, sel=sel[0], a=a, b=b);
+    DMux(in=leftBottom, sel=sel[0], a=c, b=d);
+    DMux(in=rightTop, sel=sel[0], a=e, b=f);
+    DMux(in=rightBottom, sel=sel[0], a=g, b=h);
 }
+
