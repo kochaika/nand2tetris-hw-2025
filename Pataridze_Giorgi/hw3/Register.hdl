@@ -1,0 +1,113 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/3/a/Register.hdl
+/**
+ * 16-bit register:
+ * If load is asserted, the register's value is set to in;
+ * Otherwise, the register maintains its current value:
+ * if (load(t)) out(t+1) = int(t), else out(t+1) = out(t)
+ */
+CHIP Register {
+    IN in[16], load;
+    OUT out[16];
+
+    PARTS:
+    Not(in=load, out=notLoad);
+
+    // Bit 0
+    And(a=notLoad, b=internal0, out=and0);
+    And(a=load, b=in[0], out=and1);
+    Or(a=and0, b=and1, out=nextInternal0);
+    DFF(in=nextInternal0, out=internal0, out=out[0]);
+
+    // Bit 1
+    And(a=notLoad, b=internal1, out=and2);
+    And(a=load, b=in[1], out=and3);
+    Or(a=and2, b=and3, out=nextInternal1);
+    DFF(in=nextInternal1, out=internal1, out=out[1]);
+
+    // Bit 2
+    And(a=notLoad, b=internal2, out=and4);
+    And(a=load, b=in[2], out=and5);
+    Or(a=and4, b=and5, out=nextInternal2);
+    DFF(in=nextInternal2, out=internal2, out=out[2]);
+
+    // Bit 3
+    And(a=notLoad, b=internal3, out=and6);
+    And(a=load, b=in[3], out=and7);
+    Or(a=and6, b=and7, out=nextInternal3);
+    DFF(in=nextInternal3, out=internal3, out=out[3]);
+
+    // Bit 4
+    And(a=notLoad, b=internal4, out=and8);
+    And(a=load, b=in[4], out=and9);
+    Or(a=and8, b=and9, out=nextInternal4);
+    DFF(in=nextInternal4, out=internal4, out=out[4]);
+
+    // Bit 5
+    And(a=notLoad, b=internal5, out=and10);
+    And(a=load, b=in[5], out=and11);
+    Or(a=and10, b=and11, out=nextInternal5);
+    DFF(in=nextInternal5, out=internal5, out=out[5]);
+
+    // Bit 6
+    And(a=notLoad, b=internal6, out=and12);
+    And(a=load, b=in[6], out=and13);
+    Or(a=and12, b=and13, out=nextInternal6);
+    DFF(in=nextInternal6, out=internal6, out=out[6]);
+
+    // Bit 7
+    And(a=notLoad, b=internal7, out=and14);
+    And(a=load, b=in[7], out=and15);
+    Or(a=and14, b=and15, out=nextInternal7);
+    DFF(in=nextInternal7, out=internal7, out=out[7]);
+
+    // Bit 8
+    And(a=notLoad, b=internal8, out=and16);
+    And(a=load, b=in[8], out=and17);
+    Or(a=and16, b=and17, out=nextInternal8);
+    DFF(in=nextInternal8, out=internal8, out=out[8]);
+
+    // Bit 9
+    And(a=notLoad, b=internal9, out=and18);
+    And(a=load, b=in[9], out=and19);
+    Or(a=and18, b=and19, out=nextInternal9);
+    DFF(in=nextInternal9, out=internal9, out=out[9]);
+
+    // Bit 10
+    And(a=notLoad, b=internal10, out=and20);
+    And(a=load, b=in[10], out=and21);
+    Or(a=and20, b=and21, out=nextInternal10);
+    DFF(in=nextInternal10, out=internal10, out=out[10]);
+
+    // Bit 11
+    And(a=notLoad, b=internal11, out=and22);
+    And(a=load, b=in[11], out=and23);
+    Or(a=and22, b=and23, out=nextInternal11);
+    DFF(in=nextInternal11, out=internal11, out=out[11]);
+
+    // Bit 12
+    And(a=notLoad, b=internal12, out=and24);
+    And(a=load, b=in[12], out=and25);
+    Or(a=and24, b=and25, out=nextInternal12);
+    DFF(in=nextInternal12, out=internal12, out=out[12]);
+
+    // Bit 13
+    And(a=notLoad, b=internal13, out=and26);
+    And(a=load, b=in[13], out=and27);
+    Or(a=and26, b=and27, out=nextInternal13);
+    DFF(in=nextInternal13, out=internal13, out=out[13]);
+
+    // Bit 14
+    And(a=notLoad, b=internal14, out=and28);
+    And(a=load, b=in[14], out=and29);
+    Or(a=and28, b=and29, out=nextInternal14);
+    DFF(in=nextInternal14, out=internal14, out=out[14]);
+
+    // Bit 15
+    And(a=notLoad, b=internal15, out=and30);
+    And(a=load, b=in[15], out=and31);
+    Or(a=and30, b=and31, out=nextInternal15);
+    DFF(in=nextInternal15, out=internal15, out=out[15]);
+}
