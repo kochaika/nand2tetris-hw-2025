@@ -1,15 +1,15 @@
 // This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/2/Inc16.hdl
+// File name: projects/1/Not.hdl
 /**
- * 16-bit incrementer:
- * out = in + 1
+ * Not gate:
+ * if (in) out = 0, else out = 1
  */
-CHIP Inc16 {
-    IN in[16];
-    OUT out[16];
+CHIP Not {
+    IN in;
+    OUT out;
 
     PARTS:
-    Add16(a=in,b[0]=true,out=out);
+    Nand(a=in, b=in, out=out);
 }
