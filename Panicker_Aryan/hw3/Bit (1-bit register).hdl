@@ -1,0 +1,10 @@
+CHIP Bit {
+    IN in, load;
+    OUT out;
+
+    PARTS:
+    // Use a multiplexer to select between the previous value and the new input
+    Mux(a=dffOut, b=in, sel=load, out=muxOut);
+    // Feed the selected value to the DFF
+    DFF(in=muxOut, out=dffOut, out=out);
+}
