@@ -1,0 +1,295 @@
+[33mcommit 592babd389565002409dffd032bd0a4d0ebe3873[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mhw2-only[m[33m, [m[1;31morigin/hw2-only[m[33m, [m[1;32mmain[m[33m)[m
+Author: Endi-Rexhepi <endirexhepi5@gmail.com>
+Date:   Sun Mar 2 23:21:22 2025 +0100
+
+    HW2 solutions added
+
+[33mcommit 2331bb8b3262bd2100268661905104e69c27a22a[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Endi-Rexhepi <endirexhepi5@gmail.com>
+Date:   Sun Feb 23 23:03:34 2025 +0100
+
+    Homework 1
+
+[33mcommit 823b652e28a3c0033000c00fe1cde89effeec4bf[m
+Author: Endi-Rexhepi <endirexhepi5@gmail.com>
+Date:   Sun Feb 23 22:51:37 2025 +0100
+
+    Homework 1
+
+[33mcommit a7cbc29c0dadc08db7645d6334f81c00ce22d67b[m
+Merge: 78f1ca5 4869a2f
+Author: urehman-constructor <urehman@constructor.university>
+Date:   Wed Feb 19 10:18:43 2025 +0100
+
+    Merge pull request #58 from mateowoetam/main
+    
+    Orlaineta_Mateo_hw1
+
+[33mcommit 78f1ca56360403f3470fc7351383683663396eb7[m
+Merge: 04f1c44 a9c7465
+Author: urehman-constructor <urehman@constructor.university>
+Date:   Wed Feb 19 10:18:06 2025 +0100
+
+    Merge pull request #72 from Thushar-Venkataramanaiah/main
+    
+    Venkataramanaiah_Thushar_hw1
+
+[33mcommit a9c74659795c180be12931cbade03c201b131e2e[m
+Author: Thushar-Venkataramanaiah <tvenkatara@constructor.university>
+Date:   Tue Feb 18 17:39:48 2025 +0100
+
+    Remove thushar_hw.txt
+
+[33mcommit e8baff3f5fc91c7533e0656697a617c9c600742b[m
+Author: Thushar-Venkataramanaiah <tvenkatara@constructor.university>
+Date:   Tue Feb 18 17:29:48 2025 +0100
+
+    added hdl files to homework 1 by thushar
+
+[33mcommit 17d2fe058be74c4f9e4849288e62a584a061213a[m
+Author: Thushar-Venkataramanaiah <tvenkatara@constructor.university>
+Date:   Tue Feb 18 17:20:36 2025 +0100
+
+    added folder sturcture for thushar hw1
+
+[33mcommit 04f1c44f30f29e7874774567a19e3103687b545a[m
+Merge: c035f20 68c7aa3
+Author: urehman-constructor <urehman@constructor.university>
+Date:   Tue Feb 18 13:42:04 2025 +0100
+
+    Merge pull request #68 from e-mati/main
+    
+    e-mati submitting HW1
+
+[33mcommit c035f20c97c92b91c9ff8519ae88c31552d72b24[m
+Merge: e76bff8 7e8c649
+Author: urehman-constructor <urehman@constructor.university>
+Date:   Tue Feb 18 13:36:25 2025 +0100
+
+    Merge pull request #46 from Kholoudelballi/main
+    
+    New added folder structure for Elballi_Kholoud homework 1
+
+[33mcommit e76bff8771e060f1b6b422f4659487cee5711612[m
+Merge: b0ba6f4 cf67cdc
+Author: urehman-constructor <urehman@constructor.university>
+Date:   Tue Feb 18 13:34:48 2025 +0100
+
+    Merge pull request #69 from konark2006/main
+    
+    Homework1
+
+[33mcommit 7e8c649d31691ee54801e0431fb41d4136a607af[m
+Author: Kholoud <nuvita@Kholouds-MacBook-Air.local>
+Date:   Tue Feb 18 13:31:56 2025 +0100
+
+    Kholouds Homework 1
+
+[33mcommit cf67cdc4eaa07bbdb79c1a311fc1a3961595228a[m
+Author: konark2006 <konarkmishra2006@gmail.com>
+Date:   Tue Feb 18 13:29:47 2025 +0100
+
+    Konark Homework
+
+[33mcommit 68c7aa312621815b6e6abc72798b087b30832713[m
+Author: e-mati <emati@constructor.university>
+Date:   Tue Feb 18 15:58:15 2025 +0400
+
+    h1 attempt 1
+
+[33mcommit 8cb4f77ced6be95fe2d1776d5e1ecc00f2df13fb[m
+Merge: cfb4df1 b0ba6f4
+Author: Konark <131752561+konark2006@users.noreply.github.com>
+Date:   Tue Feb 18 12:39:42 2025 +0100
+
+    Merge pull request #1 from kochaika/main
+    
+    HW1
+
+[33mcommit 4869a2f7b21900d03928df59244d5807cd85463c[m
+Author: Mateo <79337611+mateowoetam@users.noreply.github.com>
+Date:   Fri Feb 14 10:03:36 2025 +0000
+
+    Delete Orlaineta_Mateo/hw1/Orlaineta_HW.txt
+
+[33mcommit 7e59e82e98a21befc77b550faf030d043a9030cb[m
+Author: Mateo <79337611+mateowoetam@users.noreply.github.com>
+Date:   Fri Feb 14 10:02:28 2025 +0000
+
+    Update And16.hdl
+
+[33mcommit 35afc0d482f36b494f86410f5fe5f7647c8197ba[m
+Author: Mateo <79337611+mateowoetam@users.noreply.github.com>
+Date:   Fri Feb 14 10:01:40 2025 +0000
+
+    Update DMux8Way.hdl
+
+[33mcommit b7ca496cfba14da399af61bb88cdf43839cce83f[m
+Author: Mateo <79337611+mateowoetam@users.noreply.github.com>
+Date:   Fri Feb 14 10:00:39 2025 +0000
+
+    Update Mux16.hdl
+
+[33mcommit 066ac7fb603cc430b56c26d2a0d4065869136f99[m
+Author: Mateo <79337611+mateowoetam@users.noreply.github.com>
+Date:   Fri Feb 14 09:59:25 2025 +0000
+
+    Update Or16.hdl
+
+[33mcommit 8aa5d237b38c24cf6b1cdb5b8304884788d8bc01[m
+Author: Mateo <79337611+mateowoetam@users.noreply.github.com>
+Date:   Fri Feb 14 09:57:42 2025 +0000
+
+    Update Or16.hdl
+
+[33mcommit db25aaf2d25fa1a79012b066ea6f24b9988e8710[m
+Author: Mateo <79337611+mateowoetam@users.noreply.github.com>
+Date:   Fri Feb 14 09:56:24 2025 +0000
+
+    Update Or16.hdl
+
+[33mcommit b0ba6f4841bf9a66fe4ee0b05d58e64f68633072[m
+Merge: cfb4df1 7de5d54
+Author: Konstantin Chaika <10850581+kochaika@users.noreply.github.com>
+Date:   Fri Feb 14 10:47:01 2025 +0100
+
+    Merge pull request #55 from DanLyss/main
+    
+    Lysyi_Daniel_hw1
+
+[33mcommit 7de5d54f490d20f81df8758bd709f8834247cc4e[m
+Author: DanLyss <daniellysy566@gmail.com>
+Date:   Thu Feb 13 00:30:22 2025 +0100
+
+    fix
+
+[33mcommit cf5838546a84284f197134ceb53cace3a3ac9577[m
+Author: DanLyss <daniellysy566@gmail.com>
+Date:   Thu Feb 13 00:25:24 2025 +0100
+
+    hw1
+
+[33mcommit bc5964704bb13ee99dd9ef76559c5e6d6896b7b5[m
+Author: Mateo <79337611+mateowoetam@users.noreply.github.com>
+Date:   Tue Feb 11 17:37:31 2025 +0000
+
+    Rename Alice_HW.txt to Orlaineta_HW.txt
+
+[33mcommit 76cf188875f5655d9798f90e959a0d87b90ae230[m
+Author: Mateo <79337611+mateowoetam@users.noreply.github.com>
+Date:   Tue Feb 11 18:36:48 2025 +0100
+
+    Gates hdl files submission
+
+[33mcommit 33ac697fb950caa6c5fe0fbb692786bb8e6bbc60[m
+Author: Kholoud <nuvita@Kholouds-MacBook-Air.local>
+Date:   Tue Feb 11 13:01:47 2025 +0100
+
+    Added folder structure for the Elballi_Kholoud homework 1
+
+[33mcommit dc552242322b35bd764f5b32c915c03a2a0c3289[m
+Author: Kholoud <nuvita@Kholouds-MacBook-Air.local>
+Date:   Tue Feb 11 12:45:50 2025 +0100
+
+    Added folder structure for Elballi_Kholoud homework 1
+
+[33mcommit f2b50e638e9edd25476248d5e213b782b8d3d479[m
+Author: Kholoud <nuvita@Kholouds-MacBook-Air.local>
+Date:   Fri Feb 7 14:20:44 2025 +0100
+
+    Added folder structure for Elballi_Kholoud homework 1
+
+[33mcommit f9c499a7b86a4fc1c881802c608971d0e8c9392d[m
+Author: Kholoud <nuvita@Kholouds-MacBook-Air.local>
+Date:   Thu Feb 6 09:41:42 2025 +0100
+
+    added folder structure for Elballi_Kholoud homework 1
+
+[33mcommit cfb4df1d933ac6fab8790be6c7fcb716ed8243df[m
+Merge: f2ed4a9 f8aff47
+Author: urehman-constructor <urehman@constructor.university>
+Date:   Wed Feb 5 11:07:46 2025 +0100
+
+    Merge pull request #1 from mateowoetam/main
+    
+    Orlaineta_Mateo
+
+[33mcommit f2ed4a992da0080951d618d85ebe75ab38a01c12[m
+Merge: 050c820 5b2b808
+Author: urehman-constructor <urehman@constructor.university>
+Date:   Wed Feb 5 11:03:25 2025 +0100
+
+    Merge pull request #3 from mara5555/main
+    
+    Added folder structure for homeworks for Mara-Teodora Bandila
+
+[33mcommit 050c8202e560e33ba654e2e5a0686e7a28714aec[m
+Merge: 3dbc74e 8e94bed
+Author: urehman-constructor <urehman@constructor.university>
+Date:   Wed Feb 5 10:56:02 2025 +0100
+
+    Merge pull request #5 from NicciTud/main
+    
+    Added folder structure for Nicci Tud homework 1
+
+[33mcommit 3dbc74e9fe031e042d07817d3d5f974606ebcfd8[m
+Merge: e713549 c1c2624
+Author: urehman-constructor <urehman@constructor.university>
+Date:   Wed Feb 5 10:53:31 2025 +0100
+
+    Merge pull request #6 from AshvathBabu/main
+    
+    Added folder structure for Ashvath homeworks
+
+[33mcommit e7135490336f8ef4c6ba919c4305e3918c619043[m
+Author: urehman-constructor <urehman@constructor.university>
+Date:   Wed Feb 5 10:51:23 2025 +0100
+
+    Delete Venkataramanaiah_Thushar_HW.txt
+    
+    The file structure is not as per the guidelines.
+
+[33mcommit 711fdf0aeecc82bbda63a15ac507f4cf60e329cc[m
+Merge: 7140855 0f31e17
+Author: urehman-constructor <urehman@constructor.university>
+Date:   Wed Feb 5 10:49:30 2025 +0100
+
+    Merge pull request #2 from Thushar-Venkataramanaiah/main
+    
+    Added Folder Structure for Venkataramanaiah_Thushar homework 1
+
+[33mcommit c1c26240196e315ee0a4cf82663e9d25198b6645[m
+Author: Ashvath Babu <babu.ashvath25@gmail.com>
+Date:   Wed Feb 5 01:08:32 2025 +0100
+
+    Added folder structure for Ashvath homeworks
+
+[33mcommit 8e94bed8ead52884fe085fe457491715b5f781ac[m
+Author: Nicci Tud <ntud@constructor.university>
+Date:   Wed Feb 5 01:02:49 2025 +0100
+
+    Added folder structure for Nicci Tud homework 1
+
+[33mcommit 5b2b808731d09711060f4b8ab807409e375b8e22[m
+Author: mara5555 <mara.bandila5@gmail.com>
+Date:   Tue Feb 4 17:38:34 2025 +0100
+
+    Added folder structure for homeworks
+
+[33mcommit 0f31e17b444868da321b0826082348038b885979[m
+Author: thushar <thusharvadil@gmail.com>
+Date:   Tue Feb 4 17:32:19 2025 +0100
+
+    Added Folder Structure for Venkataramanaiah_Thushar homework 1
+
+[33mcommit f8aff473d823792dd7436507568f466b92660e92[m
+Author: Mateo Orlaineta <mateoorlaineta26@gmail.com>
+Date:   Tue Feb 4 13:36:46 2025 +0100
+
+    Added folder structure for Alice homework 1
+
+[33mcommit 71408550a237004ff001243d7f5b86041bc35b80[m
+Author: Konstantin Chaika <pro100kot14@gmail.com>
+Date:   Mon Feb 3 16:06:33 2025 +0100
+
+    Init repo
