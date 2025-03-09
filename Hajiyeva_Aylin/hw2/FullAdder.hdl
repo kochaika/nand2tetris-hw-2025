@@ -1,0 +1,13 @@
+CHIP FullAdder {
+    IN a, b, c;  // 1-bit inputs
+    OUT sum,     // Right bit of a + b + c
+        carry;   // Left bit of a + b + c
+
+    PARTS:
+    //first half-adder
+    HalfAdder(a=a , b=b , sum=sum1 , carry= carry1);
+    //second half-adder
+    HalfAdder(a=sum1 , b=c , sum=sum , carry=carry2);
+    //final carry out
+    Or(a=carry1, b=carry2, out=carry);
+}
