@@ -1,0 +1,171 @@
+CHIP ALU {
+    IN  
+        x[16], y[16],zx,nx,zy,ny,f,no;
+    OUT 
+        out[16], zr, ng,
+    ;
+    PARTS:
+    // Zero out x and y if necessary
+    Mux(a=x[0], b=false, sel=zx, out=x0Zeroed);
+    Mux(a=x[1], b=false, sel=zx, out=x1Zeroed);
+    Mux(a=x[2], b=false, sel=zx, out=x2Zeroed);
+    Mux(a=x[3], b=false, sel=zx, out=x3Zeroed);
+    Mux(a=x[4], b=false, sel=zx, out=x4Zeroed);
+    Mux(a=x[5], b=false, sel=zx, out=x5Zeroed);
+    Mux(a=x[6], b=false, sel=zx, out=x6Zeroed);
+    Mux(a=x[7], b=false, sel=zx, out=x7Zeroed);
+    Mux(a=x[8], b=false, sel=zx, out=x8Zeroed);
+    Mux(a=x[9], b=false, sel=zx, out=x9Zeroed);
+    Mux(a=x[10], b=false, sel=zx, out=x10Zeroed);
+    Mux(a=x[11], b=false, sel=zx, out=x11Zeroed);
+    Mux(a=x[12], b=false, sel=zx, out=x12Zeroed);
+    Mux(a=x[13], b=false, sel=zx, out=x13Zeroed);
+    Mux(a=x[14], b=false, sel=zx, out=x14Zeroed);
+    Mux(a=x[15], b=false, sel=zx, out=x15Zeroed);
+
+    Mux(a=y[0], b=false, sel=zy, out=y0Zeroed);
+    Mux(a=y[1], b=false, sel=zy, out=y1Zeroed);
+    Mux(a=y[2], b=false, sel=zy, out=y2Zeroed);
+    Mux(a=y[3], b=false, sel=zy, out=y3Zeroed);
+    Mux(a=y[4], b=false, sel=zy, out=y4Zeroed);
+    Mux(a=y[5], b=false, sel=zy, out=y5Zeroed);
+    Mux(a=y[6], b=false, sel=zy, out=y6Zeroed);
+    Mux(a=y[7], b=false, sel=zy, out=y7Zeroed);
+    Mux(a=y[8], b=false, sel=zy, out=y8Zeroed);
+    Mux(a=y[9], b=false, sel=zy, out=y9Zeroed);
+    Mux(a=y[10], b=false, sel=zy, out=y10Zeroed);
+    Mux(a=y[11], b=false, sel=zy, out=y11Zeroed);
+    Mux(a=y[12], b=false, sel=zy, out=y12Zeroed);
+    Mux(a=y[13], b=false, sel=zy, out=y13Zeroed);
+    Mux(a=y[14], b=false, sel=zy, out=y14Zeroed);
+    Mux(a=y[15], b=false, sel=zy, out=y15Zeroed);
+
+    // Negate x and y if necessary
+    Not(in=x0Zeroed, out=x0Not);
+    Not(in=x1Zeroed, out=x1Not);
+    Not(in=x2Zeroed, out=x2Not);
+    Not(in=x3Zeroed, out=x3Not);
+    Not(in=x4Zeroed, out=x4Not);
+    Not(in=x5Zeroed, out=x5Not);
+    Not(in=x6Zeroed, out=x6Not);
+    Not(in=x7Zeroed, out=x7Not);
+    Not(in=x8Zeroed, out=x8Not);
+    Not(in=x9Zeroed, out=x9Not);
+    Not(in=x10Zeroed, out=x10Not);
+    Not(in=x11Zeroed, out=x11Not);
+    Not(in=x12Zeroed, out=x12Not);
+    Not(in=x13Zeroed, out=x13Not);
+    Not(in=x14Zeroed, out=x14Not);
+    Not(in=x15Zeroed, out=x15Not);
+
+    Not(in=y0Zeroed, out=y0Not);
+    Not(in=y1Zeroed, out=y1Not);
+    Not(in=y2Zeroed, out=y2Not);
+    Not(in=y3Zeroed, out=y3Not);
+    Not(in=y4Zeroed, out=y4Not);
+    Not(in=y5Zeroed, out=y5Not);
+    Not(in=y6Zeroed, out=y6Not);
+    Not(in=y7Zeroed, out=y7Not);
+    Not(in=y8Zeroed, out=y8Not);
+    Not(in=y9Zeroed, out=y9Not);
+    Not(in=y10Zeroed, out=y10Not);
+    Not(in=y11Zeroed, out=y11Not);
+    Not(in=y12Zeroed, out=y12Not);
+    Not(in=y13Zeroed, out=y13Not);
+    Not(in=y14Zeroed, out=y14Not);
+    Not(in=y15Zeroed, out=y15Not);
+
+    Mux(a=x0Zeroed, b=x0Not, sel=nx, out=x0Final);
+    Mux(a=x1Zeroed, b=x1Not, sel=nx, out=x1Final);
+    Mux(a=x2Zeroed, b=x2Not, sel=nx, out=x2Final);
+    Mux(a=x3Zeroed, b=x3Not, sel=nx, out=x3Final);
+    Mux(a=x4Zeroed, b=x4Not, sel=nx, out=x4Final);
+    Mux(a=x5Zeroed, b=x5Not, sel=nx, out=x5Final);
+    Mux(a=x6Zeroed, b=x6Not, sel=nx, out=x6Final);
+    Mux(a=x7Zeroed, b=x7Not, sel=nx, out=x7Final);
+    Mux(a=x8Zeroed, b=x8Not, sel=nx, out=x8Final);
+    Mux(a=x9Zeroed, b=x9Not, sel=nx, out=x9Final);
+    Mux(a=x10Zeroed, b=x10Not, sel=nx, out=x10Final);
+    Mux(a=x11Zeroed, b=x11Not, sel=nx, out=x11Final);
+    Mux(a=x12Zeroed, b=x12Not, sel=nx, out=x12Final);
+    Mux(a=x13Zeroed, b=x13Not, sel=nx, out=x13Final);
+    Mux(a=x14Zeroed, b=x14Not, sel=nx, out=x14Final);
+    Mux(a=x15Zeroed, b=x15Not, sel=nx, out=x15Final);
+
+    Mux(a=y0Zeroed, b=y0Not, sel=ny, out=y0Final);
+    Mux(a=y1Zeroed, b=y1Not, sel=ny, out=y1Final);
+    Mux(a=y2Zeroed, b=y2Not, sel=ny, out=y2Final);
+    Mux(a=y3Zeroed, b=y3Not, sel=ny, out=y3Final);
+    Mux(a=y4Zeroed, b=y4Not, sel=ny, out=y4Final);
+    Mux(a=y5Zeroed, b=y5Not, sel=ny, out=y5Final);
+    Mux(a=y6Zeroed, b=y6Not, sel=ny, out=y6Final);
+    Mux(a=y7Zeroed, b=y7Not, sel=ny, out=y7Final);
+    Mux(a=y8Zeroed, b=y8Not, sel=ny, out=y8Final);
+    Mux(a=y9Zeroed, b=y9Not, sel=ny, out=y9Final);
+    Mux(a=y10Zeroed, b=y10Not, sel=ny, out=y10Final);
+    Mux(a=y11Zeroed, b=y11Not, sel=ny, out=y11Final);
+    Mux(a=y12Zeroed, b=y12Not, sel=ny, out=y12Final);
+    Mux(a=y13Zeroed, b=y13Not, sel=ny, out=y13Final);
+    Mux(a=y14Zeroed, b=y14Not, sel=ny, out=y14Final);
+    Mux(a=y15Zeroed, b=y15Not, sel=ny, out=y15Final);
+
+    // Perform Add and AND operations
+    And(a=x0Final, b=y0Final, out=out1);
+    And(a=x1Final, b=y1Final, out=out2);
+    And(a=x2Final, b=y2Final, out=out3);
+    And(a=x3Final, b=y3Final, out=out4);
+    And(a=x4Final, b=y4Final, out=out5);
+    And(a=x5Final, b=y5Final, out=out6);
+    And(a=x6Final, b=y6Final, out=out7);
+    And(a=x7Final, b=y7Final, out=out8);
+    And(a=x8Final, b=y8Final, out=out9);
+    And(a=x9Final, b=y9Final, out=out10);
+    And(a=x10Final, b=y10Final, out=out11);
+    And(a=x11Final, b=y11Final, out=out12);
+    And(a=x12Final, b=y12Final, out=out13);
+    And(a=x13Final, b=y13Final, out=out14);
+    And(a=x14Final, b=y14Final, out=out15);
+    And(a=x15Final, b=y15Final, out=out16);
+
+
+    // Final negation of the result if needed
+    Not(in=out1, out=outNot1);
+    Not(in=out2, out=outNot2);
+    Not(in=out3, out=outNot3);
+    Not(in=out4, out=outNot4);
+    Not(in=out5, out=outNot5);
+    Not(in=out6, out=outNot6);
+    Not(in=out7, out=outNot7);
+    Not(in=out8, out=outNot8);
+    Not(in=out9, out=outNot9);
+    Not(in=out10, out=outNot10);
+    Not(in=out11, out=outNot11);
+    Not(in=out12, out=outNot12);
+    Not(in=out13, out=outNot13);
+    Not(in=out14, out=outNot14);
+    Not(in=out15, out=outNot15);
+    Not(in=out16, out=outNot16);
+
+    Mux(a=out1, b=outNot1, sel=no, out=outFinal);
+
+    // Set the Zero and Negative flags
+    Or(a=out1, b=out2, out=zrOr);
+    Or(a=zrOr, b=out3, out=zrOr2);
+    Or(a=zrOr2, b=out4, out=zrOr3);
+    Or(a=zrOr3, b=out5, out=zrOr4);
+    Or(a=zrOr4, b=out6, out=zrOr5);
+    Or(a=zrOr5, b=out7, out=zrOr6);
+    Or(a=zrOr6, b=out8, out=zrOr7);
+    Or(a=zrOr7, b=out9, out=zrOr8);
+    Or(a=zrOr8, b=out10, out=zrOr9);
+    Or(a=zrOr9, b=out11, out=zrOr10);
+    Or(a=zrOr10, b=out12, out=zrOr11);
+    Or(a=zrOr11, b=out13, out=zrOr12);
+    Or(a=zrOr12, b=out14, out=zrOr13);
+    Or(a=zrOr13, b=out15, out=zrOr14);
+    Or(a=zrOr14, b=out16, out=zrOr15);
+    Not(in=zrOr15, out=zr);
+
+    // Check if the output is negative (sign bit)
+    And(a=out16, b=true, out=ng);
+}
