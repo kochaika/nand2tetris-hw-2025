@@ -34,28 +34,37 @@ jobs:
         with:
            since_last_remote_commit: true
 
-      - name: List all changed files
-        env:
-          ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
-        run: |
-          echo "Files changed:"
-          echo ${ALL_CHANGED_FILES}
-          ALL_CHANGED_FILES_ARR=(${ALL_CHANGED_FILES})
-          DIR_NAME="$(dirname ${ALL_CHANGED_FILES_ARR[0]})"
-          SAME_DIR=true
-          for file in "${ALL_CHANGED_FILES_ARR[@]}"; do 
-            if [ "$DIR_NAME" != "$(dirname $file)" ]; then
-            SAME_DIR=false
-            break
-            fi
-          done
-          echo "All changed files are in the same directory: $SAME_DIR"
-          if [ "$SAME_DIR" = true ] ; then
-             echo "HW_DIR=$DIR_NAME" >> $GITHUB_ENV
-             exit 0
-          else
-             exit 1
-          fi     
+- name: List all changed files
+  env:
+    ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+  run: |
+    echo "Files changed:"
+    echo ${ALL_CHANGED_FILES}
+    ALL_CHANGED_FILES_ARR=(${ALL_CHANGED_FILES})
+    DIR_NAME="$(dirname ${ALL_CHANGED_FILES_ARR[0]})"
+    SAME_DIR=true
+    for file in "${ALL_CHANGED_FILES_ARR[@]}"; do 
+      if [ "$DIR_NAME" != "$(dirname $file)" ]; then
+        SAME_DIR=false
+        break
+      fi
+    done
+    echo "All changed files are in the same directory: $SAME_DIR"
+    if [ "$SAME_DIR" = true ] ; then
+      echo "HW_DIR=$DIR_NAME" >> $GITHUB_ENV
+      exit 0
+    else
+      exit 1
+    fi     
+
+- name: Validate folder name
+  run: |
+    dir_name_regex="^[a-zA-Z-]+_[a-zA-Z-]+/hw[0-9]+$"
+    if ! [[ ${{ env.HW_DIR }} =~ $dir_name_regex ]]; then
+      echo "Homework dir expected in format <Surname>_<Name>/hw<N>"
+      echo "${{ env.HW_DIR }} is given"
+      exit 1
+    fi    
 
       - name: Validate folder name
         run: |
