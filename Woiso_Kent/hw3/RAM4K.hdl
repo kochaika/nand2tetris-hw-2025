@@ -1,0 +1,27 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/3/b/RAM4K.hdl
+/**
+ * Memory of 4K 16-bit registers.
+ * If load is asserted, the value of the register selected by
+ * address is set to in; Otherwise, the value does not change.
+ * The value of the selected register is emitted by out.
+ */
+CHIP RAM4K {
+    IN in[16], load, address[12];
+    OUT out[16];
+
+    PARTS:
+    RAM512(in=in , load=l1 , address[0]=address[0], address[1]=address[1], address[2]=address[2], address[3]=address[3], address[4]=address[4], address[5]=address[5], address[6]=address[6], address[7]=address[7], address[8]=address[8] , out=out1 );
+    RAM512(in=in , load=l2 , address[0]=address[0], address[1]=address[1], address[2]=address[2], address[3]=address[3], address[4]=address[4], address[5]=address[5], address[6]=address[6], address[7]=address[7], address[8]=address[8] , out=out2 );
+    RAM512(in=in , load=l3 , address[0]=address[0], address[1]=address[1], address[2]=address[2], address[3]=address[3], address[4]=address[4], address[5]=address[5], address[6]=address[6], address[7]=address[7], address[8]=address[8] , out=out3 );
+    RAM512(in=in , load=l4 , address[0]=address[0], address[1]=address[1], address[2]=address[2], address[3]=address[3], address[4]=address[4], address[5]=address[5], address[6]=address[6], address[7]=address[7], address[8]=address[8] , out=out4 );
+    RAM512(in=in , load=l5 , address[0]=address[0], address[1]=address[1], address[2]=address[2], address[3]=address[3], address[4]=address[4], address[5]=address[5], address[6]=address[6], address[7]=address[7], address[8]=address[8] , out=out5 );
+    RAM512(in=in , load=l6 , address[0]=address[0], address[1]=address[1], address[2]=address[2], address[3]=address[3], address[4]=address[4], address[5]=address[5], address[6]=address[6], address[7]=address[7], address[8]=address[8] , out=out6 );
+    RAM512(in=in , load=l7 , address[0]=address[0], address[1]=address[1], address[2]=address[2], address[3]=address[3], address[4]=address[4], address[5]=address[5], address[6]=address[6], address[7]=address[7], address[8]=address[8] , out=out7 );
+    RAM512(in=in , load=l8 , address[0]=address[0], address[1]=address[1], address[2]=address[2], address[3]=address[3], address[4]=address[4], address[5]=address[5], address[6]=address[6], address[7]=address[7], address[8]=address[8] , out=out8 );
+
+    DMux8Way(in=load , sel[0]=address[9], sel[1]=address[10], sel[2]=address[11] , a=l1 , b=l2 , c= l3, d=l4 , e=l5 , f=l6 , g=l7 , h=l8 );
+    Mux8Way16(a=out1 , b=out2 , c=out3 , d=out4 , e=out5 , f=out6 , g=out7 , h=out8 , sel[0]=address[9], sel[1]=address[10], sel[2]=address[11]  , out=out );
+}
