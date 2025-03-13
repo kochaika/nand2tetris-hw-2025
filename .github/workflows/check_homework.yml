@@ -30,11 +30,11 @@ jobs:
 
       - name: Get changed files
         id: changed-files
-        uses: tj-actions/changed-files@v45
-        with:
-           since_last_remote_commit: true
+        uses: tj-actions/changed-files@v44
+        #with:
+        #   since_last_remote_commit: true
 
-- name: List all changed files
+      - name: List all changed files
         env:
           ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
         run: |
@@ -55,16 +55,7 @@ jobs:
              exit 0
           else
              exit 1
-          fi    
-
-- name: Validate folder name
-  run: |
-    dir_name_regex="^[a-zA-Z-]+_[a-zA-Z-]+/hw[0-9]+$"
-    if ! [[ ${{ env.HW_DIR }} =~ $dir_name_regex ]]; then
-      echo "Homework dir expected in format <Surname>_<Name>/hw<N>"
-      echo "${{ env.HW_DIR }} is given"
-      exit 1
-    fi    
+          fi     
 
       - name: Validate folder name
         run: |
