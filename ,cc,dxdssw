@@ -1,0 +1,25 @@
+[33mad58f73[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mHW3[m[33m)[m HEAD@{0}: commit: ...
+[33m733636d[m[33m ([m[1;31morigin/homework_2[m[33m, [m[1;32mhomework_2[m[33m)[m HEAD@{1}: reset: moving to HEAD~3
+[33m5bb5ae4[m[33m ([m[1;31morigin/HW3[m[33m)[m HEAD@{2}: commit: Odesser_Danila_hw3
+[33m57584a3[m[33m ([m[1;31morigin/homework_3[m[33m, [m[1;31morigin/homework3[m[33m, [m[1;32mhomework_3[m[33m, [m[1;32mhomework3[m[33m)[m HEAD@{3}: checkout: moving from homework_3 to HW3
+[33m57584a3[m[33m ([m[1;31morigin/homework_3[m[33m, [m[1;31morigin/homework3[m[33m, [m[1;32mhomework_3[m[33m, [m[1;32mhomework3[m[33m)[m HEAD@{4}: checkout: moving from homework3 to homework_3
+[33m57584a3[m[33m ([m[1;31morigin/homework_3[m[33m, [m[1;31morigin/homework3[m[33m, [m[1;32mhomework_3[m[33m, [m[1;32mhomework3[m[33m)[m HEAD@{5}: commit: Odesser_Danila_hw3
+[33maf8ea6e[m[33m ([m[1;31morigin/HW2[m[33m, [m[1;32mHW2[m[33m)[m HEAD@{6}: checkout: moving from HW2 to homework3
+[33maf8ea6e[m[33m ([m[1;31morigin/HW2[m[33m, [m[1;32mHW2[m[33m)[m HEAD@{7}: commit: Odesser_Danila_hw2
+[33m733636d[m[33m ([m[1;31morigin/homework_2[m[33m, [m[1;32mhomework_2[m[33m)[m HEAD@{8}: checkout: moving from homework_2 to HW2
+[33m733636d[m[33m ([m[1;31morigin/homework_2[m[33m, [m[1;32mhomework_2[m[33m)[m HEAD@{9}: commit: Odesser_Danila_hw2
+[33m9989b5d[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{10}: checkout: moving from main to homework_2
+[33m9989b5d[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{11}: pull origin main --rebase (finish): returning to refs/heads/main
+[33m9989b5d[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{12}: pull origin main --rebase (start): checkout 9989b5d79c2ef6534f109228e63856dae28eb37e
+[33m2b6e362[m HEAD@{13}: commit (merge): Updated fork
+[33mea53efd[m HEAD@{14}: checkout: moving from homework2 to main
+[33m2d8f186[m[33m ([m[1;31morigin/homework2[m[33m, [m[1;32mhomework2[m[33m)[m HEAD@{15}: commit: Homework2
+[33m4ebc551[m HEAD@{16}: commit: Odesser_Danila_hw2
+[33mea53efd[m HEAD@{17}: checkout: moving from main to homework2
+[33mea53efd[m HEAD@{18}: commit: hw1
+[33m7b61d96[m HEAD@{19}: pull origin main --rebase (finish): returning to refs/heads/main
+[33m7b61d96[m HEAD@{20}: pull origin main --rebase (pick): hw1
+[33m3810498[m HEAD@{21}: pull origin main --rebase (start): checkout 3810498f04f9fcab0d3e4b1d748a243cd24036a7
+[33m65e8540[m HEAD@{22}: commit: hw1
+[33m0bed5ff[m HEAD@{23}: commit: Added solutions for HW1
+[33ma7cbc29[m HEAD@{24}: clone: from https://github.com/DanilaOdesser/nand2tetris-hw-2025.git

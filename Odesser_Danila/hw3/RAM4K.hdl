@@ -23,6 +23,6 @@ CHIP RAM4K {
     RAM512(in=in, load=t6, address=address[0..8], out=k7);
     RAM512(in=in, load=t7, address=address[0..8], out=k8);
     Mux8Way16(a=k1, b=k2, c=k3, d=k4, e=k5, f=k6, g=k7, h=k8, 
-                sel=address[9..11], out=k);
+                sel=address[9..11], out=out);
 
 }
