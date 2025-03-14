@@ -11,10 +11,10 @@ CHIP Or8Way {
     OUT out;
 
     PARTS:
-    Or(a=a[0], b=a[1], out=first);
-    Or(a=a[2], b=a[3], out=second);
-    Or(a=a[4], b=a[5], out=third);
-    Or(a=a[6], b=a[7], out=fourth);
+    Or(a=in[0], b=in[1], out=first);
+    Or(a=in[2], b=in[3], out=second);
+    Or(a=in[4], b=in[5], out=third);
+    Or(a=in[6], b=in[7], out=fourth);
     Or(a=first, b=second, out=fifth);
     Or(a=third, b=fourth, out=sixth);
     Or(a=fifth, b=sixth, out=out);
