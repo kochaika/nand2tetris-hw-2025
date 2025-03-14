@@ -1,0 +1,39 @@
+// CHIP ALU
+CHIP ALU {
+    IN  
+        x[16], y[16],  
+        zx, nx, zy, ny, f, no; 
+    OUT 
+        out[16], zr, ng;      
+
+    PARTS:
+
+    // Process x
+    Not16(in=x, out=notX);
+    Mux16(a=x, b=false, sel=zx, out=zeroX);
+    Mux16(a=zeroX, b=notX, sel=nx, out=ndx);
+
+    // Process y
+    Not16(in=y, out=notY);
+    Mux16(a=y, b=false, sel=zy, out=zeroY);
+    Mux16(a=zeroY, b=notY, sel=ny, out=ndy);
+
+    // Compute function (Add or AND)
+    Add16(a=ndx, b=ndy, out=sum);
+    And16(a=ndx, b=ndy, out=andXY);
+    Mux16(a=andXY, b=sum, sel=f, out=outF);
+
+    // Negate output if needed
+    Not16(in=outF, out=notOut);
+    Mux16(a=outF, b=notOut, sel=no, out=outFinal);
+
+    // Assign final result to out
+    And16(a= outFinal, b= outFinal, out= out);
+
+    // Zero detection: Use Or16 to check if all bits are zero
+    Or16Way(a=outFinal, b=false, out=zr);  // If outFinal is zero, zr will be 1
+
+    // Negative detection: Check MSB of outFinal using AND with 0x8000 (MSB is bit 15)
+    And16(a=outFinal, b=false, out=msbCheck);  // MSB check for negative number
+    Or16(a=msbCheck, b=false, out=ng);  // If MSB is 1, ng will be 1
+}
