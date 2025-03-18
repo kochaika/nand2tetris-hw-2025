@@ -7,8 +7,8 @@
  * if (in) out = 0, else out = 1
  */
 CHIP Not {
-    IN a;
-    OUT out;
-    PARTS:
-    Nand(a=a, b=a, out=out);
+  IN in;
+  OUT out;
+  PARTS:
+    Nand(a=in, b=in, out=out);
 }
