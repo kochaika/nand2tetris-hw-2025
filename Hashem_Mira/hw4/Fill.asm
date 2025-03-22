@@ -1,4 +1,4 @@
-(MAIN_LOOP)
+  (MAIN_LOOP)
   @KBD
   D=M
 

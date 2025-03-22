@@ -1,4 +1,4 @@
-@result
+	@result
 M=0
 
 @multiplier
