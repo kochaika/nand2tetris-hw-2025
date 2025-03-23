@@ -1,0 +1,84 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/2/ALU.hdl
+/**
+ * ALU (Arithmetic Logic Unit):
+ * Computes out = one of the following functions:
+ *                0, 1, -1,
+ *                x, y, !x, !y, -x, -y,
+ *                x + 1, y + 1, x - 1, y - 1,
+ *                x + y, x - y, y - x,
+ *                x & y, x | y
+ * on the 16-bit inputs x, y,
+ * according to the input bits zx, nx, zy, ny, f, no.
+ * In addition, computes the two output bits:
+ * if (out == 0) zr = 1, else zr = 0
+ * if (out < 0)  ng = 1, else ng = 0
+ */
+// Implementation: Manipulates the x and y inputs
+// and operates on the resulting values, as follows:
+// if (zx == 1) sets x = 0        // 16-bit constant
+// if (nx == 1) sets x = !x       // bitwise not
+// if (zy == 1) sets y = 0        // 16-bit constant
+// if (ny == 1) sets y = !y       // bitwise not
+// if (f == 1)  sets out = x + y  // integer 2's complement addition
+// if (f == 0)  sets out = x & y  // bitwise and
+// if (no == 1) sets out = !out   // bitwise not
+
+CHIP ALU {
+    IN  
+        x[16], y[16],  // 16-bit inputs        
+        zx, // zero the x input?
+        nx, // negate the x input?
+        zy, // zero the y input?
+        ny, // negate the y input?
+        f,  // compute (out = x + y) or (out = x & y)?
+        no; // negate the out output?
+    OUT 
+        out[16], // 16-bit output
+        zr,      // if (out == 0) equals 1, else 0
+        ng;      // if (out < 0)  equals 1, else 0
+
+    PARTS:
+    //// Replace this comment with your code.
+        //x set to zero
+        Mux16(a= x, b= false, sel= zx, out= x1);
+
+        //x negated
+        Not16(in= x1, out= x1n);
+        Mux16(a= x1, b= x1n, sel = nx, out = x2);
+
+        //y set to zero
+        Mux16(a= y, b = false, sel = zy, out = y1);
+        
+        //y negated
+        Not16(in = y1, out = y1n);
+        Mux16(a = y1, b = y1n, sel = ny, out = y2);
+
+        //Plus and AND
+        Add16(a = x2, b = y2, out = sum);
+        And16(a = x2, b = y2, out = and);
+        Mux16(a = and, b = sum, sel = f, out = o1);
+
+        //last negation
+        Not16(in = o1, out = o2);
+        Mux16(a = o1, b = o2, sel = no, out = out);
+
+        //Copy out in cop
+        Mux16(a = o1, b = o2, sel = no, out = cop);
+
+        //Find ng
+        Or16(a = cop, b = false, out[0] = u0, out[1] = u1, out[2] = u2, out[3] = u3
+                                , out[4] = u4, out[5] = u5, out[6] = u6, out[7] = u7
+                                , out[8] = u8, out[9] = u9, out[10] = u10, out[11] = u11
+                                , out[12] = u12, out[13] = u13, out[14] = u14, out[15] = q);
+
+        And(a= q, b= q, out= ng);
+
+        //Find zr
+        Or8Way(in[0] = u0, in[1] = u1, in[2] = u2, in[3] = u3, in[4] = u4, in[5] = u5, in[6] = u6, in[7] = u7, out= val1);
+        Or8Way(in[0] = u8, in[1] = u9, in[2] = u10, in[3] = u11, in[4] = u12, in[5] = u13, in[6] = u14, in[7] = q, out= val2);
+        Or(a= val1, b= val2, out= at1);
+        Not(in= at1, out= zr);
+}
