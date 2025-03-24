@@ -1,0 +1,64 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/1/Mux16.hdl
+/**
+ * 16-bit multiplexor: 
+ * for i = 0, ..., 15:
+ * if (sel = 0) out[i] = a[i], else out[i] = b[i]
+ */
+CHIP Mux16 {
+    IN a[16], b[16], sel;
+    OUT out[16];
+
+    PARTS:
+    Not(in= sel, out= notSel);  
+    And(a= a[0], b= notSel, out= andA0);  
+    And(a= b[0], b= sel, out= andB0);  
+    Or(a= andA0, b= andB0, out= out[0]);  
+
+    And(a= a[1], b= notSel, out= andA1);  
+    And(a= b[1], b= sel, out= andB1);  
+    Or(a= andA1, b= andB1, out= out[1]);  
+
+    And(a= a[2], b= notSel, out= andA2);  
+    And(a= b[2], b= sel, out= andB2);  
+    Or(a= andA2, b= andB2, out= out[2]);  
+
+    And(a= a[3], b= notSel, out= andA3);  
+    And(a= b[3], b= sel, out= andB3);  
+    Or(a= andA3, b= andB3, out= out[3]);  
+
+    And(a= a[4], b= notSel, out= andA4);  
+    And(a= b[4], b= sel, out= andB4);  
+    Or(a= andA4, b= andB4, out= out[4]);  
+
+    And(a= a[5], b= notSel, out= andA5);  
+    And(a= b[5], b= sel, out= andB5);  
+    Or(a= andA5, b= andB5, out= out[5]);  
+
+    And(a= a[6], b= notSel, out= andA6);  
+    And(a= b[6], b= sel, out= andB6);  
+    Or(a= andA6, b= andB6, out= out[6]);  
+
+    And(a= a[7], b= notSel, out= andA7);  
+    And(a= b[7], b= sel, out= andB7);  
+    Or(a= andA7, b= andB7, out= out[7]);  
+
+    And(a= a[8], b= notSel, out= andA8);  
+    And(a= b[8], b= sel, out= andB8);  
+    Or(a= andA8, b= andB8, out= out[8]);  
+
+    And(a= a[9], b= notSel, out= andA9);  
+    And(a= b[9], b= sel, out= andB9);  
+    Or(a= andA9, b= andB9, out= out[9]);  
+
+    And(a= a[10], b= notSel, out= andA10);  
+    And(a= b[10], b= sel, out= andB10);  
+    Or(a= andA10, b= andB10, out= out[10]);  
+
+    And(a= a[11], b= notSel, out= andA11);  
+    And(a= b[11], b= sel, out= andB11);  
+    Or(a= andA
+    //// Replace this comment with your code.
+}
