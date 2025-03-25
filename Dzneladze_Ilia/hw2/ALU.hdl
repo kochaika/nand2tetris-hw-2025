@@ -70,7 +70,6 @@ CHIP ALU {
     Or(a=o1, b=o2, out=o3);
     Not(in=o3, out=zr);
 
-
     // see if negative
     And(a=out[15], b=true, out=ng);
 
