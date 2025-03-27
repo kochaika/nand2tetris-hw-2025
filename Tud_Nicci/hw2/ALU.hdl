@@ -60,9 +60,14 @@ CHIP ALU {
 
     //negate output, no selector
     Not16(in=tempOut, out=negOut);
-    Mux16(a=tempOut, b=negOut, sel=no, out=finalOut);
+    Mux16(a=tempOut, b=negOut, sel=no, out=finalOut, out[15]=msb, out[0..7]=lowOut, out[8..15]=highOut);
+  
+    //zr check
+    Or8Way(in=lowOut, out = orLow);
+    Or8Way(in=highOut, out = orHigh);
+    Or(a = orLow, b = orHigh, out = orAll);
+    Not(in = orAll, out = zr);
 
-    //set zr value
-    Or16(in=finalOut, out=out1);
-    Not(in=out1, out=zr);
+    //ng, msb
+    And(a = msb, b = true, out = ng);
 }
