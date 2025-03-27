@@ -1,0 +1,43 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/3/a/RAM64.hdl
+/**
+ * Memory of sixty four 16-bit registers.
+ * If load is asserted, the value of the register selected by
+ * address is set to in; Otherwise, the value does not change.
+ * The value of the selected register is emitted by out.
+ */
+CHIP RAM64 {
+    IN in[16], load, address[6];
+    OUT out[16];
+    //RAM64 is a memory chip with 64 registers, each 16 bits wide
+    //it uses 6-bit address (address[5..0]) to select one of the 64 registers. The address is
+    //divided into 2 parts:
+    //-first 3 bits (address[3..5] are used to select one of the 8 blocks of 8 registers
+    //-last 3 bits(address[0..2] are used to select which register in that block
+    PARTS:
+    DMux8Way(in=load , sel=address[3..5] , a=a , b=b , c=c , d=d , e=e , f=f , g=g , h=h );
+    // takes the load signal and the upper 3 bits of address(address[3..5]), used for determining which block of
+    //8 registers should be active(the lowe 3 bits(address[0..2] determine which
+    //specific register within the selecet block to access
+    //each of the 8 blocks of RAM will receive a load signal depending on the 
+    //value of address[3..5]
+
+
+    RAM8(in=in , load=a , address=address[0..2] , out=oa );
+    RAM8(in=in , load=b , address=address[0..2] , out=ob );
+    RAM8(in=in , load=c , address=address[0..2] , out=oc);
+    RAM8(in=in , load=d , address=address[0..2] , out=od );
+    RAM8(in=in , load=e , address=address[0..2] , out=oe );
+    RAM8(in=in , load=f , address=address[0..2] , out=of);
+    RAM8(in=in , load=g , address=address[0..2] , out=og );
+    RAM8(in=in , load=h , address=address[0..2] , out=oh );
+    //above are 8 blocks, each with 8 registers to receive the load signal
+    //the load signal determines which register in the block will store the new data
+
+    Mux8Way16(a=oa , b=ob , c=oc , d=od , e=oe , f=of , g=og , h=oh , sel=address[3..5] , out=out );
+    //once the data is stored in one of the blocks, we use this multiplexer to select the output from
+    //the correct block based on the upper 3 bits of the address. The lower 3 bits
+    //will select which register in the block
+}
