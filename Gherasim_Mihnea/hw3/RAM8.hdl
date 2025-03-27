@@ -1,0 +1,41 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/3/a/RAM8.hdl
+/**
+ * Memory of eight 16-bit registers.
+ * If load is asserted, the value of the register selected by
+ * address is set to in; Otherwise, the value does not change.
+ * The value of the selected register is emitted by out.
+ */
+CHIP RAM8 {
+    IN in[16], load, address[3];
+    OUT out[16];
+    //RAM8 is like an array(a set) of 8 registers, 
+    //each of which can hold a 16-bit value(like a number)
+    //we are allowed to write a new value into one of these registers
+    //and can read the value from any of the registers
+    PARTS:
+    DMux8Way(in=load , sel=address , a=a , b=b , c=c , d=d , e=e , f=f , g=g , h=h );
+    //this takes in the load signal and also the adress
+    //this then sends the load signal to only one register based on the 3-bit adress
+    //simple example: if the address is 010, it sends the load signal to Register 2
+    //the other registers will not update(they keep their old values)
+    Register(in=in , load=a , out=outa );
+    Register(in=in , load=b , out=outb );
+    Register(in=in , load=c , out=outc );
+    Register(in=in , load=d , out=outd );
+    Register(in=in , load=e , out=oute );
+    Register(in=in , load=f , out=outf );
+    Register(in=in , load=g , out=outg );
+    Register(in=in , load=h , out=outh );
+    //each register is connected to one of the a, b, c, d,e ,f, g, h signals from
+    //the DMux8way. 
+    //when a particular output is 1(enabled), the corresponding register
+    //will store the value from in[16]
+    Mux8Way16(a=outa , b=outb , c=outc , d=outd , e=oute , f=outf , g=outg , h=outh , sel=address , out=out );
+    //this selects which register's value should be sent out to 'out[16] based on the 3-bit address
+    //example: if the adress is 010, it will pick the value stored in Register 2 and send it out to out[16]
+
+}
+
