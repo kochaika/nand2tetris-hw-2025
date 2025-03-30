@@ -41,6 +41,6 @@ CHIP Memory {
 
     Mux16(a= outSCREEN, b= outKEYBOARD , sel= address[13], out= KorS );
 
-    Mux16(a= KorS , b= outRAM, sel= address[14] , out= out);
+    Mux16(a=outRAM, b=KorS, sel=address[14], out=out);
 
 }
