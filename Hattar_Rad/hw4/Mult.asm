@@ -8,23 +8,37 @@
 // (R0, R1, R2 refer to RAM[0], RAM[1], and RAM[3], respectively.)
 
 
-    .data   
-    .text   
-    .globl _start
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/4/Mult.asm
 
-_start:
-    // Initialize registers
-    mov     r2, #0      
-    cmp     r1, #0      
-    beq     DONE        
 
-MULT_LOOP:
-    add     r2, r2, r0  
-    subs    r1, r1, #1  
-    bne     MULT_LOOP   
+// Multiplies R0 and R1 and stores the result in R2.
+// (R0, R1, R2 refer to RAM[0], RAM[1], and RAM[3], respectively.)
 
-DONE:
-    
-    mov     r7, #1      
-    mov     r0, #0     
-    svc     0         
+
+(Begin)
+    @R2      // Reset R2 to zero
+    M=0
+
+(CHECK)
+    @R1
+    D=M
+    @EXIT
+    D;JLE    // If R1 is zero or negative, stop
+
+    @R0
+    D=M
+    @R2
+    M=M+D    // Add R0 to R2
+
+    @R1
+    M=M-1    // Reduce R1 by 1
+
+    @CHECK
+    0;JMP    // Repeat process
+
+(EXIT)
+    @EXIT
+    0;JMP    // Infinite loop to stop execution
