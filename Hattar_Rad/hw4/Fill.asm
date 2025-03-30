@@ -10,43 +10,60 @@
 
 
 
-    .data
-    SCREEN_ADDR  .word  0x100000
-    BLACK_COLOR  .word  0x000000
-    WHITE_COLOR  .word  0xFFFFFF
-    SCREEN_SIZE  .word  640*480
+(WAIT)
+    @KBD
+    D=M        // Read keyboard state
 
-    .text
-    .globl _start
+    @DARK
+    D;JNE      // If a key is pressed, switch to black
+    @LIGHT
+    0;JMP      // Otherwise, switch to white
 
-_start:
-LOOP:
-    bl      CHECK_KEY_PRESS
-    cmp     r0, #0
-    beq     FILL_WHITE
-    b       FILL_BLACK
+(DARK)
+    @SCREEN
+    D=A
+    @pos
+    M=D        // Start at screen's first address
 
-FILL_BLACK:
-    ldr     r1, =SCREEN_ADDR
-    ldr     r2, =BLACK_COLOR
-    bl      FILL_SCREEN
-    b       LOOP
+(DARK_LOOP)
+    @pos
+    D=M
+    @KBD
+    D=D-A
+    @WAIT
+    D;JGE      // If reached keyboard, restart
 
-FILL_WHITE:
-    ldr     r1, =SCREEN_ADDR
-    ldr     r2, =WHITE_COLOR
-    bl      FILL_SCREEN
-    b       LOOP
+    @pos
+    A=M
+    M=-1       // Color pixel black
 
-CHECK_KEY_PRESS:
-    mov     r0, #0
-    bx      lr
+    @pos
+    M=M+1      // Move to next pixel
 
-FILL_SCREEN:
-    ldr     r3, =SCREEN_SIZE
-    mov     r4, r1
-FILL_LOOP:
-    str     r2, [r4], #4
-    subs    r3, r3, #1
-    bne     FILL_LOOP
-    bx      lr
+    @DARK_LOOP
+    0;JMP      // Continue filling
+
+(LIGHT)
+    @SCREEN
+    D=A
+    @pos
+    M=D        // Start at screen's first address
+
+(LIGHT_LOOP)
+    @pos
+    D=M
+    @KBD
+    D=D-A
+    @WAIT
+    D;JGE      // If reached keyboard, restart
+
+    @pos
+    A=M
+    M=0        // Reset pixel to white
+
+    @pos
+    M=M+1      // Move to next pixel
+
+    @LIGHT_LOOP
+    0;JMP      // Continue clearing
+
