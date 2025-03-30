@@ -1,44 +1,48 @@
-
 (LOOP)
     @KBD
     D=M
-    @WHITE
-    D;JGT
-    @BLACK
+    @FILL_SCREEN
+    D;JNE
+    @CLEAR_SCREEN
     0;JMP
-(WHITE)
-    @R0
-    M=-1
-    @DRAW
-    0;JMP
-(BLACK)
-    @R0
-    M=0
-    @DRAW
-    0;JMP
-(DRAW)
-    @8191
+
+
+(FILL_SCREEN)
+    @SCREEN
     D=A
-    @R1
+    @R0
     M=D
-    (NEXT)
-        @R1
-        D=M
-        @pos
-        M=D
-        @SCREEN
-        D=A
-        @pos
-        M=D+M
-        @R0
-        D=M
-        @pos
-        A=M
-        M=D
-        @R1
-        D=M-1
-        M=D
-        @NEXT
-        D;JGE
+
+(FILL_LOOP)
+    @R0
+    A=M
+    M=-1
+    @R0
+    M=M+1
+    D=M
+    @24576
+    D=D-A
+    @FILL_LOOP
+    D;JLT
+    @LOOP
+    0;JMP
+
+(CLEAR_SCREEN)
+    @SCREEN
+    D=A
+    @R0
+    M=D
+
+(CLEAR_LOOP)
+    @R0
+    A=M
+    M=0
+    @R0
+    M=M+1
+    D=M
+    @24576
+    D=D-A
+    @CLEAR_LOOP
+    D;JLT
     @LOOP
     0;JMP
