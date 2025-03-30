@@ -1,31 +1,39 @@
-@R0
-D=M        // get R0
+// Put your code here.
 
-@R2
-M=0        // clear R2
+@2	//GO TO FINAL ANSWER BOX
+M=0	//ZERO ANS BOX
 
-@R1
-D=M        // get R1
-@COUNT
-M=D        // set counter
-
-(LOOP)
-@COUNT
+@0
 D=M
 @END
-D;JEQ      // if 0, end
+D;JEQ	//IF ONE PRODUCT IS ZERO
 
-@R0
+@1
 D=M
-@R2
-M=D+M      // add to R2
+@END
+D;JEQ	//IF ONE PRODUCT IS ZERO
 
-@COUNT
-M=M-1      // dec counter
+@0	//NOT NECESSARY
+D=M	//
+@3	//
+M=D	//ONLY TO KEEP THE NUMBERS BEING MUTLIPLED
 
-@LOOP
-0;JMP      // loop
+
+(LOOP)
+@1	//GET 2ND NUM
+D=M	//D HAS 2ND NUM
+
+@2	//GO TO FINAL ANSWER BOX
+M=D+M	//RAM[2] NOW HAS 2ND NUMBER + ITS PREVIOUS VALUE
+
+@3	//GET 1ST NUM
+M=M-1	//1ST NUM-1
+
+D=M	//IDK WHY D NEEDS TO =M?
+@LOOP	//WHERE TO JUMP TO
+D;JGT	//JUMP		    (WHY CANT THIS BE M;JGT?)
+
 
 (END)
 @END
-0;JMP
+0;JMP	//FOREVER LOOP
