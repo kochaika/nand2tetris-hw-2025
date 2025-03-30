@@ -1,0 +1,18 @@
+CHIP RAM16K {
+    IN in[16], load, address[14];
+    OUT out[16];
+
+    PARTS:
+    DMux8Way(in = load, sel = address[11..13], a = i1, b = i2, c = i3, d = i4, e = i5, f = i6, g = i7, h = i8);
+
+    RAM4K(in = in, load = i1, address = address[0..11], out = aout);
+    RAM4K(in = in, load = i2, address = address[0..11], out = bout);
+    RAM4K(in = in, load = i3, address = address[0..11], out = cout);
+    RAM4K(in = in, load = i4, address = address[0..11], out = dout);
+    RAM4K(in = in, load = i5, address = address[0..11], out = eout);
+    RAM4K(in = in, load = i6, address = address[0..11], out = fout);
+    RAM4K(in = in, load = i7, address = address[0..11], out = gout);
+    RAM4K(in = in, load = i8, address = address[0..11], out = hout);
+
+    Mux8Way16(a = aout, b = bout, c = cout, d = dout, e = eout, f = fout, g = gout, h = hout, sel = address[11..13], out = out);
+}
