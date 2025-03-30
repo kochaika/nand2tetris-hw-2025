@@ -1,27 +1,48 @@
-@2	
-M=0	
-@0
-D=M
-@END
-D;JEQ	
-@1
-D=M
-@END
-D;JEQ
-@0	
-D=M	
-@3	
-M=D	
-(LP)
-@1	
-D=M	
-@2	
-M=D+M	
-@3	
-M=M-1	
-D=M	
-@LP	
-D;JGT	
-(END)
-@END
-0;JMP
+(LOOP)
+    @KBD
+    D=M
+    @FILL_SCREEN
+    D;JNE
+    @CLEAR_SCREEN
+    0;JMP
+
+
+(FILL_SCREEN)
+    @SCREEN
+    D=A
+    @R0
+    M=D
+
+(FILL_LOOP)
+    @R0
+    A=M
+    M=-1
+    @R0
+    M=M+1
+    D=M
+    @24576
+    D=D-A
+    @FILL_LOOP
+    D;JLT
+    @LOOP
+    0;JMP
+
+(CLEAR_SCREEN)
+    @SCREEN
+    D=A
+    @R0
+    M=D
+
+(CLEAR_LOOP)
+    @R0
+    A=M
+    M=0
+    @R0
+    M=M+1
+    D=M
+    @24576
+    D=D-A
+    @CLEAR_LOOP
+    D;JLT
+    @LOOP
+    0;JMP
