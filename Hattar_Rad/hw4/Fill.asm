@@ -14,18 +14,18 @@
     @KBD
     D=M        // Read keyboard state
 
-    @DARK
+    @BLACK
     D;JNE      // If a key is pressed, switch to black
-    @LIGHT
+    @WHITE
     0;JMP      // Otherwise, switch to white
 
-(DARK)
+(Black)
     @SCREEN
     D=A
     @pos
     M=D        // Start at screen's first address
 
-(DARK_LOOP)
+(Black_LOOP)
     @pos
     D=M
     @KBD
@@ -40,16 +40,16 @@
     @pos
     M=M+1      // Move to next pixel
 
-    @DARK_LOOP
+    @BLACK_LOOP
     0;JMP      // Continue filling
 
-(LIGHT)
+(White)
     @SCREEN
     D=A
     @pos
     M=D        // Start at screen's first address
 
-(LIGHT_LOOP)
+(White_LOOP)
     @pos
     D=M
     @KBD
@@ -64,6 +64,6 @@
     @pos
     M=M+1      // Move to next pixel
 
-    @LIGHT_LOOP
+    @WHITE_LOOP
     0;JMP      // Continue clearing
 
