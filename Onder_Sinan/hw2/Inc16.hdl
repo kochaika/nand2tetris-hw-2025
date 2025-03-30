@@ -1,0 +1,7 @@
+CHIP Inc16 {
+    IN in[16];      // 16-bit input
+    OUT out[16];    // 16-bit incremented output
+
+    PARTS:
+    Add16(a=in, b[0]=true, b[1..15]=false, out=out);
+}
