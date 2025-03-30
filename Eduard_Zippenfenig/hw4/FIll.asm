@@ -1,65 +1,40 @@
-// This file is part of www.nand2tetris.org
-// and the book "The Elements of Computing Systems"
-// by Nisan and Schocken, MIT Press.
-// File name: projects/04/Fill.asm
-
-// Runs an infinite loop that listens to the keyboard input. 
-// When a key is pressed (any key), the program blackens the screen,
-// i.e. writes "black" in every pixel. When no key is pressed, the
-// program clears the screen, i.e. writes "white" in every pixel.
-
-// Put your code here.
-
-(RESTART)
-@SCREEN
+@24576
 D=A
-@0
-M=D	//PUT SCREEN START LOCATION IN RAM0
+@keyboard
+M=D
 
-///////////////////////////
-(KBDCHECK)
+(CHECK_KEYBOARD)
+@24575
+D=A
+@current
+M=D
 
-@KBD
-D=M
-@BLACK
-D;JGT	//JUMP IF ANY KBD KEYS ARE PRESSED
-@WHITE
-D;JEQ	//ELSE JUMP TO WHITEN
-
-@KBDCHECK
-0;JMP
-///////////////////////////
-(BLACK)
-@1
-M=-1	//WHAT TO FILL SCREEN WITH (-1=11111111111111)
-@CHANGE
-0;JMP
-
-(WHITE)
-@1
-M=0	//WHAT TO FILL SCREEN WITH
-@CHANGE
-0;JMP
-//////////////////////////
-(CHANGE)
-@1	//CHECK WHAT TO FILL SCREEN WITH
-D=M	//D CONTAINS BLACK OR WHITE
-
-@0
-A=M	//GET ADRESS OF SCREEN PIXEL TO FILL
-M=D	//FILL IT
-
-@0
-D=M+1	//INC TO NEXT PIXEL
-@KBD
-D=A-D	//KBD-SCREEN=A
-
-@0
-M=M+1	//INC TO NEXT PIXEL
+@keyboard
 A=M
+D=M
+@fillvalue
+M=-1
+@DRAW
+D;JNE
 
-@CHANGE
-D;JGT	//IF A=0 EXIT AS THE WHOLE SCREEN IS BLACK
-/////////////////////////
-@RESTART
+@fillvalue
+M=0
+
+(DRAW)
+@fillvalue
+D=M
+@current
+A=M
+M=D
+
+@current
+D=M
+@16384
+D=D-A
+@CHECK_KEYBOARD
+D;JLE
+
+@current
+M=M-1
+@DRAW
 0;JMP
