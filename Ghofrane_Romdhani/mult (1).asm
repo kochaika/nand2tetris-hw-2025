@@ -1,0 +1,15 @@
+    @R1
+    D=M
+    @LOOP
+    D;JGT
+(LOOP)
+    @R0
+    D=M
+    @R2
+    M=D+M
+    @R1
+    M=M-1
+    D=M
+    @LOOP
+    D;JGT
+(END)
