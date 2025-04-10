@@ -1,0 +1,17 @@
+name: Nand2Tetris Auto Test
+
+on:
+  push:
+    branches:
+      - hw5
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run Autograder (example)
+        run: echo "This is a placeholder for the autograder script"
