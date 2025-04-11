@@ -1,0 +1,95 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/5/CPU.hdl
+/**
+ * The Hack Central Processing unit (CPU).
+ * Parses the binary code in the instruction input and executes it according to the
+ * Hack machine language specification. In the case of a C-instruction, computes the
+ * function specified by the instruction. If the instruction specifies to read a memory
+ * value, the inM input is expected to contain this value. If the instruction specifies
+ * to write a value to the memory, sets the outM output to this value, sets the addressM
+ * output to the target address, and asserts the writeM output (when writeM = 0, any
+ * value may appear in outM).
+ * If the reset input is 0, computes the address of the next instruction and sets the
+ * pc output to that value. If the reset input is 1, sets pc to 0.
+ * Note: The outM and writeM outputs are combinational: they are affected by the
+ * instruction's execution during the current cycle. The addressM and pc outputs are
+ * clocked: although they are affected by the instruction's execution, they commit to
+ * their new values only in the next cycle.
+ */
+CHIP CPU {
+
+    IN  inM[16],         // M value input  (M = contents of RAM[A])
+        instruction[16], // Instruction for execution
+        reset;           // Signals whether to re-start the current
+                         // program (reset==1) or continue executing
+                         // the current program (reset==0).
+
+    OUT outM[16],        // M value output
+        writeM,          // Write to M? 
+        addressM[15],    // Address in data memory (of M)
+        pc[15];          // address of next instruction
+
+    PARTS:
+    //A or C instruction?
+	And(a=instruction[15] , b=true , out=isC );
+    And(a=instruction[15] , b=false , out=isA );
+
+    //get A instruction value
+    Mux16(a=instruction, b=false , sel=isA , out=aRegInp );
+    ARegister(in=aRegInp , load=isA , out=loadAfromA );
+
+    //C instruction: Extract comp, dest and jmp bits
+    Mux(a=instruction[6] , b=false , sel=isC , out=comp0 );
+    Mux(a=instruction[7] , b=false , sel=isC , out=comp1 );
+    Mux(a=instruction[8] , b=false , sel=isC , out=comp2 );
+    Mux(a=instruction[9] , b=false , sel=isC , out=comp3 );
+    Mux(a=instruction[10] , b=false , sel=isC , out=comp4 );
+    Mux(a=instruction[11] , b=false , sel=isC , out=comp5 );
+
+    Mux(a=instruction[3] , b=false , sel=isC , out=dest0 );
+    Mux(a=instruction[4] , b=false , sel=isC , out=dest1 );
+    Mux(a=instruction[5] , b=false , sel=isC , out=dest2 );
+    
+    Mux(a=instruction[0] , b=false , sel=isC , out=jmp0 );
+    Mux(a=instruction[1] , b=false , sel=isC , out=jmp1 );
+    Mux(a=instruction[2] , b=false , sel=isC , out=jmp2 );
+    
+    //Loading A register: from instruction(if A type) or ALU output
+    Mux16(a=instruction, b=aluOut, sel=isC, out=aInput);
+    Or(a=isA, b=dest0, out=aLoad);
+    Aregister(in=aInput, load=aLoad, out=aVal);
+
+    //Loading D register
+    And(a=dest1, b=true, out=loadD);  // Load D if dest1 = 1
+    Dregister(in=aluOut, load=loadD, out=dVal);
+
+    //Choosing ALU y-input: A or M?
+    Mux(a=instruction[12], b=false, sel=isC, out=aBit);
+    Mux16(a=aVal, b=inM, sel=aBit, out=aluY);
+    //Computation by the ALU
+    ALU(x=dVal, y=aluY, zx=comp0, nx=comp1, zy=comp2, ny=comp3, f=comp4, no=comp, out=aluOut, zr=zr, ng=ng );
+
+    //Set outM
+    And16(a=aluOut, b[0..15]=isC, out=outM );
+    And(a=dest2, b=isC, out=writeM );
+    //addressM --> A 
+    ARegister(in=aInput, load=aLoad, out[0..14]=addressM );
+
+    //Jump logic
+    Not(in=zr, out=notZr );
+    Not(in=ng, out=notNg );
+    And(a=notZr, b=notNg, out=jgt);  // D;JGT
+    And(a=zr, b=true, out=jeq );  // D;JEQ
+    And(a=ng, b=true, out=jlt ); // D;JLT
+    And(a=jmp2, b=jgt, out=doJgt );
+    And(a=jmp1, b=jeq, out=doJeq );
+    And(a=jmp0, b=jlt, out=doJlt );
+    //combining jump conditions
+    Or(a=doJgt, b=doJeq, out=tmpJ1 );
+    Or(a=tmpJ1, b=doJlt, out=finJmp );
+    And(a=finJmp, b=isC, out=pcload );
+
+    PC(in=aVal, load=pcload, inc=true, reset=reset, out=pc);
+}
