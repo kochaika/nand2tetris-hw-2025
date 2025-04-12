@@ -12,7 +12,7 @@
  * location specified by address. If load=1, the in value is loaded 
  * into the memory location specified by address. This value becomes 
  * available through the out output from the next time step onward.
- * Address space rules:
+ * Address space rules:  
  * Only the upper 16K+8K+1 words of the Memory chip are used. 
  * Access to address>0x6000 is invalid and reads 0. Access to any address
  * in the range 0x4000-0x5FFF results in accessing the screen memory 

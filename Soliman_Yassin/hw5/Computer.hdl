@@ -10,7 +10,7 @@
  * set reset to 1, and then set it to 0. 
  * From this point onwards, the user is at the mercy of the software.
  * Depending on the program's code, and whether the code is correct,
- * the screen may show some output, the user may be expected to enter
+ * the screen may show some output, the user may be expected to enter 
  * some input using the keyboard, or the program may do some procerssing. 
  */
 CHIP Computer {
