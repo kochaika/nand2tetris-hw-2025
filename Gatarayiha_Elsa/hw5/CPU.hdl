@@ -33,13 +33,8 @@ CHIP CPU {
 
     PARTS:
     //A or C instruction?
-	And(a=instruction[15] , b=true , out=isC );
+    And(a=instruction[15] , b=true , out=isC );
     Not(in=isC , out=isA );
-
-    //get A instruction value
-    Mux16(a=instruction, b=false , sel=isA , out=aRegInp );
-    Register(in=aRegInp , load=isA , out=loadAfromA );
-    Register(in=aRegInp , load=isA , out=loadAfromA );
 
     //C instruction: Extract comp, dest and jmp bits
     Mux(a=instruction[6] , b=false , sel=isC , out=comp0 );
@@ -61,11 +56,9 @@ CHIP CPU {
     Mux16(a=instruction, b=aluOut, sel=isC, out=aInput);
     Or(a=isA, b=dest0, out=aLoad);
     Register(in=aInput, load=aLoad, out=aVal);
-    Register(in=aInput, load=aLoad, out=aVal);
 
     //Loading D register
     And(a=dest1, b=true, out=loadD);  // Load D if dest1 = 1
-    Register(in=aluOut, load=loadD, out=dVal);
     Register(in=aluOut, load=loadD, out=dVal);
 
     //Choosing ALU y-input: A or M?
@@ -79,7 +72,6 @@ CHIP CPU {
     Mux16(a=false, b=aluOut, sel=isC, out=outM );
     And(a=dest2, b=isC, out=writeM );
     //addressM --> A 
-    Register(in=aInput, load=aLoad, out[0..14]=addressM );
     Register(in=aInput, load=aLoad, out[0..14]=addressM );
 
     //Jump logic
