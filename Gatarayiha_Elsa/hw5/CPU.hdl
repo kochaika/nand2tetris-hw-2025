@@ -84,5 +84,7 @@ CHIP CPU {
     And(a=finjmp, b=isC, out=pcload );
     Not(in=pcload, out=pcinc );
 
-    PC(in=aVal, load=pcload, inc=pcinc, reset=reset, out=pc);
+    PC(in=aVal, load=pcload, inc=pcinc, reset=reset, out=pcFull);
+    Or16(a=false, b=pcFull, out[0..14]=pc);
+
 }
