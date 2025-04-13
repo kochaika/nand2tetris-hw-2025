@@ -69,13 +69,13 @@ CHIP CPU {
     Mux(a=instruction[12], b=false, sel=isC, out=aBit);
     Mux16(a=aVal, b=inM, sel=aBit, out=aluY);
     //Computation by the ALU
-    ALU(x=dVal, y=aluY, zx=comp0, nx=comp1, zy=comp2, ny=comp3, f=comp4, no=comp, out=aluOut, zr=zr, ng=ng );
+    ALU(x=dVal, y=aluY, zx=comp0, nx=comp1, zy=comp2, ny=comp3, f=comp4, no=comp5, out=aluOut, zr=zr, ng=ng );
 
     //Set outM
     And16(a=aluOut, b[0..15]=isC, out=outM );
     And(a=dest2, b=isC, out=writeM );
     //addressM --> A 
-    ARegister(in=aInput, load=aLoad, out[0..14]=addressM );
+    Register(in=aInput, load=aLoad, out[0..14]=addressM );
 
     //Jump logic
     Not(in=zr, out=notZr );
