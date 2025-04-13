@@ -1,0 +1,45 @@
+CHIP CPU {
+    IN inM[16], instruction[16], reset;
+    OUT outM[16], writeM, addressM[15], pc[15];
+
+    PARTS:
+    Not(in=instruction[15], out=isAInstruction);
+    And(a=instruction[15], b=instruction[5], out=destA);
+    Or(a=isAInstruction, b=destA, out=loadA);
+    Mux16(a=instruction, b=aluOut, sel=instruction[15], out=aInput);
+    Register(in=aInput, load=loadA, out=aOut);
+
+    And(a=instruction[15], b=instruction[4], out=loadD);
+    Register(in=aluOut, load=loadD, out=dOut);
+
+    Mux16(a=aOut, b=inM, sel=instruction[12], out=aluY);
+    ALU(x=dOut, y=aluY,
+        zx=instruction[11], nx=instruction[10],
+        zy=instruction[9],  ny=instruction[8],
+        f=instruction[7],   no=instruction[6],
+        out=aluOut, zr=zr, ng=ng);
+
+    And(a=instruction[15], b=instruction[3], out=writeM);
+    Or16(a=aluOut, b=false16, out=outM);
+
+    // Connect A register's lower 15 bits to addressM
+    aOut[0..14] -> addressM;
+
+    // Jump logic
+    And(a=instruction[15], b=instruction[2], out=jlt);
+    And(a=instruction[15], b=instruction[1], out=jeq);
+    And(a=instruction[15], b=instruction[0], out=jgt);
+
+    And(a=jlt, b=ng, out=cond1);
+    And(a=jeq, b=zr, out=cond2);
+    Not(in=zr, out=notZr);
+    Not(in=ng, out=notNg);
+    And(a=jgt, b=notZr, out=gt1);
+    And(a=gt1, b=notNg, out=cond3);
+
+    Or(a=cond1, b=cond2, out=jmp1);
+    Or(a=jmp1, b=cond3, out=jump);
+
+    PC(in=aOut, load=jump, inc=true, reset=reset, out=pc);
+}
+
