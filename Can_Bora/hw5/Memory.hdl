@@ -1,0 +1,18 @@
+CHIP Memory {
+    IN in[16], load, address[15];
+    OUT out[16];
+
+    PARTS:
+    Not(in=address[14], out=a);
+    And(a=load, b=a, out=b);
+    Not(in=address[13], out=c);
+    And(a=address[14], b=c, out=d);
+    And(a=d, b=load, out=e);
+    And(a=address[14], b=address[13], out=f);
+
+    RAM16K(in=in, load=b, address=address[0..13], out=g);
+    Screen(in=in, load=e, address=address[0..12], out=h);
+    Keyboard(out=i);
+
+    Mux3Way16(a=g, b=h, c=i, sel[0]=address[14], sel[1]=address[13], out=out);
+}
