@@ -34,10 +34,11 @@ CHIP CPU {
     PARTS:
     //A or C instruction?
 	And(a=instruction[15] , b=true , out=isC );
-    And(a=instruction[15] , b=false , out=isA );
+    Not(in=isC , out=isA );
 
     //get A instruction value
     Mux16(a=instruction, b=false , sel=isA , out=aRegInp );
+    Register(in=aRegInp , load=isA , out=loadAfromA );
     Register(in=aRegInp , load=isA , out=loadAfromA );
 
     //C instruction: Extract comp, dest and jmp bits
@@ -60,9 +61,11 @@ CHIP CPU {
     Mux16(a=instruction, b=aluOut, sel=isC, out=aInput);
     Or(a=isA, b=dest0, out=aLoad);
     Register(in=aInput, load=aLoad, out=aVal);
+    Register(in=aInput, load=aLoad, out=aVal);
 
     //Loading D register
     And(a=dest1, b=true, out=loadD);  // Load D if dest1 = 1
+    Register(in=aluOut, load=loadD, out=dVal);
     Register(in=aluOut, load=loadD, out=dVal);
 
     //Choosing ALU y-input: A or M?
@@ -70,26 +73,25 @@ CHIP CPU {
     Mux16(a=aVal, b=inM, sel=aBit, out=aluY);
     //Computation by the ALU
     ALU(x=dVal, y=aluY, zx=comp0, nx=comp1, zy=comp2, ny=comp3, f=comp4, no=comp5, out=aluOut, zr=zr, ng=ng );
+    ALU(x=dVal, y=aluY, zx=comp0, nx=comp1, zy=comp2, ny=comp3, f=comp4, no=comp5, out=aluOut, zr=zr, ng=ng );
 
     //Set outM
-    And16(a=aluOut, b[0..15]=isC, out=outM );
+    Mux16(a=false, b=aluOut, sel=isC, out=outM );
     And(a=dest2, b=isC, out=writeM );
     //addressM --> A 
+    Register(in=aInput, load=aLoad, out[0..14]=addressM );
     Register(in=aInput, load=aLoad, out[0..14]=addressM );
 
     //Jump logic
     Not(in=zr, out=notZr );
     Not(in=ng, out=notNg );
-    And(a=notZr, b=notNg, out=jgt);  // D;JGT
-    And(a=zr, b=true, out=jeq );  // D;JEQ
-    And(a=ng, b=true, out=jlt ); // D;JLT
-    And(a=jmp2, b=jgt, out=doJgt );
-    And(a=jmp1, b=jeq, out=doJeq );
-    And(a=jmp0, b=jlt, out=doJlt );
-    //combining jump conditions
-    Or(a=doJgt, b=doJeq, out=tmpJ1 );
-    Or(a=tmpJ1, b=doJlt, out=finJmp );
+    And(a=notZr, b=notNg, out=jgt);
+    And(a=zr, b=jmp1, out=jeq );  
+    And(a=ng, b=jmp0, out=jlt ); 
+    Or(a=jeq, b=jlt, out=jle );
+    Or(a=jle, b=jgt, out=finjmp );
     And(a=finJmp, b=isC, out=pcload );
+    Not(in=pcload, out=pcinc );
 
-    PC(in=aVal, load=pcload, inc=true, reset=reset, out=pc);
+    PC(in=aVal, load=pcload, inc=pcinc, reset=reset, out=pc);
 }
