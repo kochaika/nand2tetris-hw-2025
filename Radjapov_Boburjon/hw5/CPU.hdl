@@ -32,35 +32,39 @@ CHIP CPU {
         pc[15];          // address of next instruction
 
     PARTS:
-    Not(in = instruction[15], out = isA);
-    Mux16(a = inM, b = instruction, sel = isA, out = aMuxOut);
-    ARegister(in = aMuxOut, load = true, out = Aregout, out[0..14] = addressM);
-    And(a = instruction[15], b = true, out = isC);
+    Not(in = instruction[15], out = isAInstruction);
+    Mux16(a = aluOutput, b = instruction, sel = isAInstruction, out = aInput);
+    Or(a = isAInstruction, b = instruction[5], out = loadA);
+    ARegister(in = aInput, load = loadA, out = A, out[0..14] = addressM);
+    And(a = instruction[15], b = instruction[12], out = useM);
+    Mux16(a = A, b = inM, sel = useM, out = yInput);
     ALU(
-        x = D, 
-        y = inM, 
-        zx = instruction[11], 
-        nx = instruction[10], 
-        zy = instruction[9], 
-        ny = instruction[8], 
-        f = instruction[7], 
-        no = instruction[6], 
-        out = aluOut, 
-        out = outM, 
-        zr = zr, 
+        x = D,
+        y = yInput,
+        zx = instruction[11],
+        nx = instruction[10],
+        zy = instruction[9],
+        ny = instruction[8],
+        f = instruction[7],
+        no = instruction[6],
+        out = aluOutput,
+        out = outM,
+        zr = zr,
         ng = ng
     );
-    Mux16(a = A, b = aluOut, sel = instruction[5], out = aLoad);
-    ARegister(in = aLoad, load = instruction[5], out = A);
-    DRegister(in = aluOut, load = instruction[4], out = D);
-    And(a = isC, b = instruction[3], out = writeM);
-    And(a = ng, b = instruction[2], out = jlt); 
-    And(a = zr, b = instruction[1], out = jeq);
-    Not(in = ng, out = Notng);
-    Not(in = zr, out = Notzr);
-    And(a = Notng, b = Notzr, out = jgt);
-    Or(a = jlt, b = jeq, out = jOr1);
-    Or(a = jOr1, b = jgt, out = jump);
-    And(a = isC, b = jump, out = pcLoad);
-    PC(in = A, load = pcLoad, inc = true, reset = reset, out[0..14] = pc);
+    And(a = instruction[15], b = instruction[4], out = loadD);
+    DRegister(in = aluOutput, load = loadD, out = D);
+    And(a = instruction[15], b = instruction[3], out = writeM);
+    Not(in = ng, out = positive);
+    Not(in = zr, out = notZero);
+    And(a = instruction[15], b = instruction[0], out = jgt);
+    And(a = positive, b = notZero, out = gtCondition);
+    And(a = jgt, b = gtCondition, out = jumpIfGT);
+    And(a = instruction[15], b = instruction[1], out = jeq);
+    And(a = jeq, b = zr, out = jumpIfEQ);
+    And(a = instruction[15], b = instruction[2], out = jlt); 
+    And(a = jlt, b = ng, out = jumpIfLT);
+    Or(a = jumpIfGT, b = jumpIfEQ, out = tmpJump);
+    Or(a = jumpIfLT, b = tmpJump, out = doJump);
+    PC(in = A, load = doJump, inc = true, reset = reset, out[0..14] = pc);
 }
