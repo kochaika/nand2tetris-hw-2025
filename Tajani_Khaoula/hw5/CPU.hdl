@@ -8,28 +8,34 @@ CHIP CPU {
     OUT outM[16], writeM, addressM[15], pc[15];
 
     PARTS:
+    // Determine instruction type
     Not(in=instruction[15], out=isAInstr);
     Not(in=isAInstr, out=isCInstr);
 
+    // Load logic for A and D registers
     And(a=isCInstr, b=instruction[5], out=loadA);
     And(a=isCInstr, b=instruction[4], out=loadD);
     And(a=isCInstr, b=instruction[3], out=writeM);
 
+    // A-register input: instruction (if A-type) or ALU output (if C-type)
     Mux16(a=instruction, b=aluOut, sel=isCInstr, out=aIn);
     ARegister(in=aIn, load=loadA, out=aOut, out[0..14]=addressM);
 
+    // D-register
     DRegister(in=aluOut, load=loadD, out=dOut);
 
+    // Select A or M as ALU's y input
     Mux16(a=aOut, b=inM, sel=instruction[12], out=y);
 
+    // ALU
     ALU(x=dOut, y=y,
         zx=instruction[11], nx=instruction[10],
         zy=instruction[9],  ny=instruction[8],
         f=instruction[7],   no=instruction[6],
         out=aluOut, zr=zr, ng=ng);
 
-    // Fully connect ALU output to outM[0..15]
-    Or16(a=aluOut, b=false, out=outM);
+    // Output from ALU to outM
+    outM=aluOut;
 
     // Jump logic
     And(a=instruction[0], b=zr, out=jEq);
@@ -42,5 +48,6 @@ CHIP CPU {
     And(a=isCInstr, b=jump, out=pcLoad);
     Not(in=pcLoad, out=pcInc);
 
-    PC(in=aOut, load=pcLoad, inc=pcInc, reset=reset, out=pc);
+    // Program counter (PC is 15-bit)
+    PC(in=aOut, load=pcLoad, inc=pcInc, reset=reset, out[0..14]=pc);
 }
