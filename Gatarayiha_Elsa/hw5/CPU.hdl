@@ -81,7 +81,7 @@ CHIP CPU {
     And(a=ng, b=jmp0, out=jlt ); 
     Or(a=jeq, b=jlt, out=jle );
     Or(a=jle, b=jgt, out=finjmp );
-    And(a=finJmp, b=isC, out=pcload );
+    And(a=finjmp, b=isC, out=pcload );
     Not(in=pcload, out=pcinc );
 
     PC(in=aVal, load=pcload, inc=pcinc, reset=reset, out=pc);
