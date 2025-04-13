@@ -11,6 +11,7 @@
  * to write a value to the memory, sets the outM output to this value, sets the addressM
  * output to the target address, and asserts the writeM output (when writeM = 0, any
  * value may appear in outM).
+ 
  * If the reset input is 0, computes the address of the next instruction and sets the
  * pc output to that value. If the reset input is 1, sets pc to 0.
  * Note: The outM and writeM outputs are combinational: they are affected by the
