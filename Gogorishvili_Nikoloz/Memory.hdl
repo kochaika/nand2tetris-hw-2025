@@ -25,7 +25,7 @@ CHIP Memory {
     OUT out[16];
 
     PARTS:
-    DMux4Way(in=load,sel=address[13..14],a=loadram1,b=loadram2,c=loadscreen,d=loadkbd);
+	DMux4Way(in=load,sel=address[13..14],a=loadram1,b=loadram2,c=loadscreen,d=loadkbd);
 	Or(a=loadram1,b=loadram2,out=loadram);
     RAM16K(in=in,load=loadram,address=address[0..13],out=ramout);
     Screen(in=in,load=loadscreen,address=address[0..12],out=scrout);
