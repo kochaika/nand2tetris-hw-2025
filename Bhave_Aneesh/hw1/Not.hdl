@@ -1,8 +1,0 @@
-CHIP Not {
- 	IN in;
- 	OUT out;
- 
- 	PARTS:
- 	// NOT A = A NAND A
- 	Nand(a = in, b = in, out = out);
- }

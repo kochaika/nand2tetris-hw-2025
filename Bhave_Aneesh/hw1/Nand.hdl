@@ -1,7 +1,0 @@
-CHIP Nand {
- 	IN a, b;
- 	OUT out;
- 
- 	PARTS
- 	BUILTIN Nand;
- }
