@@ -32,33 +32,41 @@ CHIP CPU {
         pc[15];          // address of next instruction
 
     PARTS:
-	//// Replace this comment with your code.
-    Not(in=instruction[15], out=isAInstruction);
-    And(a=instruction[15], b=instruction[5], out=cDestA);
-    Or(a=isAInstruction, b=cDestA, out=loadA);
+	    Not(in=instruction[15], out=isA);
+    Mux16(a=aluOut, b=instruction, sel=isA, out=nextA);
+
+    Or(a=isA, b=instruction[5], out=loadA);
+    ARegister(in=nextA, load=loadA, out=aOut, out[0..14]=addressM);
+
+    And(a=instruction[15], b=instruction[12], out=useM);
+    Mux16(a=aOut, b=inM, sel=useM, out=aluY);
+
+    ALU(x=D, y=aluY,
+        zx=instruction[11], nx=instruction[10],
+        zy=instruction[9], ny=instruction[8],
+        f=instruction[7], no=instruction[6],
+        out=aluOut, out=outM, zr=zr, ng=ng);
 
     And(a=instruction[15], b=instruction[4], out=loadD);
+    DRegister(in=aluOut, load=loadD, out=D);
 
-    Mux16(a=instruction, b=aluOut, sel=instruction[15], out=aMuxOut);
-    Register(in=aMuxOut, load=loadA, out=ARegOut, out[0..14]=addressM);
-    Register(in=aluOut, load=loadD, out=DRegOut);
-    Mux16(a=ARegOut, b=inM, sel=instruction[12], out=aluY);
+    And(a=instruction[15], b=instruction[3], out=writeM);
 
-    ALU(
-        x=DRegOut,
-        y=aluY,
-        zx=instruction[11],
-        nx=instruction[10],
-        zy=instruction[9],
-        ny=instruction[8],
-        f=instruction[7],
-        no=instruction[6],
-        out=aluOut,
-        zr=zr,
-        ng=ng
-    );
+    Not(in=ng, out=isPos);
+    Not(in=zr, out=notZero);
+    And(a=instruction[15], b=instruction[0], out=jgt);
+    And(a=isPos, b=notZero, out=cond1);
+    And(a=jgt, b=cond1, out=load1);
 
-    Not(in=instruction[15], out=isAInstruction);
-    And(a=instruction[15], b=instruction[5], out=cDestA);
-    Or(a=isAInstruction, b=cDestA, out=loadA);
+    And(a=instruction[15], b=instruction[1], out=jeq);
+    And(a=jeq, b=zr, out=load2);
+
+    And(a=instruction[15], b=instruction[2], out=jlt);
+    And(a=jlt, b=ng, out=load3);
+
+    Or(a=load1, b=load2, out=loadTemp);
+    Or(a=load3, b=loadTemp, out=loadPC);
+
+    PC(in=aOut, load=loadPC, inc=true, reset=reset, out[0..14]=pc);
+
 }
