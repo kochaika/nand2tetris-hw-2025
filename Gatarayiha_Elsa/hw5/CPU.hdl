@@ -63,6 +63,7 @@ CHIP CPU {
     Register(in=aluOut, load=loadD, out=dVal);
 
     //Choosing ALU y-input: A or M?
+    Mux(a=instruction[12], b=false, sel=isC, out=aBit);
     Mux16(a=aVal, b=inM, sel=aBit, out=aluY);
     //Computation by the ALU
     ALU(x=dVal, y=aluY, zx=comp0, nx=comp1, zy=comp2, ny=comp3, f=comp4, no=comp5, out=aluOut, zr=zr, ng=ng );
