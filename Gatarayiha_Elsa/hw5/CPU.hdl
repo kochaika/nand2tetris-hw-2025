@@ -37,32 +37,32 @@ CHIP CPU {
     Not(in=isC , out=isA );
 
     //C instruction: Extract comp, dest and jmp bits
-    Mux(a=instruction[6] , b=false , sel=isC , out=comp0 );
-    Mux(a=instruction[7] , b=false , sel=isC , out=comp1 );
-    Mux(a=instruction[8] , b=false , sel=isC , out=comp2 );
-    Mux(a=instruction[9] , b=false , sel=isC , out=comp3 );
-    Mux(a=instruction[10] , b=false , sel=isC , out=comp4 );
-    Mux(a=instruction[11] , b=false , sel=isC , out=comp5 );
+    Mux(a=instruction[3] , b=false , sel=isC , out=comp0 );
+    Mux(a=instruction[4] , b=false , sel=isC , out=comp1 );
+    Mux(a=instruction[5] , b=false , sel=isC , out=comp2 );
+    Mux(a=instruction[6] , b=false , sel=isC , out=comp3 );
+    Mux(a=instruction[7] , b=false , sel=isC , out=comp4 );
+    Mux(a=instruction[8] , b=false , sel=isC , out=comp5 );
+    Mux(a=instruction[9] , b=false , sel=isC , out=aBit );
 
-    Mux(a=instruction[3] , b=false , sel=isC , out=dest0 );
-    Mux(a=instruction[4] , b=false , sel=isC , out=dest1 );
-    Mux(a=instruction[5] , b=false , sel=isC , out=dest2 );
+    Mux(a=instruction[10] , b=false , sel=isC , out=dest0 );
+    Mux(a=instruction[11] , b=false , sel=isC , out=dest1 );
+    Mux(a=instruction[12] , b=false , sel=isC , out=dest2 );
     
-    Mux(a=instruction[0] , b=false , sel=isC , out=jmp0 );
-    Mux(a=instruction[1] , b=false , sel=isC , out=jmp1 );
-    Mux(a=instruction[2] , b=false , sel=isC , out=jmp2 );
+    Mux(a=instruction[13] , b=false , sel=isC , out=jmp0 );
+    Mux(a=instruction[14] , b=false , sel=isC , out=jmp1 );
+    Mux(a=instruction[15] , b=false , sel=isC , out=jmp2 );
     
     //Loading A register: from instruction(if A type) or ALU output
     Mux16(a=instruction, b=aluOut, sel=isC, out=aInput);
     Or(a=isA, b=dest0, out=aLoad);
-    Register(in=aInput, load=aLoad, out=aVal);
+    Register(in=aInput, load=aLoad, out[0..14]=aVal);
 
     //Loading D register
     And(a=dest1, b=true, out=loadD);  // Load D if dest1 = 1
     Register(in=aluOut, load=loadD, out=dVal);
 
     //Choosing ALU y-input: A or M?
-    Mux(a=instruction[12], b=false, sel=isC, out=aBit);
     Mux16(a=aVal, b=inM, sel=aBit, out=aluY);
     //Computation by the ALU
     ALU(x=dVal, y=aluY, zx=comp0, nx=comp1, zy=comp2, ny=comp3, f=comp4, no=comp5, out=aluOut, zr=zr, ng=ng );
