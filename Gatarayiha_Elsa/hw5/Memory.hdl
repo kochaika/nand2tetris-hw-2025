@@ -26,15 +26,13 @@ CHIP Memory {
 
     PARTS:
     // Address decoding
-    Not(in=address[14], out=midRAM );  
-    Not(in=address[13], out=uppRAM );  
+    Not(in=address[13], out=midRAM );  
+    Not(in=address[14], out=uppRAM );  
     And(a=midRAM, b=uppRAM, out=isRAM );  // address < 0x4000
 
-    Not(in=address[14], out=uppscreen );
-    And(a=address[13], b=uppscreen, out=isScreen );  // 0x4000–0x5FFF
-    And(a=address[14], b=address[13], out=topBits10);
-    Not(in=address[12], out=not12);
-    And(a=topBits10, b=not12, out=isKeyboard ); // 0x6000
+    Not(in=address[13], out=uppscreen );
+    And(a=address[12], b=uppscreen, out=isScreen );  // 0x4000–0x5FFF
+    And(a=address[12], b=address[13], out=isKeyboard ); // 0x6000
 
     Or(a=isRAM, b=isScreen, out=anyValidMem );
     Or(a=anyValidMem, b=isKeyboard, out=validAddr );
