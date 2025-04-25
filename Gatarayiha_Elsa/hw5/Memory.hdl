@@ -49,5 +49,5 @@ CHIP Memory {
     // Read path logic
     Mux16(a=RAMout, b=Screenout, sel=isScreen, out=temp1 );
     Mux16(a=temp1, b=Keyboardout, sel=isKeyboard, out=temp2 );
-    Mux16(a=temp2, b=false, sel=validAddr, out=out );
+    Mux16(a=false, b=temp2, sel=validAddr, out=out );
 }
