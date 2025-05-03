@@ -1,0 +1,38 @@
+(MAIN_LOOP)
+    @KBD
+    D=M
+    @FILL_SCREEN
+    D;JNE
+    @SCREEN
+    D=A
+    @current
+    M=D
+(CLEAR_LOOP)
+    @current
+    A=M
+    M=0
+    @current
+    MD=M+1
+    @KBD
+    D=D-A
+    @MAIN_LOOP
+    D;JEQ
+    @CLEAR_LOOP
+    0;JMP
+(FILL_SCREEN)
+    @SCREEN
+    D=A
+    @current
+    M=D
+(FILL_LOOP)
+    @current
+    A=M
+    M=-1
+    @current
+    MD=M+1
+    @KBD
+    D=D-A
+    @MAIN_LOOP
+    D;JEQ
+    @FILL_LOOP
+    0;JMP
