@@ -1,0 +1,12 @@
+CHIP Or {
+     IN a, b;
+     OUT out;
+ 
+     PARTS:
+     // De Morgan's
+     // A OR B = NOT ((NOT A) AND (NOT B))
+     Not(in = a, out = nota);
+     Not(in = b, out = notb);
+     And(a = nota, b = notb, out = and);
+     Not(in = and, out = out);
+ }
