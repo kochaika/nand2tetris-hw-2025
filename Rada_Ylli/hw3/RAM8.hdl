@@ -1,0 +1,34 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/3/a/RAM8.hdl
+/**
+ * Memory of eight 16-bit registers.
+ * If load is asserted, the value of the register selected by
+ * address is set to in; Otherwise, the value does not change.
+ * The value of the selected register is emitted by out.
+ */
+CHIP RAM8 {
+    IN in[16], load, address[3];
+    OUT out[16];
+
+    PARTS:
+    DMux8Way(in=load, sel= address, a=a , b=b , c=c , d=d , e=e , f=f , g=g , h=h );
+    //we use a demux 8way because this dmux is going to give us the selector such
+    // that we only have 1 that is true that is set by the adress and all of the other ones are false
+    // this means that wwe only change the va;ues of one of them 
+
+    
+    Register(in=in , load=a , out=rega );
+    Register(in=in , load=b , out=regb );// the values of these stay the same as before i mean the inputs because when we choose with the load if it is 0 it stays the same as it was the time unit before thisd and if we dont it changes
+    Register(in=in , load=c , out=regc );
+    Register(in=in , load=d , out=regd );
+    Register(in=in , load=e , out=rege );
+    Register(in=in , load=f , out=regf );
+    Register(in=in , load=g , out=regg );
+    Register(in=in , load=h , out=regh );
+
+    Mux8Way16(a=rega , b=regb , c=regc , d=regd , e=rege , f=regf , g=regg , h=regh , sel=address , out=out );
+    // pick onyl one wf the 8 refisters to output and also the 16 at the end just indicates#
+    // the amount of bits that it is going to have  
+}
