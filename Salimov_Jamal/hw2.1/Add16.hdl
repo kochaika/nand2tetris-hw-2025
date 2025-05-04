@@ -1,17 +1,19 @@
 // This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/2/Add16.hdl
+// File name: projects/02/Adder16.hdl
+
 /**
- * 16-bit adder: Adds two 16-bit two's complement values.
+ * Adds two 16-bit values.
  * The most significant carry bit is ignored.
  */
+
 CHIP Add16 {
     IN a[16], b[16];
     OUT out[16];
 
     PARTS:
-     FullAdder (a = a[0], b = b[0], c = false, sum = out[0], carry = c01);
+    FullAdder (a = a[0], b = b[0], c = false, sum = out[0], carry = c01);
     FullAdder (a = a[1], b = b[1], c = c01, sum = out[1], carry = c02);
     FullAdder (a = a[2], b = b[2], c = c02, sum = out[2], carry = c03);
     FullAdder (a = a[3], b = b[3], c = c03, sum = out[3], carry = c04);
