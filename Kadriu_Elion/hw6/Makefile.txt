@@ -1,0 +1,5 @@
+To run the assembler:
+
+./asmcompiler asmfile.asm asmfile.hack
+
+Below are the asm files and the converted hack files.
