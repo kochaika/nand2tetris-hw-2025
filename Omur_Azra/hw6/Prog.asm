@@ -108,5 +108,5 @@ int main(int argc, char* argv[]) {
     out.close();
 
     cout << "Translated it to: " << hack_file << endl;
-    return 0
+    return 0;
 }
