@@ -1,0 +1,42 @@
+CHIP CPU {
+    IN  inM[16],         // M value input
+        instruction[16], // Instruction for execution
+        reset;           // Reset signal
+
+    OUT outM[16],        // M value output
+        writeM,          // Write to M? 
+        addressM[15],    // Address in data memory
+        pc[15];         // address of next instruction
+
+    PARTS:
+    Not(in=instruction[15], out=instA);
+    Not(in=instA, out=instC);
+    
+    And(a=instC, b=instruction[5], out=ldAfromC);
+    Mux16(a=instruction, b=outALU, sel=instC, out=inAReg);
+    Or(a=instA, b=ldAfromC, out=ldA);
+    ARegister(in=inAReg, load=ldA, out=outAReg, out[0..14]=addressM);
+    And(a=instC, b=instruction[4], out=ldD);
+    DRegister(in=outALU, load=ldD, out=outDReg);
+    Mux16(a=outAReg, b=inM, sel=instruction[12], out=aluB);
+    ALU(x=outDReg, y=aluB, 
+        zx=instruction[11], nx=instruction[10], 
+        zy=instruction[9], ny=instruction[8], 
+        f=instruction[7], no=instruction[6], 
+        out=outALU, out=outM, zr=zFlag, ng=nFlag);
+
+    Not(in=nFlag, out=nnFlag);
+    Not(in=zFlag, out=nzFlag);
+    And(a=nzFlag, b=nnFlag, out=condX);
+    And(a=instC, b=instruction[3], out=writeM);
+    
+    And(a=instruction[0], b=condX, out=jc1);
+    And(a=instruction[1], b=zFlag, out=jc2);
+    And(a=instruction[2], b=nFlag, out=jc3);
+    Or(a=jc1, b=jc2, out=jc4);
+    Or(a=jc4, b=jc3, out=jumpCond);
+    And(a=instC, b=jumpCond, out=ldPC);
+    Not(in=ldPC, out=incPC);
+    
+    PC(in=outAReg, load=ldPC, inc=incPC, reset=reset, out[0..14]=pc);
+}
