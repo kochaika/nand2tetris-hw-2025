@@ -14,12 +14,7 @@ CHIP Mux4Way16 {
     OUT out[16];
     
     PARTS:
-    // First level multiplexing: choose between 'a' and 'b' based on sel[0]
-    Mux16(a=a, b=b, sel=sel[0], out=firstMux);
-
-    // First level multiplexing: choose between 'c' and 'd' based on sel[0]
-    Mux16(a=c, b=d, sel=sel[0], out=secondMux);
-
-    // Second level multiplexing: choose between the results of the first level based on sel[1]
-    Mux16(a=firstMux, b=secondMux, sel=sel[1], out=out);
+    Mux16(a=a, b=b, sel=sel[0], out=ab);
+    Mux16(a=c, b=d, sel=sel[0], out=cd);
+    Mux16(a=ab, b=cd, sel=sel[1], out=out);
 }

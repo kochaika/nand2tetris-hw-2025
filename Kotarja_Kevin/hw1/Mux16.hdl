@@ -7,74 +7,25 @@
  * for i = 0, ..., 15:
  * if (sel = 0) out[i] = a[i], else out[i] = b[i]
  */
- CHIP Mux16 {
+CHIP Mux16 {
     IN a[16], b[16], sel;
     OUT out[16];
 
     PARTS:
-    Not(in=sel, out=invertedSel);
-
-    And(a=a[0], b=invertedSel, out=muxA0);
-    And(a=b[0], b=sel, out=muxB0);
-    Or(a=muxA0, b=muxB0, out=out[0]);
-
-    And(a=a[1], b=invertedSel, out=muxA1);
-    And(a=b[1], b=sel, out=muxB1);
-    Or(a=muxA1, b=muxB1, out=out[1]);
-
-    And(a=a[2], b=invertedSel, out=muxA2);
-    And(a=b[2], b=sel, out=muxB2);
-    Or(a=muxA2, b=muxB2, out=out[2]);
-
-    And(a=a[3], b=invertedSel, out=muxA3);
-    And(a=b[3], b=sel, out=muxB3);
-    Or(a=muxA3, b=muxB3, out=out[3]);
-
-    And(a=a[4], b=invertedSel, out=muxA4);
-    And(a=b[4], b=sel, out=muxB4);
-    Or(a=muxA4, b=muxB4, out=out[4]);
-
-    And(a=a[5], b=invertedSel, out=muxA5);
-    And(a=b[5], b=sel, out=muxB5);
-    Or(a=muxA5, b=muxB5, out=out[5]);
-
-    And(a=a[6], b=invertedSel, out=muxA6);
-    And(a=b[6], b=sel, out=muxB6);
-    Or(a=muxA6, b=muxB6, out=out[6]);
-
-    And(a=a[7], b=invertedSel, out=muxA7);
-    And(a=b[7], b=sel, out=muxB7);
-    Or(a=muxA7, b=muxB7, out=out[7]);
-
-    And(a=a[8], b=invertedSel, out=muxA8);
-    And(a=b[8], b=sel, out=muxB8);
-    Or(a=muxA8, b=muxB8, out=out[8]);
-
-    And(a=a[9], b=invertedSel, out=muxA9);
-    And(a=b[9], b=sel, out=muxB9);
-    Or(a=muxA9, b=muxB9, out=out[9]);
-
-    And(a=a[10], b=invertedSel, out=muxA10);
-    And(a=b[10], b=sel, out=muxB10);
-    Or(a=muxA10, b=muxB10, out=out[10]);
-
-    And(a=a[11], b=invertedSel, out=muxA11);
-    And(a=b[11], b=sel, out=muxB11);
-    Or(a=muxA11, b=muxB11, out=out[11]);
-
-    And(a=a[12], b=invertedSel, out=muxA12);
-    And(a=b[12], b=sel, out=muxB12);
-    Or(a=muxA12, b=muxB12, out=out[12]);
-
-    And(a=a[13], b=invertedSel, out=muxA13);
-    And(a=b[13], b=sel, out=muxB13);
-    Or(a=muxA13, b=muxB13, out=out[13]);
-
-    And(a=a[14], b=invertedSel, out=muxA14);
-    And(a=b[14], b=sel, out=muxB14);
-    Or(a=muxA14, b=muxB14, out=out[14]);
-
-    And(a=a[15], b=invertedSel, out=muxA15);
-    And(a=b[15], b=sel, out=muxB15);
-    Or(a=muxA15, b=muxB15, out=out[15]);
+    Mux(a=a[0], b=b[0], sel=sel, out=out[0]);
+    Mux(a=a[1], b=b[1], sel=sel, out=out[1]);
+    Mux(a=a[2], b=b[2], sel=sel, out=out[2]);
+    Mux(a=a[3], b=b[3], sel=sel, out=out[3]);
+    Mux(a=a[4], b=b[4], sel=sel, out=out[4]);
+    Mux(a=a[5], b=b[5], sel=sel, out=out[5]);
+    Mux(a=a[6], b=b[6], sel=sel, out=out[6]);
+    Mux(a=a[7], b=b[7], sel=sel, out=out[7]);
+    Mux(a=a[8], b=b[8], sel=sel, out=out[8]);
+    Mux(a=a[9], b=b[9], sel=sel, out=out[9]);
+    Mux(a=a[10], b=b[10], sel=sel, out=out[10]);
+    Mux(a=a[11], b=b[11], sel=sel, out=out[11]);
+    Mux(a=a[12], b=b[12], sel=sel, out=out[12]);
+    Mux(a=a[13], b=b[13], sel=sel, out=out[13]);
+    Mux(a=a[14], b=b[14], sel=sel, out=out[14]);
+    Mux(a=a[15], b=b[15], sel=sel, out=out[15]);
 }

@@ -6,13 +6,11 @@
  * Or gate:
  * if (a or b) out = 1, else out = 0 
  */
- CHIP Or {
+CHIP Or {
     IN a, b;
     OUT out;
 
     PARTS:
-    Not(in= a, out= notA);
-    Not(in= b, out= notB);
-    And(a= notA, b= notB, out= andResult);
-    Not(in= andResult, out= out);
-}
+    Nand(a=a, b=a, out=nota);
+    Nand(a=b, b=b, out=notb);
+    Nand(a=nota, b=notb, out=out);}
