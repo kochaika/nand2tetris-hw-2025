@@ -1,0 +1,59 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/5/Memory.hdl
+/**
+ * The complete address space of the Hack computer's memory,
+ * including RAM and memory-mapped I/O. 
+ * The chip facilitates read and write operations, as follows:
+ *     Read:  out(t) = Memory[address(t)](t)
+ *     Write: if load(t-1) then Memory[address(t-1)](t) = in(t-1)
+ * In words: the chip always outputs the value stored at the memory 
+ * location specified by address. If load=1, the in value is loaded 
+ * into the memory location specified by address. This value becomes 
+ * available through the out output from the next time step onward.
+ * Address space rules:
+ * Only the upper 16K+8K+1 words of the Memory chip are used. 
+ * Access to address>0x6000 is invalid and reads 0. Access to any address
+ * in the range 0x4000-0x5FFF results in accessing the screen memory 
+ * map. Access to address 0x6000 results in accessing the keyboard 
+ * memory map. The behavior in these addresses is described in the Screen
+ * and Keyboard chip specifications given in the lectures and the book.
+ */
+CHIP Memory {
+    IN in[16], load, address[15];
+    OUT out[16];
+
+    PARTS:
+    Not(in=address[14] , out=ramSel );
+    And(a=load, b=ramSel, out=ramLoad);
+    RAM16K(in=in, load=ramLoad, address=address[0..13], out=ramOut);
+
+    Not(in=address[13] , out=not13 );
+    And(a=address[14], b=not13, out=screenSelect);
+    And(a=load, b=screenSelect, out=screenLoad);
+    Screen(in=in, load=screenLoad, address=address[0..12], out=screenOut);
+
+    And(a=address[14] , b=address[13] , out=mmioUpper );
+
+    Or(a=address[0], b=address[1], out=or1);
+    Or(a=address[2], b=or1, out=or2);
+    Or(a=address[3], b=or2, out=or3);
+    Or(a=address[4], b=or3, out=or4);
+    Or(a=address[5], b=or4, out=or5);
+    Or(a=address[6], b=or5, out=or6);
+    Or(a=address[7], b=or6, out=or7);
+    Or(a=address[8], b=or7, out=or8);
+    Or(a=address[9], b=or8, out=or9);
+    Or(a=address[10], b=or9, out=or10);
+    Or(a=address[11], b=or10, out=or11);
+    Or(a=address[12], b=or11, out=lowBitsNonZero);
+    Not(in=lowBitsNonZero, out=lowBitsZero);
+
+    And(a=mmioUpper, b=lowBitsZero, out=keyboardSelect);
+
+    Keyboard(out=keyboardOut);
+
+    Mux16(a=screenOut, b=keyboardOut, sel=address[13], out=mmioOut);
+    Mux16(a=ramOut , b=mmioOut , sel=address[14] , out=out );
+}
