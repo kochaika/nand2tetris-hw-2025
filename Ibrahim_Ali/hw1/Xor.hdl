@@ -11,10 +11,29 @@ CHIP Xor {
     OUT out;
 
     PARTS:
-    Not(in= b , out= and1);
-    Not(in= a , out= and2);
-    And(a= a , b= and1 , out= or1);
-    And(a= and2 , b= b , out= or2 );
-    Or(a= or1 , b= or2 , out= out );
+    //Not b (bx)
+    Not(in= b, out= bx);
+    
+    //Not a (ax)
+    Not(in= a, out= ax);
+
+    //And 1
+    And(a= a, b= bx, out= x1);
+
+    //And 2
+    And(a= b, b= ax, out= x2);
+
+    //Not x1
+    Not(in= x1, out= x11);
+
+    //Not x2
+    Not(in= x2, out= x22);
+
+    //x1 and x2
+    And(a= x11, b= x22, out= z12);
+
+    //Not out
+    Not(in= z12, out= out);
+
 
 }
