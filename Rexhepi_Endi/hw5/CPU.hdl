@@ -1,0 +1,101 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/5/CPU.hdl
+/**
+ * The Hack Central Processing unit (CPU).
+ * Parses the binary code in the instruction input and executes it according to the
+ * Hack machine language specification. In the case of a C-instruction, computes the
+ * function specified by the instruction. If the instruction specifies to read a memory
+ * value, the inM input is expected to contain this value. If the instruction specifies
+ * to write a value to the memory, sets the outM output to this value, sets the addressM
+ * output to the target address, and asserts the writeM output (when writeM = 0, any
+ * value may appear in outM).
+ * If the reset input is 0, computes the address of the next instruction and sets the
+ * pc output to that value. If the reset input is 1, sets pc to 0.
+ * Note: The outM and writeM outputs are combinational: they are affected by the
+ * instruction's execution during the current cycle. The addressM and pc outputs are
+ * clocked: although they are affected by the instruction's execution, they commit to
+ * their new values only in the next cycle.
+ */
+CHIP CPU {
+
+    IN  inM[16],         // M value input  (M = contents of RAM[A])
+        instruction[16], // Instruction for execution
+        reset;           // Signals whether to re-start the current
+                         // program (reset==1) or continue executing
+                         // the current program (reset==0).
+
+    OUT outM[16],        // M value output
+        writeM,          // Write to M? 
+        addressM[15],    // Address in data memory (of M)
+        pc[15];          // address of next instruction
+
+    PARTS:
+	// Instruction decoding using Mux16
+    Mux16(
+    // we need this mux because if the instruction is of type a we dont want to use the control bits so we set all of them to 0
+        a=false,
+        b=instruction,
+        sel=instruction[15],
+        out[0]=cJGT,
+        out[1]=cJEQ,
+        out[2]=cJLT,
+        out[3]=ogDestM,
+        out[4]=cDestD,
+        out[5]=cDestA,
+        out[6]=AluNo,
+        out[7]=AluF,
+        out[8]=AluNy,
+        out[9]=AluZy,
+        out[10]=AluNx,
+        out[11]=AluZx,
+        out[12]=selAOrM,
+        // 13 and 14 are unused
+        out[15]=cType
+    );
+
+    // now to assign the bit from tempDestM to 2 destinations write m and cdest M
+    //write m we cannot just say writem = the thing we need a or gate because whenever we need to use the
+    // same output twice or more we need seperate wires
+    // and we create these wires using or gates where b is set top false
+
+    Or(a=ogDestM, b=false, out=writeM);
+    Or(a=ogDestM, b=false, out=cDestM);
+
+    // ALU
+    ALU(
+        x=dregisterout,
+        y=yIn,
+        zx=AluZx,
+        nx=AluNx,
+        zy=AluZy,
+        ny=AluNy,
+        f=AluF,
+        no=AluNo,
+        out=aluOut,
+        out=outM,
+        zr=zerop,
+        ng=negp
+    );
+    // taking not of both the negp and zerop and oring the result is the same as taking the or of them and than noting them 
+	Or(a=zerop, b=negp, out=lteq);
+	Not(in=lteq, out=posp);
+    // A Register logic
+    Mux16(a=instruction, b=aluOut, sel=cType, out=aMuxOut);
+    Mux16(a=aRegOut, b=inM, sel=selAOrM, out=yIn);// in here we use the 12th bit because that is the responsible bit for this case
+    Not(in=cType, out=notCType);
+    Or(a=notCType, b=cDestA, out=loadA);
+    ARegister(in=aMuxOut, load=loadA, out=aRegOut, out[0..14]=addressM);
+
+
+    DRegister(in=aluOut, load=cDestD, out=dregisterout);
+
+
+    And(a=cJEQ, b=zerop, out=JEQ);
+    And(a=cJLT, b=negp, out=JLT);
+    And(a=cJGT, b=posp, out=JGT);
+    Or(a=JEQ, b=JLT, out=JLE);
+    Or(a=JLE, b=JGT, out=jump);
+    PC(in=aRegOut, load=jump, inc=true, reset=reset, out[0..14]=pc, out[15]= False);
+}
