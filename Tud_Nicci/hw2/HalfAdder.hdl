@@ -1,0 +1,30 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/2/HalfAdder.hdl
+/**
+ * Computes the sum of two bits.
+ */
+CHIP HalfAdder {
+    IN a, b;    // 1-bit inputs
+    OUT sum,    // Right bit of a + b 
+        carry;  // Left bit of a + b
+
+    PARTS:
+    //sum bit
+        Nand(a = b, b = b, out = notb);
+        //a and Not(b)
+        Nand(a = a, b = notb, out = aANDnotb); 
+        //Not(a)
+        Nand(a = a, b = a, out = nota);
+        //Not(a) and b
+        Nand(a = nota, b = b, out = notaANDb);
+        //XOR - (a and Not(b)) or (Not(a) and b)
+        Nand(a = aANDnotb, b = notaANDb, out = sum);
+
+    //carry bit
+        Nand(a = a, b = b, out = temp); 
+        //reverted back to AND
+        Nand (a = temp, b = temp, out = carry);
+
+}
