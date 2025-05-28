@@ -1,0 +1,23 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/1/Or16.hdl
+/**
+ * 16-bit Or gate:
+ * for i = 0, ..., 15:
+ * out[i] = a[i] Or b[i] 
+ */
+CHIP Mux {
+    IN sel, a,b;
+    OUT out;
+
+    PARTS:
+    Nand(a= sel, b=sel , out= notsel);
+    Nand(a= a, b=notsel , out=out1 );
+    Nand(a= out1, b=out1 , out=notselanda );
+    Nand(a= sel, b=b , out=out2 );
+    Nand(a= out2, b=out2 , out=bandsel );
+    Nand(a=bandsel , b=bandsel , out=out11 );
+    Nand(a=notselanda , b=notselanda , out=out22 );
+    Nand(a= out11, b= out22, out= out);
+    }
