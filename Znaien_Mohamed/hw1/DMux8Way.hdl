@@ -1,0 +1,59 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/1/DMux8Way.hdl
+/**
+ * 8-way demultiplexor:
+ * [a, b, c, d, e, f, g, h] = [in, 0,  0,  0,  0,  0,  0,  0] if sel = 000
+ *                            [0, in,  0,  0,  0,  0,  0,  0] if sel = 001
+ *                            [0,  0, in,  0,  0,  0,  0,  0] if sel = 010
+ *                            [0,  0,  0, in,  0,  0,  0,  0] if sel = 011
+ *                            [0,  0,  0,  0, in,  0,  0,  0] if sel = 100
+ *                            [0,  0,  0,  0,  0, in,  0,  0] if sel = 101
+ *                            [0,  0,  0,  0,  0,  0, in,  0] if sel = 110
+ *                            [0,  0,  0,  0,  0,  0,  0, in] if sel = 111
+ */
+CHIP DMux8Way {
+    IN in, sel[3];
+    OUT a, b, c, d, e, f, g, h;
+
+    PARTS:
+    Nand(a=sel[0] , b=sel[0] , out=notsel0 );
+    Nand(a=sel[1] , b=sel[1] , out=notsel1 );
+    Nand(a=sel[2] , b=sel[2] , out=notsel2 );
+    
+    And(a=in , b=notsel0 , out=out1 );
+    And(a=out1 , b=notsel1 , out=out12 );
+    And(a=out12 , b=notsel2 , out=a );
+
+    And(a=in , b=sel[0] , out=out2 );
+    And(a= out2, b=notsel1 , out=out22 );
+    And(a=out22 , b=notsel2 , out=b );
+
+    And(a=in , b=notsel0 , out=out3 );
+    And(a= out3, b=sel[1] , out=out32 );
+    And(a=out32 , b=notsel2 , out=c );
+
+    And(a=in , b=sel[0] , out=out4 );
+    And(a= out4, b=sel[1] , out=out42 );
+    And(a=out42 , b=notsel2 , out=d );
+
+    And(a=in , b=notsel0 , out=out5 );
+    And(a= out5, b=notsel1 , out=out52 );
+    And(a=out52 , b=sel[2] , out=e );
+
+    And(a=in , b=sel[0] , out=out6 );
+    And(a= out6, b=notsel1 , out=out62 );
+    And(a=out62 , b=sel[2] , out=f );
+
+    And(a=in , b=notsel0 , out=out7 );
+    And(a= out7, b=sel[1] , out=out72 );
+    And(a=out72 , b=sel[2] , out=g );
+
+    And(a=in , b=sel[0] , out=out8 );
+    And(a= out8, b=sel[1] , out=out82 );
+    And(a=out82 , b=sel[2] , out=h );    
+
+
+
+}
