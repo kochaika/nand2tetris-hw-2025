@@ -1,0 +1,67 @@
+// Inputs:
+//    inM:  M value input  (from memory)
+//    instruction: current instruction
+//    reset: forces PC to 0
+// Outputs:
+//    outM: M value output (to memory)
+//    writeM: write-enable flag for M
+//    addressM: address for memory access (15-bit)
+//    pc: program counter
+
+CHIP CPU {
+    IN  inM[16],         // M value from memory
+        instruction[16], // current instruction
+        reset;           // reset flag
+    OUT outM[16],        // value to write to memory
+        writeM,          // memory write flag
+        addressM[15],    // address for memory access
+        pc[15];          // program counter value
+
+    PARTS:
+    // Instruction decode
+    Not(in=instruction[15], out=isA); // 1 if A-instruction
+    And(a=isA, b=true, out=loadAfromInstr); // load A on A-instruction
+
+    // ALU a-bit
+    Or(a=false, b=instruction[12], out=aluAflag);
+
+    // ALU control bits
+    ALU(x=outD, y=aluY, zx=instruction[11], nx=instruction[10],
+        zy=instruction[9],  ny=instruction[8],
+        f=instruction[7],   no=instruction[6],
+        out=aluOut, zr=zrFlag, ng=ngFlag);
+
+    // Determine second ALU input (A register or inM)
+    Mux16(a=outA, b=inM, sel=aluAflag, out=aluY);
+
+    // D register load
+    And(a=instruction[4], b=instruction[15], out=loadD);
+    Register(in=aluOut, load=loadD, out=outD);
+
+    // A register load
+    Or(a=loadAfromInstr, b=instruction[5], out=loadA);
+    Register(in=aluInA, load=loadA, out=outA);
+    Mux16(a=instruction, b=aluOut, sel=instruction[5], out=aluInA);
+
+    // Output to memory
+    And(a=instruction[3], b=instruction[15], out=writeM);
+    Or16Way(in=outA[0..15], out=writeM); // optional check, often omitted
+    Mux16(a=false, b=aluOut, sel=instruction[3], out=outM);
+
+    // Memory address (A register)
+    // Only 15 bits for addressM
+    And16(a=outA, b[0..14]=true, out=addressM);
+
+    // Jump logic
+    Not(in=zrFlag, out=notZR);
+    Not(in=ngFlag, out=notNG);
+    And(a=instruction[0], b=ngFlag, out=jlt);
+    And(a=instruction[1], b=zrFlag, out=jeq);
+    And(a=instruction[2], b=notNG, out=jgt);
+    Or(a=jlt, b=jeq, out=cond1);
+    Or(a=cond1, b=jgt, out=jumpCondition);
+    And(a=jumpCondition, b=instruction[15], out=doJump);
+
+    // Program Counter
+    PC(in=outA, load=doJump, inc=true, reset=reset, out=pc);
+}

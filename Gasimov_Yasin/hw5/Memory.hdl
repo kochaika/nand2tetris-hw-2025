@@ -1,0 +1,27 @@
+// Memory.hdl - 16K RAM + screen + keyboard as in Hack platform
+// Inputs:
+//    in: value to store
+//    load: write flag
+//    address: 15-bit address
+// Outputs:
+//    out: value read from memory
+
+CHIP Memory {
+    IN  in[16], load, address[15];
+    OUT out[16];
+
+    PARTS:
+    // Split address range:
+    // 0..16383   -> RAM16K
+    // 16384..24575 -> Screen
+    // 24576       -> Keyboard
+
+    DMux3Way(in=load, sel=address[13..14], a=ramLoad, b=screenLoad, c=keyboardLoad);
+
+    RAM16K(in=in, load=ramLoad, address=address[0..13], out=ramOut);
+    Screen(in=in, load=screenLoad, address=address[0..12], out=screenOut);
+    Keyboard(out=keyboardOut);
+
+    Mux4Way16(a=ramOut, b=screenOut, c=keyboardOut, d=false,
+              sel=address[13..14], out=out);
+}
