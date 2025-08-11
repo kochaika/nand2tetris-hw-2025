@@ -19,7 +19,7 @@ D;JEQ         // if KBD==0 -> clear
 
 (CLEAR_SCREEN)
   // write 0 to entire screen
-  @SCREEN_START
+  @SCREEN
   D=A
   @PTR
   M=D         // PTR = 16384
