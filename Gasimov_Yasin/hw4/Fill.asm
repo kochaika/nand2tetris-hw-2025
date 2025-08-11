@@ -82,5 +82,7 @@ SCREEN_END = 24575
 @KBD
 KBD = 24576   // keyboard register at 24576 in nand2tetris map
 @PTR
-PTR = 16
+@24575
+@KBD
+@PTR
 @TMP
