@@ -1,0 +1,36 @@
+// RAM8.hdl
+// 8 words of 16-bit RAM. Uses 8 Registers and an 8-way Mux/Demux.
+// IN: in[16], address[3], load
+// OUT: out[16]
+
+CHIP RAM8 {
+    IN in[16], address[3], load;
+    OUT out[16];
+
+    PARTS:
+    // 8 registers
+    Register(in=in, load=false, out=r0);
+    Register(in=in, load=false, out=r1);
+    Register(in=in, load=false, out=r2);
+    Register(in=in, load=false, out=r3);
+    Register(in=in, load=false, out=r4);
+    Register(in=in, load=false, out=r5);
+    Register(in=in, load=false, out=r6);
+    Register(in=in, load=false, out=r7);
+
+    // decode load into 8 loads
+    DMux8Way(in=load, sel=address, a=ld0, b=ld1, c=ld2, d=ld3, e=ld4, f=ld5, g=ld6, h=ld7);
+
+    // re-wire loads to registers
+    Register(in=in, load=ld0, out=r0);
+    Register(in=in, load=ld1, out=r1);
+    Register(in=in, load=ld2, out=r2);
+    Register(in=in, load=ld3, out=r3);
+    Register(in=in, load=ld4, out=r4);
+    Register(in=in, load=ld5, out=r5);
+    Register(in=in, load=ld6, out=r6);
+    Register(in=in, load=ld7, out=r7);
+
+    // select the output
+    Mux8Way16(a=r0, b=r1, c=r2, d=r3, e=r4, f=r5, g=r6, h=r7, sel=address, out=out);
+}

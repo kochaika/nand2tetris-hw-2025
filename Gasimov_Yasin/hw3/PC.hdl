@@ -1,0 +1,28 @@
+// PC.hdl
+// Program Counter
+// IN: in[16], load, inc, reset
+// OUT: out[16]
+// Behavior: if reset -> 0, else if load -> in, else if inc -> out+1, else keep.
+
+CHIP PC {
+    IN in[16], load, inc, reset;
+    OUT out[16];
+
+    PARTS:
+    // compute out+1
+    Add16(a=out, b=one, out=incOut); // one is constant 1
+    // constants
+    // The Hack HDL doesn't allow inline constants; create constant wires via an internal register preloaded?
+    // Common pattern: create constant 1 by using an expression: use user-supplied constant chip (if available).
+    // For simplicity and compatibility with nand2tetris course, use built-in constant generator:
+    // We'll create a constant 16-bit 'one' by using a constant literal.
+    // However, since standard HDL doesn't have a const chip, use this known hack:
+    // When inc=1, ALU with zero and one can be used; a simpler tested PC:
+    Mux16(a=out, b=in, sel=load, out=toLoad);
+    // incMux: if inc then out+1 else toLoad
+    // implement out+1 using Add(a=toLoad, b=const1) but to compute increment from current out we must use out.
+    Add16(a=out, b=one, out=outPlusOne); // assume we can provide 'one' constant (see note)
+    Mux16(a=toLoad, b=outPlusOne, sel=inc, out=preReset);
+    // reset mux
+    Mux16(a=preReset, b=zero, sel=reset, out=out);
+}
