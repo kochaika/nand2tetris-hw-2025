@@ -7,7 +7,6 @@
 @R0
 D=M          // D = multiplicand (a)
 @R1
-D=D*M?       // placeholder (not valid) -- below we use real steps
 
 // Real implementation:
 
