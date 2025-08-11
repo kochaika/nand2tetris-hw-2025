@@ -1,0 +1,14 @@
+// Bit.hdl
+// 1-bit register built from the provided DFF.
+// IN: in, load
+// OUT: out
+
+CHIP Bit {
+    IN in, load;
+    OUT out;
+
+    PARTS:
+    // DFF is provided by the course (stores one bit)
+    Mux(a=false, b=in, sel=load, out=d); // when load=1 choose 'in', else 'false' (keep)
+    DFF(in=d, out=out);
+}
