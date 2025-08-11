@@ -1,0 +1,23 @@
+// RAM512.hdl
+// 512 words built from 8 RAM64s
+// IN: in[16], address[9], load
+// OUT: out[16]
+
+CHIP RAM512 {
+    IN in[16], address[9], load;
+    OUT out[16];
+
+    PARTS:
+    RAM64(in=in, address=address[0..5], load=load0, out=a0);
+    RAM64(in=in, address=address[0..5], load=load1, out=a1);
+    RAM64(in=in, address=address[0..5], load=load2, out=a2);
+    RAM64(in=in, address=address[0..5], load=load3, out=a3);
+    RAM64(in=in, address=address[0..5], load=load4, out=a4);
+    RAM64(in=in, address=address[0..5], load=load5, out=a5);
+    RAM64(in=in, address=address[0..5], load=load6, out=a6);
+    RAM64(in=in, address=address[0..5], load=load7, out=a7);
+
+    DMux8Way(in=load, sel=address[6..8], a=load0, b=load1, c=load2, d=load3, e=load4, f=load5, g=load6, h=load7);
+
+    Mux8Way16(a=a0, b=a1, c=a2, d=a3, e=a4, f=a5, g=a6, h=a7, sel=address[6..8], out=out);
+}

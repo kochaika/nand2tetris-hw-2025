@@ -1,0 +1,24 @@
+// RAM64.hdl
+// 64 words built from 8 RAM8s
+// IN: in[16], address[6], load
+// OUT: out[16]
+
+CHIP RAM64 {
+    IN in[16], address[6], load;
+    OUT out[16];
+
+    PARTS:
+    // split address: high 3 bits choose which RAM8, low 3 bits index into RAM8
+    RAM8(in=in, address=address[0..2], load=load0, out=a0);
+    RAM8(in=in, address=address[0..2], load=load1, out=a1);
+    RAM8(in=in, address=address[0..2], load=load2, out=a2);
+    RAM8(in=in, address=address[0..2], load=load3, out=a3);
+    RAM8(in=in, address=address[0..2], load=load4, out=a4);
+    RAM8(in=in, address=address[0..2], load=load5, out=a5);
+    RAM8(in=in, address=address[0..2], load=load6, out=a6);
+    RAM8(in=in, address=address[0..2], load=load7, out=a7);
+
+    DMux8Way(in=load, sel=address[3..5], a=load0, b=load1, c=load2, d=load3, e=load4, f=load5, g=load6, h=load7);
+
+    Mux8Way16(a=a0, b=a1, c=a2, d=a3, e=a4, f=a5, g=a6, h=a7, sel=address[3..5], out=out);
+}
