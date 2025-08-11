@@ -1,0 +1,12 @@
+// Computer.hdl - complete Hack computer
+// Connects CPU, Memory, and ROM32K
+// Loads program from ROM, executes with CPU, reads/writes Memory
+
+CHIP Computer {
+    IN reset;
+    PARTS:
+    ROM32K(out=romOut, address=pc);
+    Memory(in=outM, load=writeM, address=addressM, out=inM);
+    CPU(inM=inM, instruction=romOut, reset=reset,
+        outM=outM, writeM=writeM, addressM=addressM, pc=pc);
+}
