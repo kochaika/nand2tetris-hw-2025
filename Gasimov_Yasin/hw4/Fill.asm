@@ -80,7 +80,6 @@ SCREEN_START = 16384
 @24575
 SCREEN_END = 24575
 @KBD
-KBD = 24576   // keyboard register at 24576 in nand2tetris map
 @PTR
 @24575
 @KBD
