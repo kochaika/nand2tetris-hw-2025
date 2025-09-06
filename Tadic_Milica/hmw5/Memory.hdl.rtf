@@ -1,0 +1,36 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2820
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 // Memory chip: handles memory-mapped I/O\
+CHIP Memory \{\
+    IN in[16], load, address[15];\
+    OUT out[16];\
+\
+    PARTS:\
+    // Decode which device\
+    And(a=address[13], b=false, out=isRAM); // address[13]=0 \uc0\u8594  RAM\
+    And(a=address[13], b=address[14], out=isKeyboard); // 11 \uc0\u8594  Keyboard\
+    Not(in=address[14], out=not14);\
+    And(a=address[13], b=not14, out=isScreen); // 10 \uc0\u8594  Screen\
+\
+    // RAM16K (0xxxx xxxx xxxx xxx)\
+    RAM16K(in=in, load=load, address=address[0..13], out=ramOut);\
+\
+    // Screen (10xxx xxxx xxxx xxx)\
+    Screen(in=in, load=load, address=address[0..12], out=screenOut);\
+\
+    // Keyboard (11000...000)\
+    Keyboard(out=keyboardOut);\
+\
+    // Load signals\
+    And(a=load, b=isRAM, out=loadRAM);\
+    And(a=load, b=isScreen, out=loadScreen);\
+\
+    // Use multiplexers to choose output\
+    Mux16(a=ramOut, b=screenOut, sel=isScreen, out=ramOrScreen);\
+    Mux16(a=ramOrScreen, b=keyboardOut, sel=isKeyboard, out=out);\
+\}}

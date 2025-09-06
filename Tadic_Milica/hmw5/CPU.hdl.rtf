@@ -1,0 +1,52 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2820
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 // This file implements the Hack CPU\
+CHIP CPU \{\
+    IN  inM[16],         // value from memory (M = contents of RAM[A])\
+        instruction[16], // current instruction\
+        reset;           // resets the program counter\
+\
+    OUT outM[16],        // value to write to memory (M)\
+        writeM,          // whether to write to memory\
+        addressM[15],    // address in memory (for read/write)\
+        pc[15];          // address of next instruction\
+\
+    PARTS:\
+    // Split instruction\
+    Not(in=instruction[15], out=isA); // if 0 -> A-instruction, if 1 -> C-instruction\
+\
+    // Load A-register\
+    Mux16(a=instruction, b=aluOut, sel=instruction[15], out=aInput); // A-instr: use instruction; C-instr: use ALU out\
+    Or(a=isA, b=instruction[5], out=loadA); // A-instr or dest selects A\
+    ARegister(in=aInput, load=loadA, out=aOut, out[0..14]=addressM);\
+\
+    // Load D-register\
+    And(a=instruction[4], b=instruction[15], out=loadD); // only if it's a C-instruction with dest D\
+    DRegister(in=aluOut, load=loadD, out=dOut);\
+\
+    // Mux for ALU right input\
+    Mux16(a=aOut, b=inM, sel=instruction[12], out=aluRight);\
+\
+    // ALU computation\
+    ALU(x=dOut, y=aluRight, zx=instruction[11], nx=instruction[10],\
+        zy=instruction[9], ny=instruction[8], f=instruction[7],\
+        no=instruction[6], out=aluOut, out=outM, zr=zr, ng=ng);\
+\
+    // Write to memory?\
+    And(a=instruction[3], b=instruction[15], out=writeM);\
+\
+    // Jump logic\
+    Not(in=ng, out=pos); And(a=zr, b=instruction[2], out=jumpEq);\
+    And(a=pos, b=instruction[1], out=jumpGt);\
+    And(a=ng, b=instruction[0], out=jumpLt);\
+    Or(a=jumpEq, b=jumpGt, out=jump1);\
+    Or(a=jump1, b=jumpLt, out=doJump);\
+\
+    // Program counter\
+    PC(in=aOut, load=doJump, inc=true, reset=reset, out=pc);\
+\}}

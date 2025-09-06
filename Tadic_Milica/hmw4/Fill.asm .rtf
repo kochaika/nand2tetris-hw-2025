@@ -1,0 +1,61 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2820
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 LucidaGrande;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 // Fill.asm\
+// Fill the screen black if any key is pressed, white if not\
+\
+(LOOP)\
+@KBD\
+D=M         // D = keyboard input\
+@DRAW_BLACK\
+D;JNE       // if key pressed, jump to black fill\
+\
+// no key pressed 
+\f1 \uc0\u8594 
+\f0  clear screen\
+@SCREEN\
+D=A\
+@addr\
+M=D         // addr = SCREEN start address\
+\
+(CLEAR)\
+@addr\
+A=M\
+M=0         // white pixel (0)\
+@addr\
+M=M+1\
+@8192       // screen is 8192 memory words (for Hack platform)\
+D=A\
+@addr\
+D=M-D\
+@CLEAR\
+D;JLT       // loop until all pixels are cleared\
+\
+@LOOP\
+0;JMP\
+\
+(DRAW_BLACK)\
+@SCREEN\
+D=A\
+@addr\
+M=D         // addr = SCREEN start address\
+\
+(BLACK)\
+@addr\
+A=M\
+M=-1        // black pixel (-1 = all bits 1)\
+@addr\
+M=M+1\
+@8192\
+D=A\
+@addr\
+D=M-D\
+@BLACK\
+D;JLT       // loop until all pixels are black\
+\
+@LOOP\
+0;JMP}
